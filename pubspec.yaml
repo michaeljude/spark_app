@@ -53,6 +53,7 @@ dev_dependencies:
   retrofit_generator: ^1.4.0
 
 flutter:
-
+  assets:
+    - assets/images/
   uses-material-design: true
 
