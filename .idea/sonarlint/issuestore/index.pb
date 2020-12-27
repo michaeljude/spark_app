@@ -23,3 +23,5 @@ A
 lib/core/app.dart,d/0/d0d5aed9945fd94cab37a9df01968ebde0912695
 R
 "lib/application/splash_screen.dart,d/5/d5b2c021e756ee4690834e38e05763a97fd28fea
+Q
+!lib/application/login_screen.dart,b/1/b14bc7a406cd77863ca2e3908c79b2bc456aab24
