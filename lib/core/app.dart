@@ -1,7 +1,10 @@
 import 'package:alice/alice.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
+import 'package:spark_app/application/login/landing_bloc.dart';
+import 'package:spark_app/application/login/landing_state.dart';
 import 'package:spark_app/core/api/api_service.dart';
 import 'package:spark_app/core/routes/routes.dart';
 
@@ -52,6 +55,7 @@ class _ApplicationState extends State<_Application> {
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
         Provider<ApiService>.value(value: _apiService),
+        BlocProvider<LoginBloc>(create: (_) => LoginBloc(LoginInitialState()))
     ],
       child: MaterialApp(
         initialRoute: AppRoutes.initialRoute,

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:spark_app/application/login/login_option_screen.dart';
 
 class SplashScreen extends StatefulWidget {
 
@@ -17,7 +18,9 @@ class _SplashScreen extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _opacity = 1.0;
+    _opacity = 0.0;
+
+    _goToLoginPage();
   }
 
   @override
@@ -71,8 +74,10 @@ class _SplashScreen extends State<SplashScreen> {
     });
   }
 
-  Future<void> _goToLoginPage() {
-    Navigator.pushNamed(context, "/");
+  Future<void> _goToLoginPage() async {
+      return Future<void>.delayed(Duration(milliseconds: 5000), () {
+        Navigator.pushNamed(context, LoginOptionScreen.routeName);
+      });
   }
 
 }
