@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
-import 'package:spark_app/application/login/landing_bloc.dart';
-import 'package:spark_app/application/login/landing_state.dart';
+import 'package:spark_app/application/login/loginviaguest/landing_bloc.dart';
+import 'package:spark_app/application/login/loginviaguest/landing_state.dart';
 import 'package:spark_app/core/api/api_service.dart';
 import 'package:spark_app/core/routes/routes.dart';
 
