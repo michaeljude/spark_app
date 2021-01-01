@@ -10,6 +10,7 @@ class LoginOptionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
+
           decoration: BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -21,6 +22,7 @@ class LoginOptionScreen extends StatelessWidget {
                   tileMode: TileMode.repeated
               )
           ),
+
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
