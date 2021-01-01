@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:spark_app/application/login/landing_screen.dart';
-import 'package:spark_app/application/login/login_option_screen.dart';
+import 'package:spark_app/application/login/loginviaguest/landing_screen.dart';
+import 'package:spark_app/application/login/loginoption/login_option_screen.dart';
 import 'package:spark_app/application/splash_screen.dart';
 
 class AppRoutes {
