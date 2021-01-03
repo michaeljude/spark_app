@@ -20,11 +20,15 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreen extends State<LoginScreen> {
 
   LoginBloc _loginBloc;
+  TextEditingController emailController;
+  TextEditingController passwordController;
 
   @override
   void initState() {
     super.initState();
     _loginBloc = BlocProvider.of<LoginBloc>(context);
+    this.emailController = TextEditingController();
+    this.passwordController = TextEditingController();
   }
 
   @override
@@ -32,13 +36,13 @@ class _LoginScreen extends State<LoginScreen> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (BuildContext context, LoginState state) {
         if (state is LoginSuccessState) {
-
+          print("LoginSuccessState");
         }
         else if (state is LoginStartedState) {
-
+          print("LoginStartedState");
         }
         else if (state is LoginFailedState) {
-
+          print("LoginFailedState");
         }
       },
       child: Scaffold(
@@ -74,6 +78,7 @@ class _LoginScreen extends State<LoginScreen> {
                   title: "Email",
                   icon: Icons.account_circle,
                   hint: "Enter Email",
+                  textController: emailController,
                 ),
               ),
               Padding(
@@ -83,6 +88,7 @@ class _LoginScreen extends State<LoginScreen> {
                   icon: Icons.lock_rounded,
                   isPasswordField: true,
                   hint: "Enter Password",
+                  textController: passwordController,
                 ),
               ),
               Align(
@@ -105,7 +111,7 @@ class _LoginScreen extends State<LoginScreen> {
                     color: const Color(0xff19BA19),
                     buttonText: "LOGIN",
                     action: () {
-                      print("LOGIN");
+                      _loginBloc.add(LoginViaGuestEvent(emailController.text, passwordController.text));
                     },
                   ),
                 ),
