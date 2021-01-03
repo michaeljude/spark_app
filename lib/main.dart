@@ -11,20 +11,8 @@ Future<void> main() async {
   CatcherOptions debugOptions =
     CatcherOptions(SilentReportMode(), <ConsoleHandler>[ConsoleHandler()]);
 
-  CatcherOptions releaseOptions =
-  CatcherOptions(SilentReportMode(), <EmailAutoHandler>[
-    EmailAutoHandler(
-        'smtp.gmail.com',
-        587,
-        'lemuel.castro@globe.com.ph',
-        'Globe One X : Error Trace',
-        'glmrppjikttsctqi', // App Password for SMTP
-        mailingList)
-  ]);
-
   Catcher(
     Application(),
     debugConfig: debugOptions,
-    releaseConfig: releaseOptions
   );
 }

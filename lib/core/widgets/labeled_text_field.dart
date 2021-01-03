@@ -8,13 +8,15 @@ class LabeledTextField extends StatefulWidget {
   final String hint;
   final IconData icon;
   final bool isPasswordField;
+  final TextEditingController textController;
 
   LabeledTextField({
     @required this.title,
     this.subtitle,
     this.icon,
     @required this.hint,
-    this.isPasswordField = false
+    this.isPasswordField = false,
+    this.textController
   });
 
   @override
@@ -66,6 +68,7 @@ class _LabeledTextField extends State<LabeledTextField> {
               ), visible: _hasSubtitle,),
             ),
             TextField(
+              controller: widget.textController,
               obscureText: passwordObscure,
               decoration: InputDecoration(
                 hintText: widget.hint,
