@@ -29,7 +29,7 @@ class LoginOptionScreen extends StatelessWidget {
                     Container(
                         padding: const EdgeInsets.fromLTRB(20, 100, 20, 20),
                         child: Image.asset(
-                          "assets/images/spark_logo.png",
+                          "assets/images/spark_logo_white.png",
                           height: 200,
                           width: 200,
                         ),

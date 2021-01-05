@@ -69,6 +69,7 @@ class _LabeledTextField extends State<LabeledTextField> {
             ),
             TextField(
               controller: widget.textController,
+              cursorColor: Colors.black26,
               obscureText: passwordObscure,
               decoration: InputDecoration(
                 hintText: widget.hint,
@@ -90,7 +91,14 @@ class _LabeledTextField extends State<LabeledTextField> {
                     width: 2
                   ),
                   borderRadius: BorderRadius.circular(5)
-                )
+                ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                    color: Colors.green,
+                        width: 2
+                    ),
+                      borderRadius: BorderRadius.circular(5)
+                    )
               ),
               onChanged: (value) {
                   _value = value;
