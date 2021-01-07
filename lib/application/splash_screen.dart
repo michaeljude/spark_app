@@ -51,8 +51,8 @@ class _SplashScreen extends State<SplashScreen> {
                         opacity: _opacity,
                         duration: Duration(milliseconds: 500),
                         child: Image.asset(
-                          "assets/images/spark_logo.png",
-                          height: 200,
+                          "assets/images/spark_logo_white.png",
+                          height:  200,
                           width: 200,
                         ),
                       )

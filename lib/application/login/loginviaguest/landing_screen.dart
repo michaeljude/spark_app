@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_bloc.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_event.dart';
@@ -47,6 +48,10 @@ class _LoginScreen extends State<LoginScreen> {
           debugPrint("LoginFailedState");
         }
       },
+    child: AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: Colors.green,
+      ),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: Container(
@@ -68,29 +73,37 @@ class _LoginScreen extends State<LoginScreen> {
                   "Login to access your account.",
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 16,
+                    fontSize: 18,
 
                   ),
                   textAlign: TextAlign.center,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 30.0, right: 30, top: 12, bottom: 12),
-                child: LabeledTextField(
-                  title: "Email",
-                  icon: Icons.account_circle,
-                  hint: "Enter Email",
-                  textController: emailController,
+                padding: const EdgeInsets.all(12.0),
+                child: Theme(
+                  child: LabeledTextField(
+                    title: "Email",
+                    icon: Icons.account_circle,
+                    hint: "Enter Email",
+                    textController: emailController,
+                  ),
+                  data: Theme.of(context)
+                      .copyWith(primaryColor: Colors.green),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 30.0, right: 30, top: 12, bottom: 12),
-                child: LabeledTextField(
-                  title: "Password",
-                  icon: Icons.lock_rounded,
-                  isPasswordField: true,
-                  hint: "Enter Password",
-                  textController: passwordController,
+                padding: const EdgeInsets.all(12.0),
+                child: Theme(
+                  child: LabeledTextField(
+                    title: "Password",
+                    icon: Icons.lock_rounded,
+                    isPasswordField: true,
+                    hint: "Enter Password",
+                    textController: passwordController,
+                  ),
+                  data: Theme.of(context)
+                      .copyWith(primaryColor: Colors.green),
                 ),
               ),
               Align(
@@ -142,6 +155,7 @@ class _LoginScreen extends State<LoginScreen> {
           ),
         ),
       ),
+    ),
     );
   }
 

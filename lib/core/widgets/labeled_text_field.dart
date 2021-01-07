@@ -57,37 +57,48 @@ class _LabeledTextField extends State<LabeledTextField> {
                 fontSize: 16
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 4),
-            child: Visibility(child: Text(
-              _hasSubtitle ? widget.subtitle : ""
-            ), visible: _hasSubtitle,),
-          ),
-          TextField(
-            controller: widget.textController,
-            obscureText: passwordObscure,
-            decoration: InputDecoration(
-              hintText: widget.hint,
-              prefixIcon: Icon(widget.icon),
-              suffixIcon: widget.isPasswordField ? GestureDetector(
-                onTap: () {
-                  setState(() {
-                    passwordObscure = !passwordObscure;
-                  });
-                },
-                child: Icon(passwordObscure
-                    ? Icons.visibility_off
-                    : Icons.visibility),
-              ) : null,
-              focusColor: Colors.black54,
-              border: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.black,
-                  width: 2
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: Visibility(child: Text(
+                _hasSubtitle ? widget.subtitle : ""
+              ), visible: _hasSubtitle,),
+            ),
+            TextField(
+              controller: widget.textController,
+              cursorColor: Colors.black26,
+              obscureText: passwordObscure,
+              decoration: InputDecoration(
+                hintText: widget.hint,
+                prefixIcon: Icon(widget.icon),
+                suffixIcon: widget.isPasswordField ? GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      passwordObscure = !passwordObscure;
+                    });
+                  },
+                  child: Icon(passwordObscure
+                      ? Icons.visibility_off
+                      : Icons.visibility),
+                ) : null,
+                focusColor: Colors.black54,
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.black,
+                    width: 2
+                  ),
+                  borderRadius: BorderRadius.circular(5)
                 ),
-                borderRadius: BorderRadius.circular(5)
-              )
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                    color: Colors.green,
+                        width: 2
+                    ),
+                      borderRadius: BorderRadius.circular(5)
+                    )
+              ),
+              onChanged: (value) {
+                  _value = value;
+              },
             ),
             onChanged: (value) {
                 _value = value;
