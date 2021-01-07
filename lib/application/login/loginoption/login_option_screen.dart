@@ -22,8 +22,7 @@ class LoginOptionScreen extends StatelessWidget {
                   tileMode: TileMode.repeated
               )
           ),
-          child: Expanded(
-                child: Column(
+          child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Container(
@@ -111,7 +110,6 @@ class LoginOptionScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-              )
         )
     );
   }

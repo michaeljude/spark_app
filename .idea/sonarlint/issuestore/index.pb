@@ -40,3 +40,27 @@ g
 7lib/application/login/loginviaguest/landing_screen.dart,e/3/e35f0bbc05a6f4bbea5ea43a2fd92a2d57e8ce7f
 X
 (lib/core/widgets/labeled_text_field.dart,1/5/15dedd2dbcaae394347040cf6347373f19f1fb27
+U
+%lib/core/api/spark_api_service.g.dart,3/3/33606efa1a1f9afc3a0e64128081dad90e2ca93f
+K
+lib/core/models/sample.dart,3/5/35ee1d7f4c70bc30a6efbaf146a01f1f4844b310
+S
+#lib/core/api/spark_api_service.dart,7/2/72ea7bd42888e25914e94d0e21132a1c5a517357
+Y
+)lib/core/models/login/login_response.dart,9/6/966411bcb449832bbea8ae309437ce4fab1484b1
+[
++lib/core/models/login/login_response.g.dart,b/5/b5b2da1da4fb8294a4b7a77ddddd785e5297b913
+a
+1lib/core/models/login/login_response.freezed.dart,6/7/675d701e7e49e51c2bd76c94dbd5526abc78970e
+O
+lib/core/repository/sample.dart,c/f/cf3e0af562bc4ce28ac1afcd927e3337d6fb5c9d
+i
+9lib/core/repository/loginrepository/login_repository.dart,e/7/e7812f1e9282b46749f7e917342705da45d52254
+f
+6lib/core/repository/persistence/storage_interface.dart,5/b/5b8cb0a8307854ce692ddf00e17d901e3f372d17
+d
+4lib/core/repository/persistence/secured_storage.dart,3/e/3e305b56f51e9acedcfd3c1fd299df309aafbbe8
+f
+6lib/core/repository/persistence/local_persistence.dart,7/5/759ac5a87010a36344387400e11fdc31520d6a49
+Q
+!lib/core/api/api_interceptor.dart,6/7/673c6e3ddf64a4e2da4be4ddfc1b027527cc2465

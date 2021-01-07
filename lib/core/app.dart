@@ -14,6 +14,7 @@ import 'package:spark_app/core/routes/routes.dart';
 Alice globalAlice = Alice(
   showInspectorOnShake: false,
   showNotification: false,
+  darkTheme: true
 );
 
 Logger logger = Logger(
@@ -53,6 +54,7 @@ class _ApplicationState extends State<_Application> {
     super.initState();
     _apiService = ApiService.instance;
     _apiService.setDio(Dio());
+    globalAlice.showInspector();
     this._loginRepository = LoginRepository();
   }
 
@@ -63,6 +65,7 @@ class _ApplicationState extends State<_Application> {
         BlocProvider<LoginBloc>(create: (_) => LoginBloc(repository: this._loginRepository))
     ],
       child: MaterialApp(
+        navigatorKey: ApiService.isLoggingUiEnabled ? globalAlice.getNavigatorKey() : null,
         initialRoute: AppRoutes.initialRoute,
         routes: AppRoutes.routes,
       ),

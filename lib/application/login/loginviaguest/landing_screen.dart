@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_bloc.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_event.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_state.dart';
+import 'package:spark_app/application/login/registration/registration_screen.dart';
+import 'package:spark_app/core/routes/routes.dart';
 import 'package:spark_app/core/widgets/labeled_text_field.dart';
 import 'package:spark_app/core/widgets/login_button.dart';
 
@@ -36,13 +38,13 @@ class _LoginScreen extends State<LoginScreen> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (BuildContext context, LoginState state) {
         if (state is LoginSuccessState) {
-          print("LoginSuccessState");
+          debugPrint("LoginSuccessState");
         }
         else if (state is LoginStartedState) {
-          print("LoginStartedState");
+          debugPrint("LoginStartedState");
         }
         else if (state is LoginFailedState) {
-          print("LoginFailedState");
+          debugPrint("LoginFailedState");
         }
       },
       child: Scaffold(
@@ -73,7 +75,7 @@ class _LoginScreen extends State<LoginScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.only(left: 30.0, right: 30, top: 12, bottom: 12),
                 child: LabeledTextField(
                   title: "Email",
                   icon: Icons.account_circle,
@@ -82,7 +84,7 @@ class _LoginScreen extends State<LoginScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.only(left: 30.0, right: 30, top: 12, bottom: 12),
                 child: LabeledTextField(
                   title: "Password",
                   icon: Icons.lock_rounded,
@@ -123,12 +125,13 @@ class _LoginScreen extends State<LoginScreen> {
                   text: TextSpan(
                     style: TextStyle(color: Colors.black, fontSize: 18),
                     children: <TextSpan> [
-                      TextSpan(text: "Don't have an account?"),
+                      TextSpan(text: "Don't have an account?\n"),
                       TextSpan(
-                        text: '\nRegister now! ',
+                        text: 'Register now! ',
                         style: TextStyle(color: Colors.blue),
-                        recognizer: TapGestureRecognizer()..onTap = () => {
-                          print("OnTap")
+                        recognizer: TapGestureRecognizer()..onTap = () {
+                            debugPrint("REGISTER NOW");
+                            _goToRegistration();
                         }
                       ),
                     ]
@@ -141,5 +144,7 @@ class _LoginScreen extends State<LoginScreen> {
       ),
     );
   }
+
+  void _goToRegistration() => Navigator.pushNamed(context, RegistrationScreen.routeName);
 
 }
