@@ -73,7 +73,7 @@ class MessagePageLoaded extends BottomNavigationState {
   MessagePageLoaded({@required this.text}) : super([text]);
 
   @override
-  String toString() => 'PaymentPageLoaded with number: $text';
+  String toString() => 'MessagePageLoaded with number: $text';
 
   @override
   // TODO: implement props
@@ -86,7 +86,7 @@ class AccountPageLoaded extends BottomNavigationState {
   AccountPageLoaded({@required this.text}) : super([text]);
 
   @override
-  String toString() => 'PaymentPageLoaded with number: $text';
+  String toString() => 'AccountPageLoaded with number: $text';
 
   @override
   // TODO: implement props

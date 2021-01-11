@@ -110,6 +110,12 @@
       "languageVersion": "2.3"
     },
     {
+      "name": "carousel_slider",
+      "rootUri": "file:///Users/amentechuser/Desktop/flutter_development/flutter/.pub-cache/hosted/pub.dartlang.org/carousel_slider-2.3.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
       "name": "catcher",
       "rootUri": "file:///Users/amentechuser/Desktop/flutter_development/flutter/.pub-cache/hosted/pub.dartlang.org/catcher-0.3.23",
       "packageUri": "lib/",
@@ -944,7 +950,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-01-04T04:29:21.538709Z",
+  "generated": "2021-01-11T07:59:46.720091Z",
   "generator": "pub",
   "generatorVersion": "2.10.4"
 }
