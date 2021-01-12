@@ -164,7 +164,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   )
               ),
-
               const SizedBox(
                 width: 16,
               ),
@@ -200,7 +199,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 75,
                         ),
                       ),
-
                     ],
                   )
               ),
@@ -291,7 +289,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget getPromoAdsUI() {
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0, left: 18, right: 18),
+      padding: const EdgeInsets.only(top: 8.0, left: 18, right: 18, bottom: 8.0),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -327,7 +325,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
-                      elevation: 5,
+                      elevation: 3,
                       margin: EdgeInsets.all(5),
                     ),
                   );
@@ -379,9 +377,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
               ],
             ),
-
-    ),
-
+          ),
         ],
       ),
     );
