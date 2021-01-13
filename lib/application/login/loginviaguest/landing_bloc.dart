@@ -14,14 +14,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (event is LoginViaGuestEvent) {
       yield LoginStartedState();
       try {
-        var response = await repository.login(email: event.email, password: event.password);
-        if(response.message == "Successful login.") {
-          await LocalPersistence.instance().setCurrentUser(LocalPersistence.currentUser, event.email);
-          await LocalPersistence.instance().setAppToken(
-              LocalPersistence.appToken+event.email,
-              response.token
-          );
-          yield LoginSuccessState();
+        if(event.email.isEmpty || event.password.isEmpty) {
+          yield LoginIncompleteState();
+        }
+        else {
+          var response = await repository.login(email: event.email, password: event.password);
+          if(response.message == "Successful login.") {
+            await LocalPersistence.instance().setCurrentUser(LocalPersistence.currentUser, event.email);
+            await LocalPersistence.instance().setAppToken(
+                LocalPersistence.appToken+event.email,
+                response.token
+            );
+            yield LoginSuccessState();
+          }
         }
       } catch (e) {
         yield LoginFailedState();

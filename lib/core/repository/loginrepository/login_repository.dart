@@ -4,9 +4,11 @@ import 'package:spark_app/core/models/login/login_response.dart';
 
 class LoginRepository {
 
-  ApiService _apiService = ApiService.instance;
+  LoginRepository(this.apiService);
+
+  ApiService apiService;
 
   Future<LoginResponseModel> login({@required String email, @required String password}) =>
-    _apiService.login(email: email, password: password);
+    apiService.login(email: email, password: password);
 
 }
