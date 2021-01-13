@@ -12,5 +12,6 @@ class AppRoutes {
     LoginOptionScreen.routeName: (BuildContext context) => LoginOptionScreen(),
     LoginScreen.routeName: (BuildContext context) => LoginScreen(),
     RegistrationScreen.routeName: (BuildContext context) => RegistrationScreen(),
+    PersonalInformationScreen.routeName: (BuildContext context) => PersonalInformationScreen(),
   };
 }

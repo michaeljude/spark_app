@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_bloc.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_state.dart';
 import 'package:spark_app/core/api/api_service.dart';
 import 'package:spark_app/core/repository/loginrepository/login_repository.dart';
 import 'package:spark_app/core/routes/routes.dart';
+import 'package:spark_app/core/utils/validation.dart';
 
 
 Alice globalAlice = Alice(
@@ -47,6 +49,7 @@ class _Application extends StatefulWidget {
 class _ApplicationState extends State<_Application> {
 
   ApiService _apiService;
+  Validation _validation;
   LoginRepository _loginRepository;
 
   @override
@@ -54,14 +57,16 @@ class _ApplicationState extends State<_Application> {
     super.initState();
     _apiService = ApiService.instance;
     _apiService.setDio(Dio());
+    _validation = Validation();
     globalAlice.showInspector();
-    this._loginRepository = LoginRepository();
+    this._loginRepository = LoginRepository(_apiService);
   }
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
+    return MultiProvider(providers: <SingleChildWidget>[
         Provider<ApiService>.value(value: _apiService),
+        Provider<Validation>.value(value: _validation),
         BlocProvider<LoginBloc>(create: (_) => LoginBloc(repository: this._loginRepository))
     ],
       child: MaterialApp(
