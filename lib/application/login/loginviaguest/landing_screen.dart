@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spark_app/application/dashboard/bottom_navigation/bottom_navigation_screen.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_bloc.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_event.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_state.dart';
@@ -40,6 +41,8 @@ class _LoginScreen extends State<LoginScreen> {
       listener: (BuildContext context, LoginState state) {
         if (state is LoginSuccessState) {
           debugPrint("LoginSuccessState");
+
+          _dashboard(context);
         }
         else if (state is LoginStartedState) {
           debugPrint("LoginStartedState");
@@ -160,5 +163,7 @@ class _LoginScreen extends State<LoginScreen> {
   }
 
   void _goToRegistration() => Navigator.pushNamed(context, RegistrationScreen.routeName);
+
+  void _dashboard(BuildContext context) => Navigator.pushNamed(context, BottomNavigationScreen.routeName);
 
 }
