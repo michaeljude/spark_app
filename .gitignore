@@ -66,6 +66,7 @@ captures/
 #dart
 .dart_tool/*
 .flutter-plugins
+.flutter-plugins-dependencies
 
 # Freeline
 freeline.py
