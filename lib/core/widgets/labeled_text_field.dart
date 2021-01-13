@@ -57,6 +57,7 @@ class _LabeledTextField extends State<LabeledTextField> {
                 fontSize: 16
               ),
             ),
+    ),
             Padding(
               padding: const EdgeInsets.only(bottom: 4),
               child: Visibility(child: Text(
@@ -100,10 +101,8 @@ class _LabeledTextField extends State<LabeledTextField> {
                   _value = value;
               },
             ),
-            onChanged: (value) {
-                _value = value;
-            },
-          ),
+
+
         ],
     );
   }
