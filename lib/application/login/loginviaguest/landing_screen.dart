@@ -107,14 +107,16 @@ class _LoginScreen extends State<LoginScreen> {
                 ),
               ),
               Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: InkWell(
                     child: Text("Forgot Password?"),
                     onTap: () {
 
-                    },
+
+
+                      },
                   ),
                 ),
               ),

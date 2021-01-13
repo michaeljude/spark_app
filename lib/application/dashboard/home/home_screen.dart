@@ -46,14 +46,15 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: MediaQuery.of(context).padding.top,
             ),
-            getAppBarUI(),
+            getTopBannerUI(),
             Expanded(
               child: SingleChildScrollView(
                 child: Container(
                   color: HexColor('#FFFFFF'),
                   child: Column(
                     children: <Widget>[
-                      getCategoryUI(),
+                      getSparkCreditUI(),
+                      getMenuUI(),
                       getBannerUI(),
                       getPromoAdsUI(),
                     ],
@@ -67,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget getCategoryUI() {
+  Widget getSparkCreditUI() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,44 +76,52 @@ class _HomeScreenState extends State<HomeScreen> {
         Padding(
           padding: const EdgeInsets.only(top: 30, left: 18, right: 18),
           child: Row(
-              children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(top: 0, left: 0, right: 5),
-                        child: Container(
-                            width:25,
-                            height: 25,
-                            child: Image.asset('assets/images/credits_logo.png'),
-                        ),
-                  ),
-                  Text('eCredit',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          letterSpacing: 0.2,
-                          color: HexColor('#525252')
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: 0, left: 0, right: 5),
+                child: Container(
+                  width:25,
+                  height: 25,
+                  child: Image.asset('assets/images/credits_logo.png'),
+                ),
+              ),
+              Text('eCredit',
+                  style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  letterSpacing: 0.2,
+                  color: HexColor('#525252')
+                  )
+              ),
+              Spacer(flex: 3),
+              Text('PHP 400.00',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      letterSpacing: 0.2,
+                      color: HexColor('#525252')
                       )
-                  ),
-                  Spacer(), // Defaults to a flex of one.
-                  Spacer(flex: 2),
-                  Text('PHP 400.00',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          letterSpacing: 0.2,
-                          color: HexColor('#525252')
-                      )
-                  ),
-              ],
+              ),
+            ],
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 20, left: 0, right: 0, bottom: 8.0),
           child : Divider(
-          color: HexColor('#FAFAFA'),
-          height: 10,
-          thickness: 5,
+            color: HexColor('#FAFAFA'),
+            height: 10,
+            thickness: 5,
           ),
         ),
+      ],
+    );
+  }
+
+  Widget getMenuUI() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(top: 30, left: 18, right: 18, bottom: 20),
             child :Row(
@@ -141,108 +150,73 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        const SizedBox(
-          height: 16,
-        ),
         Padding(
-          padding: const EdgeInsets.only(top: 10, left: 18, right: 18),
-          child: Row(
-            children: <Widget>[
-              Padding(
-                  padding: const EdgeInsets.only(top: 5, left: 18, right: 18, bottom: 0),
-                  child :Row(
-                    mainAxisAlignment : MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
+          padding: const EdgeInsets.only(top: 20),
+          child: Column(children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(
+                  child: Column(
                     children: <Widget>[
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Image.asset(
-                          "assets/images/nearby_parking.png",
-                          height: 75,
+                      Image.asset("assets/images/nearby_parking.png",
+                        height: 75,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text('Nearby Parking',
+                          style: TextStyle(
+                            fontSize: 16,
+                            letterSpacing: 0.27,
+                            color: HexColor('#525252'),
+                          ),
                         ),
                       ),
                     ],
-                  )
-              ),
-              const SizedBox(
-                width: 16,
-              ),
-              Padding(
-                  padding: const EdgeInsets.only(top: 5, left: 18, right: 18, bottom: 0),
-                  child :Row(
-                    mainAxisAlignment : MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Image.asset(
-                          "assets/images/favorite_parking.png",
-                          height: 75,
-                        ),
-                      ),
-                    ],
-                  )
-              ),
-              const SizedBox(
-                width: 16,
-              ),
-              Padding(
-                  padding: const EdgeInsets.only(top: 5, left: 18, right: 0, bottom: 0),
-                  child :Row(
-                    mainAxisAlignment : MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Image.asset(
-                          "assets/images/walk_in_parking.png",
-                          height: 75,
-                        ),
-                      ),
-                    ],
-                  )
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(
-          height: 16,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 0, left: 18, right: 18),
-          child: Row(
-            children: <Widget>[
-          Text(
-            'Nearby Parking',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16,
-              letterSpacing: 0.27,
-              color: HexColor('#525252'),
-            ),
-          ),
-              Spacer(),
-              Text(
-                'Favorites',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  letterSpacing: 0.27,
-                  color: HexColor('#525252'),
+                  ),
                 ),
-              ),
-              Spacer(),
-              Text(
-                'Walk-in Parking',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  letterSpacing: 0.27,
-                  color: HexColor('#525252'),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      Image.asset("assets/images/favorite_parking.png",
+                        height: 75,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text('Favorites',
+                          style: TextStyle(
+                            fontSize: 16,
+                            letterSpacing: 0.27,
+                            color: HexColor('#525252'),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-        ),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      Image.asset("assets/images/walk_in_parking.png",
+                        height: 75,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text('Walk-in Parking',
+                          style: TextStyle(
+                            fontSize: 16,
+                            letterSpacing: 0.27,
+                            color: HexColor('#525252'),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            )
+          ]
+          ),
         ),
         Padding(
             padding: const EdgeInsets.only(top: 30, left: 0, right: 0, bottom: 8.0),
@@ -265,27 +239,28 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 120,
             initialPage: 2,
             viewportFraction: 1.0,
-
+            autoPlay: true,
+            autoPlayInterval: Duration(seconds: 5),
+            autoPlayAnimationDuration: Duration(milliseconds: 800),
+            autoPlayCurve: Curves.fastOutSlowIn,
           ),
           itemBuilder: (context, index) {
             return Container(
               margin: EdgeInsets.all(5.0),
               child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  child: Stack(children: <Widget>[
-                  InkResponse(
-                  child: Image.network(images[index], fit: BoxFit.fitWidth)
-              ),
-            ],
-
-            ),
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                child: Stack(children: <Widget>[
+                    InkResponse(
+                      child: Image.network(images[index], fit: BoxFit.fitWidth)
+                    ),
+                ],
+                ),
               ),
             );
-          },
+            },
         )
     );
   }
-
 
   Widget getPromoAdsUI() {
     return Padding(
@@ -293,56 +268,45 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
-
-        children: <Widget>[
-          Text(
-            'We\'re sure you\'ll like this',
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 18,
-              letterSpacing: 0.27,
-              color: DesignCourseAppTheme.darkerText,
+          children: <Widget>[
+            Text('We\'re sure you\'ll like this',
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 18,
+                letterSpacing: 0.27,
+                color: DesignCourseAppTheme.darkerText,
+              ),
             ),
-          ),
-
-          GridView.count(
-            shrinkWrap: true,
-            crossAxisCount: 2,
-            physics: ScrollPhysics(),
-
-            children: List.generate(
-                8,//this is the total number of cards
-                    (index){
-                  return Container(
-                    child: Card(
-                      semanticContainer: true,
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      child: Image.asset(
-                        'assets/images/promo.png',
-                        fit: BoxFit.fill,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      elevation: 3,
-                      margin: EdgeInsets.all(5),
+            GridView.count(
+              shrinkWrap: true,
+              crossAxisCount: 2,
+              physics: ScrollPhysics(),
+              children: List.generate( 4, //this is the total number of cards
+                (index){
+                return Container(
+                  child: Card(
+                    semanticContainer: true,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    child: Image.asset('assets/images/promo.png',
+                      fit: BoxFit.fill,
                     ),
-                  );
-                }
-
-
-      ),
-      ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    elevation: 3,
+                    margin: EdgeInsets.all(5),
+                  ),
+                );
+              }
+              ),
+            ),
           ]
-
       ),
-
     );
-
   }
 
-  Widget getAppBarUI() {
+  Widget getTopBannerUI() {
     return Padding(
       padding: const EdgeInsets.only(top: 30.0, left: 18, right: 18),
       child: Row(
@@ -352,8 +316,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  'Welcome, Ceej!',
+                Text('Welcome, Ceej!',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -362,19 +325,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: DesignCourseAppTheme.grey,
                   ),
                 ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 20),
-                child : Text(
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14,
-                    letterSpacing: 0.27,
-                    color: DesignCourseAppTheme.darkerText,
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 10, 0, 20),
+                  child : Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14,
+                      letterSpacing: 0.27,
+                      color: DesignCourseAppTheme.darkerText,
+                    ),
                   ),
                 ),
-            ),
               ],
             ),
           ),
