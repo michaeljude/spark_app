@@ -64,3 +64,17 @@ f
 6lib/core/repository/persistence/local_persistence.dart,7/5/759ac5a87010a36344387400e11fdc31520d6a49
 Q
 !lib/core/api/api_interceptor.dart,6/7/673c6e3ddf64a4e2da4be4ddfc1b027527cc2465
+k
+;lib/application/login/registration/registration_screen.dart,0/b/0b603885d44493ea58cb4360e78294d69ec543f2
+M
+.flutter-plugins-dependencies,c/3/c35774685cffc620de767cda8fa01675e8685378
+9
+	.packages,9/b/9b4bbe3dd58bdfaf2455c8d7f1db8e23fcd9bc95
+Z
+*lib/core/widgets/error_text_with_icon.dart,5/9/59e56e198b5d6b39644f123fbcbc85da55361484
+P
+ lib/core/widgets/spark_text.dart,5/2/5238a9f040cd9552715ddf7e3bb36f3dd9dc9ab8
+N
+lib/core/utils/validation.dart,6/3/63c68d025bfc3eddd92c66837cc526c4380f217a
+I
+lib/core/utils/enums.dart,2/8/2829840d5b0b3eb319a23b763bc07f3fde9b0a42

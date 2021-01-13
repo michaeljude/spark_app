@@ -24,5 +24,6 @@ class AppRoutes {
     AccountScreen.routeName: (BuildContext context) => AccountScreen(),
     BottomNavigationScreen.routeName: (BuildContext context) => BottomNavigationScreen(),
     RegistrationScreen.routeName: (BuildContext context) => RegistrationScreen(),
+    PersonalInformationScreen.routeName: (BuildContext context) => PersonalInformationScreen(),
   };
 }

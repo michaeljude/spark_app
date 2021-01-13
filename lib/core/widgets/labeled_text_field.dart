@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:spark_app/core/utils/enums.dart';
 
 class LabeledTextField extends StatefulWidget {
 
@@ -7,7 +8,9 @@ class LabeledTextField extends StatefulWidget {
   final String subtitle;
   final String hint;
   final IconData icon;
-  final bool isPasswordField;
+  final bool isTappable;
+  final TextFieldType type;
+  final bool isRequired;
   final TextEditingController textController;
 
   LabeledTextField({
@@ -15,7 +18,9 @@ class LabeledTextField extends StatefulWidget {
     this.subtitle,
     this.icon,
     @required this.hint,
-    this.isPasswordField = false,
+    this.isTappable = false,
+    this.isRequired = false,
+    this.type,
     this.textController
   });
 
@@ -38,7 +43,7 @@ class _LabeledTextField extends State<LabeledTextField> {
       _hasSubtitle = widget.subtitle.isNotEmpty;
     } else _hasSubtitle = false;
 
-    passwordObscure = widget.isPasswordField;
+    if (widget.type == TextFieldType.PASSWORD) passwordObscure = true;
 
   }
 
@@ -48,14 +53,9 @@ class _LabeledTextField extends State<LabeledTextField> {
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget> [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 4.0),
-            child: Text(
-              widget.title,
-              style: TextStyle(
-                color: Colors.black87,
-                fontSize: 16
-              ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4.0),
+              child: widget.isRequired ? _requiredText() : _notRequiredText()
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 4),
@@ -70,15 +70,18 @@ class _LabeledTextField extends State<LabeledTextField> {
               decoration: InputDecoration(
                 hintText: widget.hint,
                 prefixIcon: Icon(widget.icon),
-                suffixIcon: widget.isPasswordField ? GestureDetector(
+                suffixIcon: widget.isTappable ? GestureDetector(
                   onTap: () {
-                    setState(() {
-                      passwordObscure = !passwordObscure;
-                    });
+                    if (widget.type == TextFieldType.PASSWORD) {
+                      setState(() {
+                        passwordObscure = !passwordObscure;
+                      });
+                    }
+                    else if (widget.type == TextFieldType.BIRTHDATE) {
+                      _showDatePicker(context);
+                    }
                   },
-                  child: Icon(passwordObscure
-                      ? Icons.visibility_off
-                      : Icons.visibility),
+                  child: _setIcon(),
                 ) : null,
                 focusColor: Colors.black54,
                 border: OutlineInputBorder(
@@ -100,11 +103,72 @@ class _LabeledTextField extends State<LabeledTextField> {
                   _value = value;
               },
             ),
-            onChanged: (value) {
-                _value = value;
-            },
-          ),
         ],
     );
   }
+
+  FocusNode _isBirthday() {
+    if (widget.type == TextFieldType.BIRTHDATE) return FocusNode();
+    else return null;
+  }
+
+  Icon _setIcon() {
+    if (widget.type == TextFieldType.PASSWORD) {
+      return Icon(passwordObscure
+          ? Icons.visibility_off
+          : Icons.visibility, color: Colors.green,);
+    }
+    else if(widget.type == TextFieldType.BIRTHDATE) {
+      return Icon(Icons.date_range, color: Colors.green,);
+    }
+    else return null;
+  }
+
+  Future<void> _showDatePicker(BuildContext context) async {
+    DateTime currentDate = DateTime.now();
+    final selectedDate = await showDatePicker(
+        context: context,
+        initialDate: currentDate,
+        firstDate: DateTime(1960),
+        lastDate: DateTime(2080)
+    );
+    if(selectedDate != null && selectedDate != currentDate) {
+      setState(() {
+        widget.textController.text = "${selectedDate.month}/${selectedDate.day}/${selectedDate.year}";
+      });
+    }
+  }
+
+  Widget _notRequiredText() {
+    return Text(
+      widget.title,
+      style: TextStyle(
+          color: Colors.black87,
+          fontSize: 16
+      ),
+    );
+  }
+
+  Widget _requiredText() {
+    return RichText(
+      text: TextSpan(
+          style: TextStyle(
+              color: Colors.black87,
+              fontSize: 16
+          ),
+          children: <TextSpan> [
+            TextSpan(
+              text: widget.title,
+            ),
+            TextSpan(
+                text: " *",
+                style: TextStyle(
+                    color: Colors.red
+                )
+            ),
+          ]
+      ),
+    );
+  }
+
 }

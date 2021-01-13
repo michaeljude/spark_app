@@ -9,6 +9,7 @@ import 'package:spark_app/application/login/loginviaguest/landing_event.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_state.dart';
 import 'package:spark_app/application/login/registration/registration_screen.dart';
 import 'package:spark_app/core/routes/routes.dart';
+import 'package:spark_app/core/utils/enums.dart';
 import 'package:spark_app/core/widgets/labeled_text_field.dart';
 import 'package:spark_app/core/widgets/login_button.dart';
 
@@ -50,6 +51,9 @@ class _LoginScreen extends State<LoginScreen> {
         else if (state is LoginFailedState) {
           debugPrint("LoginFailedState");
         }
+        else if (state is LoginIncompleteState) {
+          debugPrint("LoginIncompleteState");
+        }
       },
     child: AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
@@ -83,7 +87,7 @@ class _LoginScreen extends State<LoginScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.only(left: 30, right: 30, bottom: 12, top: 12),
                 child: Theme(
                   child: LabeledTextField(
                     title: "Email",
@@ -96,12 +100,13 @@ class _LoginScreen extends State<LoginScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.only(left: 30, right: 30, bottom: 12, top: 12),
                 child: Theme(
                   child: LabeledTextField(
                     title: "Password",
                     icon: Icons.lock_rounded,
-                    isPasswordField: true,
+                    isTappable: true,
+                    type: TextFieldType.PASSWORD,
                     hint: "Enter Password",
                     textController: passwordController,
                   ),
