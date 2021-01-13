@@ -64,11 +64,9 @@ captures/
 # google-services.json
 
 #dart
-*.dart_tool
+.dart_tool/*
 .flutter-plugins
 .flutter-plugins-dependencies
-
-.packages
 
 # Freeline
 freeline.py
@@ -91,8 +89,3 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
-
-# Generated Files
-*.g.dart
-*.freezed.dart
-lib/generated/
