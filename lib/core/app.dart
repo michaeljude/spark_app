@@ -71,16 +71,6 @@ class _ApplicationState extends State<_Application> {
     return MultiProvider(providers: [
         Provider<ApiService>.value(value: _apiService),
         BlocProvider<LoginBloc>(create: (_) => LoginBloc(repository: this._loginRepository)),
-    BlocProvider<BottomNavigationBloc>(
-    create: (context) => BottomNavigationBloc(
-    homePageRepository: HomeRepository(),
-    activityPageRepository: ActivityRepository(),
-    paymentPageRepository: PaymentRepository(),
-    messagePageRepository: MessageRepository(),
-    accountPageRepository: AccountRepository(),
-    )..add(AppStarted()),
-    child: BottomNavigationScreen(),
-    )
     ],
       child: MaterialApp(
         navigatorKey: ApiService.isLoggingUiEnabled ? globalAlice.getNavigatorKey() : null,
