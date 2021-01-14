@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:spark_app/theme/app_theme.dart';
 
 class HomeScreen extends StatefulWidget {
