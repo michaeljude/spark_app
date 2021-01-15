@@ -16,11 +16,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       try {
         var response = await repository.login(email: event.email, password: event.password);
         if(response.message == "Successful login.") {
-          await LocalPersistence.instance().setCurrentUser(LocalPersistence.currentUser, event.email);
-          await LocalPersistence.instance().setAppToken(
-              LocalPersistence.appToken+event.email,
-              response.token
-          );
+          // await LocalPersistence.instance().setCurrentUser(LocalPersistence.currentUser, event.email);
+          // await LocalPersistence.instance().setAppToken(
+          //     LocalPersistence.appToken+event.email,
+          //     response.token
+          // );
           yield LoginSuccessState();
         }
       } catch (e) {
