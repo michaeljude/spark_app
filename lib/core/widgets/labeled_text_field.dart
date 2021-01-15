@@ -7,16 +7,20 @@ class LabeledTextField extends StatefulWidget {
   final String subtitle;
   final String hint;
   final IconData icon;
-  final bool isPasswordField;
+  final bool isRequired;
+  final bool isTappable;
+  final TextFieldType textFieldType;
   final TextEditingController textController;
 
   LabeledTextField({
     @required this.title,
     this.subtitle,
-    this.icon,
     @required this.hint,
-    this.isPasswordField = false,
-    this.textController
+    this.icon,
+    this.isRequired = false,
+    this.isTappable = false,
+    this.textFieldType = TextFieldType.PASSWORD,
+    this.textController,
   });
 
   @override
@@ -24,11 +28,17 @@ class LabeledTextField extends StatefulWidget {
 
 }
 
+enum TextFieldType {
+  PASSWORD,
+  BIRTHDATE
+}
+
 class _LabeledTextField extends State<LabeledTextField> {
 
   bool _hasSubtitle;
   String _value;
   bool passwordObscure = false;
+  TextEditingController textEditingController;
 
   @override
   void initState() {
@@ -37,9 +47,11 @@ class _LabeledTextField extends State<LabeledTextField> {
     if(widget.subtitle != null) {
       _hasSubtitle = widget.subtitle.isNotEmpty;
     } else _hasSubtitle = false;
-
-    passwordObscure = widget.isPasswordField;
-
+    if (widget.isTappable && widget.textFieldType == TextFieldType.PASSWORD) {
+      passwordObscure = true;
+    }
+    this.textEditingController = widget.textController;
+    this.textEditingController??=TextEditingController();
   }
 
   @override
@@ -50,13 +62,19 @@ class _LabeledTextField extends State<LabeledTextField> {
         children: <Widget> [
           Padding(
             padding: const EdgeInsets.only(bottom: 4.0),
-            child: Text(
-              widget.title,
-              style: TextStyle(
-                color: Colors.black87,
-                fontSize: 16
+            child: RichText(
+              text: TextSpan(style: TextStyle(color: Colors.black87, fontSize: 16),
+                children: <TextSpan> [
+                  TextSpan(text: widget.title),
+                  TextSpan(
+                    text: widget.isRequired ? " *" : "",
+                    style: TextStyle(
+                      color: Colors.red
+                    )
+                  )
+                ]
               ),
-            ),
+            )
           ),
             Padding(
               padding: const EdgeInsets.only(bottom: 4),
@@ -65,21 +83,30 @@ class _LabeledTextField extends State<LabeledTextField> {
               ), visible: _hasSubtitle,),
             ),
             TextField(
-              controller: widget.textController,
+              onTap: () {
+                if (widget.textFieldType == TextFieldType.BIRTHDATE) {
+                  _getDate();
+                }
+              },
+              readOnly: readOnly(),
+              controller: this.textEditingController,
               cursorColor: Colors.black26,
               obscureText: passwordObscure,
               decoration: InputDecoration(
                 hintText: widget.hint,
                 prefixIcon: Icon(widget.icon),
-                suffixIcon: widget.isPasswordField ? GestureDetector(
+                suffixIcon: widget.isTappable ? GestureDetector(
                   onTap: () {
-                    setState(() {
-                      passwordObscure = !passwordObscure;
-                    });
+                    if (widget.textFieldType == TextFieldType.BIRTHDATE) {
+                      _getDate();
+                    }
+                    else if (widget.textFieldType == TextFieldType.PASSWORD) {
+                      setState(() {
+                        passwordObscure = !passwordObscure;
+                      });
+                    }
                   },
-                  child: Icon(passwordObscure
-                      ? Icons.visibility_off
-                      : Icons.visibility),
+                  child: _getIcon(),
                 ) : null,
                 focusColor: Colors.black54,
                 border: OutlineInputBorder(
@@ -103,5 +130,40 @@ class _LabeledTextField extends State<LabeledTextField> {
             ),
         ],
     );
+  }
+
+  Future<String> _getDate() async {
+    DateTime currentDate = DateTime.now();
+    DateTime selectedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1960),
+      lastDate: DateTime(2070),
+    );
+
+    if (selectedDate != null && selectedDate != currentDate) {
+      setState(() {
+        this.textEditingController.text = "${selectedDate?.month}/${selectedDate?.day}/${selectedDate?.year}";
+      });
+    }
+
+  }
+
+  bool readOnly() {
+    if (widget.textFieldType == TextFieldType.BIRTHDATE) {
+      return true;
+    } else return false;
+  }
+
+  Icon _getIcon() {
+    if (widget.textFieldType == TextFieldType.BIRTHDATE) {
+      return Icon(Icons.calendar_today, color: Colors.green,);
+    }
+    else if (widget.textFieldType == TextFieldType.PASSWORD) {
+      return Icon(passwordObscure
+          ? Icons.visibility_off
+          : Icons.visibility);
+    }
+    else return null;
   }
 }

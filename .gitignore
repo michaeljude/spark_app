@@ -89,3 +89,4 @@ lint/tmp/
 .flutter-plugins-dependencies
 .flutter-plugins
 *.dart/
+.dart_tool

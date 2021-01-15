@@ -6,6 +6,7 @@ import 'package:spark_app/core/api/api_interceptor.dart';
 import 'package:spark_app/core/api/spark_api_service.dart';
 import 'package:spark_app/core/app.dart';
 import 'package:spark_app/core/models/login/login_response.dart';
+import 'package:spark_app/core/models/registration/registration_response.dart';
 import 'package:spark_app/core/repository/persistence/local_persistence.dart';
 
 class ApiService {
@@ -34,5 +35,34 @@ class ApiService {
 
   Future<LoginResponseModel> login({@required String email, @required String password}) =>
       _sparkApiService.login(email: email, password: password);
+
+  Future<RegistrationResponseModel> register({
+    @required String firstname,
+    @required String lastname,
+    @required String email,
+    @required String password,
+    @required String contact_no,
+    @required String gender,
+    @required String birthday,
+    @required String plate_no,
+    @required String car_model,
+    @required String car_description,
+    @required String car_photo,
+    @required String driver_license
+  }) =>
+      _sparkApiService.register(
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
+          password: password,
+          contact_no: contact_no,
+          gender: gender,
+          birthday: birthday,
+          plate_no: plate_no,
+          car_model: car_model,
+          car_description: car_description,
+          car_photo: car_photo,
+          driver_license: driver_license
+      );
 
 }

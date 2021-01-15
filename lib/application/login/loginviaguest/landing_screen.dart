@@ -83,7 +83,7 @@ class _LoginScreen extends State<LoginScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.only(bottom: 12.0, left: 30, right: 30),
                 child: Theme(
                   child: LabeledTextField(
                     title: "Email",
@@ -96,12 +96,12 @@ class _LoginScreen extends State<LoginScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.only(bottom: 12.0, left: 30, right: 30),
                 child: Theme(
                   child: LabeledTextField(
                     title: "Password",
                     icon: Icons.lock_rounded,
-                    isPasswordField: true,
+                    isTappable: true,
                     hint: "Enter Password",
                     textController: passwordController,
                   ),

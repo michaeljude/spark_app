@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:spark_app/core/widgets/labeled_text_field.dart';
 import 'package:spark_app/core/widgets/login_button.dart';
+import 'package:spark_app/core/widgets/spark_text.dart';
 
 class RegistrationScreen extends StatefulWidget {
 
@@ -40,33 +41,26 @@ class _RegistrationScreen extends State<RegistrationScreen> {
                 Container(
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.only(bottom: 18),
-                  child: Text(
-                    "Register as a river",
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold
-                    ),
+                  child: SparkText(
+                    text: "Register as a driver",
+                    size: 18,
+                    fontWeight: FontWeight.bold
                   ),
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.only(bottom: 24),
-                  child: Text(
-                    "Yiwdaindjksbajdk wuhdjkabd awukdj asdjkahw dahduiawhduiahs dhawdhjaksd uaiw",
-                    style: TextStyle(
-                        fontSize: 16,
-                    ),
-                  ),
+                  child: SparkText(
+                    text: "Yiwdaindjksbajdk wuhdjkabd awukdj asdjkahw dahduiawhduiahs dhawdhjaksd uaiw"
+                  )
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.only(bottom: 18),
-                  child: Text(
-                    "Account Information",
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold
-                    ),
+                  child: SparkText(
+                      text: "Account Information",
+                      size: 18,
+                      fontWeight: FontWeight.bold
                   ),
                 ),
                 Padding(
@@ -88,7 +82,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
                   child: LabeledTextField(
                     title: "Password",
                     hint: "Your password",
-                    isPasswordField: true,
+                    isTappable: true,
                   ),
                 ),
                 Padding(
@@ -96,7 +90,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
                   child: LabeledTextField(
                     title: "Confirm Password",
                     hint: "Confirm pasword",
-                    isPasswordField: true,
+                    isTappable: true,
                   ),
                 ),
                 Expanded(
@@ -107,7 +101,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
                       color: const Color(0xff19BA19),
                       buttonText: "CONTINUE",
                       action: () {
-
+                        _goToPersonalInformationScreen(context);
                       },
                     ),
                   ),
@@ -119,4 +113,155 @@ class _RegistrationScreen extends State<RegistrationScreen> {
     );
   }
 
+  void _goToPersonalInformationScreen(BuildContext context)
+  => Navigator.pushNamed(context, PersonalInformationScreen.routeName);
+
 }
+
+class PersonalInformationScreen extends StatefulWidget {
+
+  static final String routeName = "/personal-information";
+
+  @override
+  State<StatefulWidget> createState() => _PersonalInformationScreen();
+
+}
+
+class _PersonalInformationScreen extends State<PersonalInformationScreen> {
+
+  int _value = 0;
+  String radioValue;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0.0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black,),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          tooltip: "BackButton",
+        ),
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+            color: Colors.white
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(34.0),
+          child: Column(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 18),
+                  child: SparkText(
+                      text: "Personal Information",
+                      size: 18,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 12),
+                child: LabeledTextField(
+                  title: "First name",
+                  hint: "Enter your first name",
+                  isRequired: true,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 12),
+                child: LabeledTextField(
+                  title: "Last name",
+                  hint: "Enter your last name",
+                  isRequired: true,
+                ),
+              ),
+              radioGroup(),
+              Padding(
+                padding: EdgeInsets.only(top: 12),
+                child: LabeledTextField(
+                  title: "Birthday",
+                  hint: "Select date",
+                  isRequired: true,
+                  isTappable: true,
+                  textFieldType: TextFieldType.BIRTHDATE,
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.only(bottom: 20,),
+                  alignment: Alignment.bottomCenter,
+                  child: LogoButton(
+                    color: const Color(0xff19BA19),
+                    buttonText: "CONTINUE",
+                    action: () {
+
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget radioGroup() {
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(padding: const EdgeInsets.only(bottom: 12, top: 18),
+            child: SparkText(text: "Gender", isRequired: true,),),
+        ),
+        Row(
+          children: [
+            Radio(value: 0, groupValue: _value, onChanged: _onRadioChangeListener),
+            SparkText(text: "Male"),
+            Radio(value: 1, groupValue: _value, onChanged: _onRadioChangeListener),
+            SparkText(text: "Female"),
+          ],
+        )
+      ],
+    );
+  }
+
+  void _onRadioChangeListener(int value) {
+    setState(() {
+      _value = value;
+      switch(value) {
+        case 0:
+          radioValue = "Male";
+          break;
+        case 1:
+          radioValue = "Female";
+          break;
+      }
+    });
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
