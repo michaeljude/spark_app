@@ -10,7 +10,7 @@ import 'package:spark_app/application/login/loginviaguest/landing_state.dart';
 import 'package:spark_app/application/login/registration/registration_screen.dart';
 import 'package:spark_app/core/routes/routes.dart';
 import 'package:spark_app/core/widgets/labeled_text_field.dart';
-import 'package:spark_app/core/widgets/login_button.dart';
+import 'package:spark_app/core/widgets/button_no_icon.dart';
 
 class LoginScreen extends StatefulWidget {
 
@@ -125,7 +125,7 @@ class _LoginScreen extends State<LoginScreen> {
                 child: Container(
                   padding: const EdgeInsets.only(bottom: 20, right: 30, left: 30),
                   alignment: Alignment.bottomCenter,
-                  child: LogoButton(
+                  child: ButtonNoIcon(
                     color: const Color(0xff19BA19),
                     buttonText: "LOGIN",
                     action: () {

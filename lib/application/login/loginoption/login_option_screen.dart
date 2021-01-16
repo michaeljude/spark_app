@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:spark_app/theme/presentation/custom_icons.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_screen.dart';
 import 'package:spark_app/core/widgets/login_button.dart';
+import 'package:spark_app/core/widgets/button_no_icon.dart';
+
 
 class LoginOptionScreen extends StatelessWidget {
 
@@ -52,7 +55,7 @@ class LoginOptionScreen extends StatelessWidget {
                         child: SizedBox(
                           width: double.infinity,
                           height: 50,
-                          child: LogoButton(
+                          child: ButtonNoIcon(
                             color: const Color(0xff117E96),
                             buttonText: "Continue To Login".toUpperCase(),
                             action: () => _loginViaGuest(context),
@@ -91,7 +94,7 @@ class LoginOptionScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
                         child: LogoButton(
                           color: Colors.red,
-                          icon: Icons.account_circle_outlined,
+                          icon: CustomIcons.google,
                           buttonText: "Sign Up With Google".toUpperCase(),
                           action: () => _loginViaGoogle(context),
                         ),
@@ -102,7 +105,7 @@ class LoginOptionScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 20, right: 20),
                         child: LogoButton(
                           color: const Color(0xff3B5998),
-                          icon: Icons.accessibility_sharp,
+                          icon: CustomIcons.facebook,
                           buttonText: "Sign Up With Facebook".toUpperCase(),
                           action: () => _loginViaFacebook(context),
                         ),
