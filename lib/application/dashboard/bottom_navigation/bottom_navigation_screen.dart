@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:spark_app/application/dashboard/bottom_navigation/bottom_navigation_bloc.dart';
@@ -60,25 +62,51 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 type: BottomNavigationBarType.fixed,
                 selectedItemColor: Colors.green,
                 currentIndex: bottomNavigationBloc.currentIndex,
-              items: const <BottomNavigationBarItem>[
+              items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
+                  icon: Icon(FeatherIcons.home),
                   title: Text('Home'),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.insert_drive_file),
+                  icon: Icon(FeatherIcons.file),
                   title: Text('Activity'),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.payment),
+                  icon: Icon(FeatherIcons.creditCard),
                   title: Text('Payment'),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.messenger),
-                  title: Text('Message'),
+                  icon: new Stack(
+                    children: <Widget>[
+                      new Icon(FeatherIcons.messageCircle),
+                      new Positioned(
+                        right: 0,
+                        child: new Container(
+                          padding: EdgeInsets.only(left: 1.0, top: 2.0, bottom: 1.0, right: 1.0),
+                          decoration: new BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          constraints: BoxConstraints(
+                            minWidth: 12,
+                            minHeight: 12,
+                          ),
+                          child: new Text(
+                            '2',
+                            style: new TextStyle(
+                              color: Colors.white,
+                              fontSize: 8,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  title: new Text('Message'),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.account_circle),
+                  icon: Icon(FeatherIcons.user),
                   title: Text('Account'),
                 ),
               ],
