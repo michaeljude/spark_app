@@ -56,6 +56,10 @@ dev_dependencies:
   retrofit_generator: ^1.4.0
 
 flutter:
+  fonts:
+      - family:  CustomIcons
+        fonts:
+          - asset: assets/fonts/custom_icons.ttf
   assets:
     - assets/images/
   uses-material-design: true
