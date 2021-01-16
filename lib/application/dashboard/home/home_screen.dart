@@ -236,7 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: CarouselSlider.builder(
           itemCount: images.length,
           options: CarouselOptions(
-            height: 120,
+            height: 110,
             initialPage: 2,
             viewportFraction: 1.0,
             autoPlay: true,
