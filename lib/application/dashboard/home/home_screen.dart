@@ -294,7 +294,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    elevation: 3,
+                    
                     margin: EdgeInsets.all(5),
                   ),
                 );
