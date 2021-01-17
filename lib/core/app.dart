@@ -80,7 +80,7 @@ class _ApplicationState extends State<_Application> {
         )..add(AppStarted()),
         child: BottomNavigationScreen(),
        ),
-    ],
+      ],
       child: MaterialApp(
         navigatorKey: ApiService.isLoggingUiEnabled ? globalAlice.getNavigatorKey() : null,
         initialRoute: AppRoutes.initialRoute,

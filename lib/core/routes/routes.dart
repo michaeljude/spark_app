@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_screen.dart';
 import 'package:spark_app/application/login/loginoption/login_option_screen.dart';
+import 'package:spark_app/application/login/registration/driver_detail_screen.dart';
 import 'package:spark_app/application/login/registration/registration_screen.dart';
+import 'package:spark_app/application/reusablescreens/camera_screen.dart';
 import 'package:spark_app/application/splash_screen.dart';
 import 'package:spark_app/application/dashboard/bottom_navigation/bottom_navigation_screen.dart';
 import 'package:spark_app/application/dashboard/home/home_screen.dart';
@@ -25,5 +27,7 @@ class AppRoutes {
     BottomNavigationScreen.routeName: (BuildContext context) => BottomNavigationScreen(),
     RegistrationScreen.routeName: (BuildContext context) => RegistrationScreen(),
     PersonalInformationScreen.routeName: (BuildContext context) => PersonalInformationScreen(),
+    DriverDetailScreen.routeName: (BuildContext context) => DriverDetailScreen(),
+    CameraScreen.routeName: (BuildContext context) => CameraScreen(),
   };
 }

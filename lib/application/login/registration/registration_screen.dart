@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:spark_app/application/login/registration/driver_detail_screen.dart';
 import 'package:spark_app/core/widgets/labeled_text_field.dart';
 import 'package:spark_app/core/widgets/login_button.dart';
 import 'package:spark_app/core/widgets/spark_text.dart';
@@ -201,7 +202,7 @@ class _PersonalInformationScreen extends State<PersonalInformationScreen> {
                     color: const Color(0xff19BA19),
                     buttonText: "CONTINUE",
                     action: () {
-
+                        _goToDriverDetailScreen(context);
                     },
                   ),
                 ),
@@ -212,6 +213,8 @@ class _PersonalInformationScreen extends State<PersonalInformationScreen> {
       ),
     );
   }
+
+  void _goToDriverDetailScreen(BuildContext context) => Navigator.pushNamed(context, DriverDetailScreen.routeName);
 
   Widget radioGroup() {
     return Column(

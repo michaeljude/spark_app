@@ -36,6 +36,9 @@ dependencies:
   url_launcher: ^5.7.8
   uuid: ^2.2.2
   webview_flutter: ^1.0.7
+  camera: ^0.5.8+2
+  path: ^1.6.4
+  path_provider: ^1.6.11
   catcher: ^0.3.22
 
 

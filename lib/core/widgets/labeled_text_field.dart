@@ -9,6 +9,7 @@ class LabeledTextField extends StatefulWidget {
   final IconData icon;
   final bool isRequired;
   final bool isTappable;
+  final bool isMultiline;
   final TextFieldType textFieldType;
   final TextEditingController textController;
 
@@ -19,6 +20,7 @@ class LabeledTextField extends StatefulWidget {
     this.icon,
     this.isRequired = false,
     this.isTappable = false,
+    this.isMultiline = false,
     this.textFieldType = TextFieldType.PASSWORD,
     this.textController,
   });
@@ -82,54 +84,109 @@ class _LabeledTextField extends State<LabeledTextField> {
                 _hasSubtitle ? widget.subtitle : ""
               ), visible: _hasSubtitle,),
             ),
-            TextField(
+            getTextField()
+        ],
+    );
+  }
+
+  TextField getTextField() {
+    if(widget.isMultiline) {
+      return TextField(
+        onTap: () {
+          if (widget.textFieldType == TextFieldType.BIRTHDATE) {
+            _getDate();
+          }
+        },
+        keyboardType: TextInputType.multiline,
+        maxLines: 5,
+        readOnly: readOnly(),
+        controller: this.textEditingController,
+        cursorColor: Colors.black26,
+        obscureText: passwordObscure,
+        decoration: InputDecoration(
+            hintText: widget.hint,
+            prefixIcon: Icon(widget.icon),
+            suffixIcon: widget.isTappable ? GestureDetector(
               onTap: () {
                 if (widget.textFieldType == TextFieldType.BIRTHDATE) {
                   _getDate();
                 }
+                else if (widget.textFieldType == TextFieldType.PASSWORD) {
+                  setState(() {
+                    passwordObscure = !passwordObscure;
+                  });
+                }
               },
-              readOnly: readOnly(),
-              controller: this.textEditingController,
-              cursorColor: Colors.black26,
-              obscureText: passwordObscure,
-              decoration: InputDecoration(
-                hintText: widget.hint,
-                prefixIcon: Icon(widget.icon),
-                suffixIcon: widget.isTappable ? GestureDetector(
-                  onTap: () {
-                    if (widget.textFieldType == TextFieldType.BIRTHDATE) {
-                      _getDate();
-                    }
-                    else if (widget.textFieldType == TextFieldType.PASSWORD) {
-                      setState(() {
-                        passwordObscure = !passwordObscure;
-                      });
-                    }
-                  },
-                  child: _getIcon(),
-                ) : null,
-                focusColor: Colors.black54,
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(
+              child: _getIcon(),
+            ) : null,
+            focusColor: Colors.black54,
+            border: OutlineInputBorder(
+                borderSide: BorderSide(
                     color: Colors.black,
                     width: 2
-                  ),
-                  borderRadius: BorderRadius.circular(5)
                 ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                    color: Colors.green,
-                        width: 2
-                    ),
-                      borderRadius: BorderRadius.circular(5)
-                    )
-              ),
-              onChanged: (value) {
-                  _value = value;
-              },
+                borderRadius: BorderRadius.circular(5)
             ),
-        ],
-    );
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Colors.green,
+                    width: 2
+                ),
+                borderRadius: BorderRadius.circular(5)
+            )
+        ),
+        onChanged: (value) {
+          _value = value;
+        },
+      );
+    } else {
+      return TextField(
+        onTap: () {
+          if (widget.textFieldType == TextFieldType.BIRTHDATE) {
+            _getDate();
+          }
+        },
+        readOnly: readOnly(),
+        controller: this.textEditingController,
+        cursorColor: Colors.black26,
+        obscureText: passwordObscure,
+        decoration: InputDecoration(
+            hintText: widget.hint,
+            prefixIcon: Icon(widget.icon),
+            suffixIcon: widget.isTappable ? GestureDetector(
+              onTap: () {
+                if (widget.textFieldType == TextFieldType.BIRTHDATE) {
+                  _getDate();
+                }
+                else if (widget.textFieldType == TextFieldType.PASSWORD) {
+                  setState(() {
+                    passwordObscure = !passwordObscure;
+                  });
+                }
+              },
+              child: _getIcon(),
+            ) : null,
+            focusColor: Colors.black54,
+            border: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Colors.black,
+                    width: 2
+                ),
+                borderRadius: BorderRadius.circular(5)
+            ),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Colors.green,
+                    width: 2
+                ),
+                borderRadius: BorderRadius.circular(5)
+            )
+        ),
+        onChanged: (value) {
+          _value = value;
+        },
+      );
+    }
   }
 
   Future<String> _getDate() async {

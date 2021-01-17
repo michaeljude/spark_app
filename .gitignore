@@ -90,3 +90,4 @@ lint/tmp/
 .flutter-plugins
 *.dart/
 .dart_tool
+.dart_tool/package_config.json
