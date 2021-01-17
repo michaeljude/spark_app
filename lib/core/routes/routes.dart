@@ -7,7 +7,7 @@ import 'package:spark_app/application/dashboard/bottom_navigation/bottom_navigat
 import 'package:spark_app/application/dashboard/home/home_screen.dart';
 import 'package:spark_app/application/dashboard/activity/activity_screen.dart';
 import 'package:spark_app/application/dashboard/payment/payment_screen.dart';
-import 'package:spark_app/application/dashboard/message/message_screen.dart';
+import 'package:spark_app/application/dashboard/message/messagelist/message_screen.dart';
 import 'package:spark_app/application/dashboard/account/account_screen.dart';
 
 class AppRoutes {
