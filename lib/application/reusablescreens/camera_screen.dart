@@ -112,13 +112,23 @@ class _CameraScreen extends State<CameraScreen> {
       await cameraController.takePicture(path).then((value) {
         print('here');
         print(path);
+        Navigator.pop(context, path);
       });
 
     } catch (e) {
-      //showCameraException(e);
-      //showDialog(context: context, builder: )
+      _showErrorDialog(context, e);
     }
   }
+
+
+  void _showErrorDialog(BuildContext context, Exception e) => showDialog(context: context, builder: (_) => AlertDialog(
+    title: Text("Some Error"),
+    content: Text("Error: $e"),
+    actions: <Widget>[
+      FlatButton(onPressed: () => Navigator.pop(_), child: Text("Close"))
+    ],
+  ));
+
 
   getCameraLensIcons(lensDirection) {
     switch (lensDirection) {

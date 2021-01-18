@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_bloc.dart';
+import 'package:spark_app/application/login/registration/registration_bloc.dart';
 import 'package:spark_app/core/api/api_service.dart';
 import 'package:spark_app/core/repository/loginrepository/login_repository.dart';
 import 'package:spark_app/application/dashboard/bottom_navigation/bottom_navigation_bloc.dart';
@@ -74,6 +75,7 @@ class _ApplicationState extends State<_Application> {
         Provider<ApiService>.value(value: _apiService),
         Provider<ValidationUtils>.value(value: _validationUtils),
         BlocProvider<LoginBloc>(create: (_) => LoginBloc(repository: this._loginRepository)),
+        BlocProvider<RegistrationBloc>(create: (_) => RegistrationBloc()),
         BlocProvider<BottomNavigationBloc>(
         create: (context) => BottomNavigationBloc(
           homePageRepository: HomeRepository(),
