@@ -39,6 +39,7 @@ dependencies:
   camera: ^0.5.8+2
   path: ^1.6.4
   path_provider: ^1.6.11
+  email_validator: '^1.0.5'
   catcher: ^0.3.22
 
 
