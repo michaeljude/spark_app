@@ -31,8 +31,8 @@ class _LoginScreen extends State<LoginScreen> {
   void initState() {
     super.initState();
     _loginBloc = BlocProvider.of<LoginBloc>(context);
-    this.emailController = TextEditingController();
-    this.passwordController = TextEditingController();
+    this.emailController = TextEditingController(text: "demo_spark@gmail.com");
+    this.passwordController = TextEditingController(text: "demospark");
   }
 
   @override

@@ -91,3 +91,4 @@ lint/tmp/
 *.dart/
 .dart_tool
 .dart_tool/package_config.json
+.vscode/launch.json

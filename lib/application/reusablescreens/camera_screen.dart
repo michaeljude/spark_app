@@ -55,7 +55,6 @@ class _CameraScreen extends State<CameraScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     availableCameras().then((value) {
       cameras = value;
