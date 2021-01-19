@@ -94,7 +94,7 @@ class LoginOptionScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
                         child: LogoButton(
                           color: Colors.red,
-                          icon: CustomIcons.google,
+                          icon: CustomIcons.google, iconColor: Colors.white,
                           buttonText: "Sign Up With Google".toUpperCase(),
                           action: () => _loginViaGoogle(context),
                         ),
@@ -105,7 +105,7 @@ class LoginOptionScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 20, right: 20),
                         child: LogoButton(
                           color: const Color(0xff3B5998),
-                          icon: CustomIcons.facebook,
+                          icon: CustomIcons.facebook, iconColor: Colors.white,
                           buttonText: "Sign Up With Facebook".toUpperCase(),
                           action: () => _loginViaFacebook(context),
                         ),

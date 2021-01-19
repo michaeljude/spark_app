@@ -110,6 +110,12 @@
       "languageVersion": "2.3"
     },
     {
+      "name": "camera",
+      "rootUri": "file:///Users/amentechuser/Desktop/flutter_development/flutter/.pub-cache/hosted/pub.dartlang.org/camera-0.5.8+17",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "carousel_slider",
       "rootUri": "file:///Users/amentechuser/Desktop/flutter_development/flutter/.pub-cache/hosted/pub.dartlang.org/carousel_slider-2.3.1",
       "packageUri": "lib/",
@@ -222,6 +228,18 @@
       "rootUri": "file:///Users/amentechuser/Desktop/flutter_development/flutter/.pub-cache/hosted/pub.dartlang.org/dio-3.0.10",
       "packageUri": "lib/",
       "languageVersion": "2.4"
+    },
+    {
+      "name": "dotted_border",
+      "rootUri": "file:///Users/amentechuser/Desktop/flutter_development/flutter/.pub-cache/hosted/pub.dartlang.org/dotted_border-1.0.7",
+      "packageUri": "lib/",
+      "languageVersion": "2.2"
+    },
+    {
+      "name": "email_validator",
+      "rootUri": "file:///Users/amentechuser/Desktop/flutter_development/flutter/.pub-cache/hosted/pub.dartlang.org/email_validator-1.0.6",
+      "packageUri": "lib/",
+      "languageVersion": "1.24"
     },
     {
       "name": "equatable",
@@ -576,6 +594,18 @@
       "rootUri": "file:///Users/amentechuser/Desktop/flutter_development/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.8.0-nullsafety.1",
       "packageUri": "lib/",
       "languageVersion": "2.10"
+    },
+    {
+      "name": "path_drawing",
+      "rootUri": "file:///Users/amentechuser/Desktop/flutter_development/flutter/.pub-cache/hosted/pub.dartlang.org/path_drawing-0.4.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "1.19"
+    },
+    {
+      "name": "path_parsing",
+      "rootUri": "file:///Users/amentechuser/Desktop/flutter_development/flutter/.pub-cache/hosted/pub.dartlang.org/path_parsing-0.1.4",
+      "packageUri": "lib/",
+      "languageVersion": "1.19"
     },
     {
       "name": "path_provider",
@@ -1022,7 +1052,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-01-18T13:58:41.536754Z",
+  "generated": "2021-01-19T11:59:32.362731Z",
   "generator": "pub",
   "generatorVersion": "2.10.4"
 }
