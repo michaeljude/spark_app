@@ -60,7 +60,7 @@ class BottomNavigationBloc extends Bloc<BottomNavigationEvent, BottomNavigationS
       }
       if (this.currentIndex == 4) {
         String data = await _getAccountPageData();
-        yield MessagePageLoaded(text: data);
+        yield AccountPageLoaded(text: data);
       }
     }
   }
