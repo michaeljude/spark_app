@@ -19,9 +19,14 @@ dependencies:
   flutter_feather_icons: ^1.0.3
   flutter_secure_storage: ^3.3.5
   freezed_annotation: ^0.12.0
+  flutter_spinkit: ^3.1.0
+  flutter_polyline_points: ^0.2.4
+  google_maps_flutter: ^0.5.30
+  geolocator: ^5.1.2
   http: ^0.12.2
   intl: ^0.16.1
   json_serializable: ^3.5.0
+  location: ^3.0.2
   logger: ^0.7.0
   logger_flutter: ^0.7.0
   pointycastle: ^2.0.0

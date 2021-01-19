@@ -9,6 +9,8 @@ import 'package:spark_app/application/dashboard/activity/activity_screen.dart';
 import 'package:spark_app/application/dashboard/payment/payment_screen.dart';
 import 'package:spark_app/application/dashboard/message/messagelist/message_screen.dart';
 import 'package:spark_app/application/dashboard/account/account_screen.dart';
+import 'package:spark_app/application/dashboard/home/search_destination/search_destination_screen.dart';
+
 
 class AppRoutes {
   static String initialRoute = SplashScreen.routeName;
@@ -24,6 +26,6 @@ class AppRoutes {
     AccountScreen.routeName: (BuildContext context) => AccountScreen(),
     BottomNavigationScreen.routeName: (BuildContext context) => BottomNavigationScreen(),
     RegistrationScreen.routeName: (BuildContext context) => RegistrationScreen(),
-    PersonalInformationScreen.routeName: (BuildContext context) => PersonalInformationScreen(),
+    SearchDestinationScreen.routeName: (BuildContext context) => SearchDestinationScreen(),
   };
 }
