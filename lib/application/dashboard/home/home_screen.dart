@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spark_app/theme/app_theme.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:spark_app/application/dashboard/home/search_destination/search_destination_screen.dart';
 
 class HomeScreen extends StatefulWidget {
 
@@ -130,9 +131,16 @@ class _HomeScreenState extends State<HomeScreen> {
               children: <Widget>[
                 Align(
                   alignment: Alignment.bottomCenter,
-                  child: Image.asset(
-                    "assets/images/search_destination.png",
-                    height: 125,
+                  child: GestureDetector(
+
+                      child: Image.asset(
+                        "assets/images/search_destination.png",
+                        height: 125,
+                      ),
+
+                      onTap: () {
+                        _searchdestination(context);
+                      }
                   ),
                 ),
               ],
@@ -236,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: CarouselSlider.builder(
           itemCount: images.length,
           options: CarouselOptions(
-            height: 120,
+            height: 110,
             initialPage: 2,
             viewportFraction: 1.0,
             autoPlay: true,
@@ -294,7 +302,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    elevation: 3,
+
                     margin: EdgeInsets.all(5),
                   ),
                 );
@@ -346,6 +354,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-
+void _searchdestination(BuildContext context) => Navigator.pushNamed(context, SearchDestinationScreen.routeName);
 
 
