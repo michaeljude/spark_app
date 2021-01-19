@@ -29,7 +29,7 @@ abstract class SparkApiService {
         @required @Field() String plate_no,
         @required @Field() String car_model,
         @required @Field() car_description,
-        @required @Field() String car_photo,
-        @required @Field() String driver_license
+        @required @Field() List<String> car_photo,
+        @required @Field() List<String> driver_license
     });
 }

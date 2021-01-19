@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
@@ -5,7 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spark_app/application/login/registration/registration_bloc.dart';
+import 'package:spark_app/application/login/registration/registration_event.dart';
 import 'package:spark_app/application/login/registration/registration_state.dart';
+import 'package:spark_app/application/login/registration/registration_temp_date.dart';
 import 'package:spark_app/application/reusablescreens/camera_screen.dart';
 import 'package:spark_app/core/widgets/aligned_padding.dart';
 import 'package:spark_app/core/widgets/labeled_text_field.dart';
@@ -29,17 +32,25 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
   int _licenseCount = 1;
   List<String> _carPhotoList;
   List<String> _licensePhotoList;
+  
+  TextEditingController _plateNoController;
+  TextEditingController _carModelController;
+  TextEditingController _carDescriptionController;
 
   @override
   void initState() {
     super.initState();
     _carPhotoList = List<String>();
+    _licensePhotoList = List<String>();
+    _plateNoController = TextEditingController();
+    _carModelController = TextEditingController();
+    _carDescriptionController = TextEditingController();
+
+    _bloc = BlocProvider.of<RegistrationBloc>(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    _bloc = BlocProvider.of<RegistrationBloc>(context);
-
     return BlocConsumer<RegistrationBloc, RegistrationState>(
         builder: (BuildContext context, RegistrationState state) {
           return SafeArea(
@@ -80,6 +91,7 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
                             title: "Plate No.",
                             hint: "Enter your plate nno",
                             isRequired: true,
+                            textController: _plateNoController,
                           ),
                         ),
                         Padding(
@@ -88,6 +100,7 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
                             title: "Car model",
                             hint: "Enter your car model",
                             isRequired: true,
+                            textController: _carModelController,
                           ),
                         ),
                         Padding(
@@ -97,6 +110,7 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
                             hint: "Ex. Color black. Have a scratch in front of the car",
                             isRequired: true,
                             isMultiline: true,
+                            textController: _carDescriptionController,
                           ),
                         ),
                         AlignedPadding(
@@ -144,7 +158,8 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
                             color: const Color(0xff19BA19),
                             buttonText: "SIGN UP",
                             action: () {
-
+                                saveDetails();
+                                _bloc.add(RegisterAccountEvent());
                             },
                           ),
                         ),
@@ -158,6 +173,36 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
     }, listener: (BuildContext context, RegistrationState state) {
 
     });
+  }
+
+  void saveDetails() async {
+
+    RegistrationCache.plateNo = _plateNoController.text;
+    RegistrationCache.carModel = _carModelController.text;
+    RegistrationCache.description = _carDescriptionController.text;
+    RegistrationCache.carPhotosList = await getCarPhotosList();
+    RegistrationCache.licenseList = await getLicenseList();
+    debugPrint("Done Saving Details");
+  }
+  
+  Future<List<String>> getCarPhotosList() async {
+    List<String> tempList = List<String>();
+    _carPhotoList.forEach((element) {
+      List<int> imageBytes = File(element).readAsBytesSync();
+      String imageString = base64Encode(imageBytes);
+      tempList.add(imageString);
+    });
+    return tempList;
+  }
+
+  Future<List<String>> getLicenseList() async {
+    List<String> tempList = List<String>();
+    _licensePhotoList.forEach((element) {
+      List<int> imageBytes = File(element).readAsBytesSync();
+      String imageString = base64Encode(imageBytes);
+      tempList.add(imageString);
+    });
+    return tempList;
   }
 
   Widget _buildCarListView() {

@@ -39,7 +39,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
     _passwordController = TextEditingController();
     _confirmPasswordController = TextEditingController();
 
-    _bloc = RegistrationBloc();
+    _bloc = BlocProvider.of<RegistrationBloc>(context);
   }
 
   @override
@@ -142,12 +142,10 @@ class _RegistrationScreen extends State<RegistrationScreen> {
                                 _contactNoController,
                                 _passwordController,
                                 _confirmPasswordController)) {
-                              _bloc.add(RegisterAccount(
-                                  _emailController.text,
-                                  _contactNoController.text,
-                                  _passwordController.text,
-                                  _confirmPasswordController.text
-                              ));
+                              RegistrationCache.email = _emailController.text;
+                              RegistrationCache.contactNumber = _contactNoController.text;
+                              RegistrationCache.password = _passwordController.text;
+                              RegistrationCache.confirmPassword = _confirmPasswordController.text;
                               _goToPersonalInformationScreen(context);
                             }
                             else _showErrorDialog(context);
@@ -281,12 +279,10 @@ class _PersonalInformationScreen extends State<PersonalInformationScreen> {
                           _firstNameController,
                           _lastNameController,
                           _birthdayNameController)) {
-                        _bloc.add(RegisterUser(
-                            _firstNameController.text,
-                            _lastNameController.text,
-                            radioValue,
-                            _birthdayNameController.text,
-                        ));
+                        RegistrationCache.firstName = _firstNameController.text;
+                        RegistrationCache.lastName = _lastNameController.text;
+                        RegistrationCache.gender = radioValue;
+                        RegistrationCache.birthday = _birthdayNameController.text;
                         _goToDriverDetailScreen(context);
                       }
                       else

@@ -8,6 +8,11 @@ class RegistrationCache {
   static String lastName;
   static String gender;
   static String birthday;
+  static String plateNo;
+  static String carModel;
+  static String description;
+  static List<String> carPhotosList;
+  static List<String> licenseList;
 
   static void clearCache() {
     email = null;
@@ -18,6 +23,11 @@ class RegistrationCache {
     lastName = null;
     gender = null;
     birthday = null;
+    plateNo = null;
+    carModel = null;
+    description = null;
+    carPhotosList = null;
+    licenseList = null;
   }
 
 }

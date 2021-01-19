@@ -3,38 +3,48 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:spark_app/application/login/registration/registration_event.dart';
 import 'package:spark_app/application/login/registration/registration_state.dart';
+import 'package:spark_app/application/login/registration/registration_temp_date.dart';
+import 'package:spark_app/core/repository/registrationrepository/registration_repository.dart';
 import 'package:spark_app/core/utils/utils.dart';
 
 class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
 
-  RegistrationBloc() : super(RegistrationInitialState());
+  RegistrationBloc(
+      this.repository
+      ) : super(RegistrationInitialState());
 
-  String _email;
-  String _contactNumber;
-  String _password;
-  String _confirmPassword;
-  String _firstName;
-  String _lastName;
-  String _gender;
-  String _birthday;
-
-
-  String get email => _email;
+  RegistrationRespository repository;
 
   @override
   Stream<RegistrationState> mapEventToState(RegistrationEvent event) async*{
-    if (event is RegisterAccount) {
-      _email = event.email;
-      _contactNumber = event.contactNumber;
-      _password = event.password;
-      _confirmPassword = event.confirmPassword;
-    }
-    if (event is RegisterUser) {
-      _firstName = event.firstName;
-      _lastName = event.lastName;
-      _gender = event.gender;
-      _birthday = event.birthday;
-    }
+
+      if(event is RegisterAccountEvent) {
+        yield RegistrationLoadingState();
+
+        try {
+          var response = await repository.register(
+              firstname: RegistrationCache.firstName,
+              lastname: RegistrationCache.lastName,
+              email: RegistrationCache.email,
+              password: RegistrationCache.password,
+              contact_no: RegistrationCache.contactNumber,
+              gender: RegistrationCache.gender,
+              birthday: RegistrationCache.birthday,
+              plate_no: RegistrationCache.plateNo,
+              car_model: RegistrationCache.carModel,
+              car_description: RegistrationCache.description,
+              car_photo: RegistrationCache.carPhotosList,
+              driver_license: RegistrationCache.licenseList
+          );
+
+          if(response.message == "User was created") {
+            RegistrationCache.clearCache();
+            yield RegistrationSuccessfullyCreated();
+          }
+        } catch(e) {
+            yield RegistrationFailed();
+        }
+      }
 
   }
 
@@ -73,17 +83,4 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     return true;
   }
 
-  String get contactNumber => _contactNumber;
-
-  String get password => _password;
-
-  String get confirmPassword => _confirmPassword;
-
-  String get firstName => _firstName;
-
-  String get lastName => _lastName;
-
-  String get gender => _gender;
-
-  String get birthday => _birthday;
 }

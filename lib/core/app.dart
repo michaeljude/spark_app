@@ -16,6 +16,7 @@ import 'package:spark_app/core/repository/dashboardrepository/activityrepository
 import 'package:spark_app/core/repository/dashboardrepository/homerepository/home_repository.dart';
 import 'package:spark_app/core/repository/dashboardrepository/messagerepository/message_repository.dart';
 import 'package:spark_app/core/repository/dashboardrepository/paymentrepository/payment_repository.dart';
+import 'package:spark_app/core/repository/registrationrepository/registration_repository.dart';
 import 'package:spark_app/core/routes/routes.dart';
 import 'package:spark_app/core/utils/utils.dart';
 
@@ -75,7 +76,7 @@ class _ApplicationState extends State<_Application> {
         Provider<ApiService>.value(value: _apiService),
         Provider<ValidationUtils>.value(value: _validationUtils),
         BlocProvider<LoginBloc>(create: (_) => LoginBloc(repository: this._loginRepository)),
-        BlocProvider<RegistrationBloc>(create: (_) => RegistrationBloc()),
+        BlocProvider<RegistrationBloc>(create: (_) => RegistrationBloc(RegistrationRespository())),
         BlocProvider<BottomNavigationBloc>(
         create: (context) => BottomNavigationBloc(
           homePageRepository: HomeRepository(),

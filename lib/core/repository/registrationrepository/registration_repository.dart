@@ -17,8 +17,8 @@ class RegistrationRespository {
     @required String plate_no,
     @required String car_model,
     @required String car_description,
-    @required String car_photo,
-    @required String driver_license,
+    @required List<String> car_photo,
+    @required List<String> driver_license,
 }) =>
       _apiService.register(
           firstname: firstname,
