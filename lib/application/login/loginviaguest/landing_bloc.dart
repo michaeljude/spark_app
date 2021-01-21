@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +28,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           );
           yield LoginSuccessState();
         }
-      } catch (e) {
+      } on DioError catch (e) {
+        yield LoginFailedState();
+      } catch(e) {
         yield LoginFailedState();
       }
     }

@@ -9,7 +9,7 @@ class AlignedPadding extends StatelessWidget {
   AlignedPadding({
     this.child,
     this.edgeInsets,
-    this.alignment
+    this.alignment = Alignment.centerLeft
 });
 
   @override

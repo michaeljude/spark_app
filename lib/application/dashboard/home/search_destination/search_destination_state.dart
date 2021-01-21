@@ -18,3 +18,5 @@ class SearchDestinationRefreshState extends SearchDestinationState{}
 class SearchDestinationLoadingState extends SearchDestinationState{}
 
 class SearchDestinationHideLoadingState extends SearchDestinationState{}
+
+class OnDrawRouteState extends SearchDestinationState{}

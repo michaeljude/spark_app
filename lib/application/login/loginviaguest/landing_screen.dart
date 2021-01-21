@@ -143,7 +143,7 @@ class _LoginScreen extends State<LoginScreen> {
                 child: Container(
                   padding: const EdgeInsets.only(bottom: 20, right: 30, left: 30),
                   alignment: Alignment.bottomCenter,
-                  child: ButtonNoIcon(
+                  child: SparkButton(
                     color: const Color(0xff19BA19),
                     buttonText: "LOGIN",
                     action: () {

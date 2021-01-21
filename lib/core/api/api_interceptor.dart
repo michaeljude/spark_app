@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:spark_app/core/repository/persistence/local_persistence.dart';
 
 class ApiInterceptor extends Interceptor {
@@ -21,7 +20,7 @@ class ApiInterceptor extends Interceptor {
       String token = await _localPersistence.getAppToken(LocalPersistence.appToken+currentUser);
 
       options.headers.addAll(<String, String> {
-        "Authorization": token,
+        "jwt": token,
         "Content-type": "application/json; charset=UTF-8"
       });
     }

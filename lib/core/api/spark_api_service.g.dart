@@ -103,7 +103,6 @@ class _SparkApiService implements SparkApiService {
         options: RequestOptions(
             method: 'POST',
             headers: <String, dynamic>{
-              r'Content-Type': 'application/json',
               r'include-auth-tokens': null
             },
             extra: _extra,

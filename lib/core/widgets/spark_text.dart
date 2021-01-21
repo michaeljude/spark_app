@@ -7,6 +7,8 @@ class SparkText extends StatefulWidget {
   final double size;
   final bool isRequired;
   final FontWeight fontWeight;
+  final TextDecoration textDecoration;
+  final Color color;
 
   @override
   State<StatefulWidget> createState() => _SparkText();
@@ -15,7 +17,9 @@ class SparkText extends StatefulWidget {
     @required this.text,
     this.size = 16,
     this.fontWeight,
-    this.isRequired = false
+    this.color = Colors.black87,
+    this.isRequired = false,
+    this.textDecoration
   });
 
 }
@@ -27,12 +31,12 @@ class _SparkText extends State<SparkText> {
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(style: TextStyle(
-          color: Colors.black87,
+          color: widget.color,
           fontSize: widget.size,
           fontWeight: widget.fontWeight
       ),
           children: <TextSpan> [
-            TextSpan(text: widget.text),
+            TextSpan(text: widget.text, style: TextStyle(decoration: widget.textDecoration)),
             TextSpan(
                 text: widget.isRequired ? " *" : "",
                 style: TextStyle(

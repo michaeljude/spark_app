@@ -55,7 +55,7 @@ class LoginOptionScreen extends StatelessWidget {
                         child: SizedBox(
                           width: double.infinity,
                           height: 50,
-                          child: ButtonNoIcon(
+                          child: SparkButton(
                             color: const Color(0xff117E96),
                             buttonText: "Continue To Login".toUpperCase(),
                             action: () => _loginViaGuest(context),

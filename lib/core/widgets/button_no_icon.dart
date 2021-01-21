@@ -1,13 +1,13 @@
 
 import 'package:flutter/material.dart';
 
-class ButtonNoIcon extends StatelessWidget {
+class SparkButton extends StatelessWidget {
 
   final Color color;
   final String buttonText;
   final Function action;
 
-  ButtonNoIcon({
+  SparkButton({
     @required this.color,
     @required this.buttonText,
     @required this.action,

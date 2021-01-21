@@ -37,7 +37,6 @@ abstract class SparkApiService {
 
     @POST('/parking_list.php')
     @Headers(<String, dynamic>{
-      "Content-Type" : "application/json",
       "include-auth-tokens": true
       })
     Future<List<ParkingListResponseModel>> getParkingList();
