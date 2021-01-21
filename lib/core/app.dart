@@ -2,6 +2,7 @@ import 'package:alice/alice.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_bloc.dart';
@@ -16,6 +17,8 @@ import 'package:spark_app/core/repository/dashboardrepository/activityrepository
 import 'package:spark_app/core/repository/dashboardrepository/homerepository/home_repository.dart';
 import 'package:spark_app/core/repository/dashboardrepository/messagerepository/message_repository.dart';
 import 'package:spark_app/core/repository/dashboardrepository/paymentrepository/payment_repository.dart';
+import 'package:spark_app/core/repository/persistence/local_persistence.dart';
+import 'package:spark_app/core/repository/persistence/secured_storage.dart';
 import 'package:spark_app/core/routes/routes.dart';
 import 'package:spark_app/core/utils/utils.dart';
 
@@ -62,19 +65,19 @@ class _ApplicationState extends State<_Application> {
   @override
   void initState() {
     super.initState();
-    _apiService = ApiService.instance;
+    _apiService = ApiService(context: context);
     _apiService.setDio(Dio());
     globalAlice.showInspector();
-    this._loginRepository = LoginRepository();
+    this._loginRepository = LoginRepository(_apiService);
     this._validationUtils = ValidationUtils.instance();
   }
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
-        Provider<ApiService>.value(value: _apiService),
         Provider<ValidationUtils>.value(value: _validationUtils),
-        BlocProvider<LoginBloc>(create: (_) => LoginBloc(repository: this._loginRepository)),
+        Provider<ApiService>.value(value: _apiService),
+        BlocProvider<LoginBloc>(create: (context) => LoginBloc(repository: this._loginRepository, buildContext: context)),
         BlocProvider<RegistrationBloc>(create: (_) => RegistrationBloc()),
         BlocProvider<BottomNavigationBloc>(
         create: (context) => BottomNavigationBloc(
@@ -84,7 +87,6 @@ class _ApplicationState extends State<_Application> {
           messagePageRepository: MessageRepository(),
           accountPageRepository: AccountRepository(),
         )..add(AppStarted()),
-        child: BottomNavigationScreen(),
        ),
       ],
       child: MaterialApp(

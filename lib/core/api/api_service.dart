@@ -5,6 +5,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:spark_app/core/api/api_interceptor.dart';
 import 'package:spark_app/core/api/spark_api_service.dart';
 import 'package:spark_app/core/app.dart';
+import 'package:spark_app/core/models/dashboard/searchdestination/parking_list_response_model.dart';
 import 'package:spark_app/core/models/login/login_response.dart';
 import 'package:spark_app/core/models/registration/registration_response.dart';
 import 'package:spark_app/core/repository/persistence/local_persistence.dart';
@@ -17,8 +18,9 @@ class ApiService {
 
   SparkApiService _sparkApiService;
   Dio _dio;
+  BuildContext context;
 
-  static ApiService instance = ApiService();
+  ApiService({this.context});
 
   void setDio(Dio dio) {
     this._dio = dio;
@@ -28,7 +30,7 @@ class ApiService {
 
   void resetInterceptors() {
     _dio.interceptors.clear();
-    _dio.interceptors.add(ApiInterceptor(localPersistence: LocalPersistence.instance()));
+    _dio.interceptors.add(ApiInterceptor(context: context));
     _dio.interceptors.add(PrettyDioLogger(requestHeader: true, requestBody: true));
     _dio.interceptors.add(globalAlice.getDioInterceptor());
   }
@@ -64,5 +66,7 @@ class ApiService {
           car_photo: car_photo,
           driver_license: driver_license
       );
+
+  Future<List<ParkingListResponseModel>> getParkingList() => _sparkApiService.getParkingList();
 
 }

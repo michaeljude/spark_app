@@ -40,6 +40,7 @@ mixin _$RegistrationResponseModel {
   String get message;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $RegistrationResponseModelCopyWith<RegistrationResponseModel> get copyWith;
 }
 
@@ -132,6 +133,7 @@ class _$_RegistrationResponseModel implements _RegistrationResponseModel {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(message);
 
+  @JsonKey(ignore: true)
   @override
   _$RegistrationResponseModelCopyWith<_RegistrationResponseModel>
       get copyWith =>
@@ -156,5 +158,6 @@ abstract class _RegistrationResponseModel implements RegistrationResponseModel {
   @JsonKey(name: "message")
   String get message;
   @override
+  @JsonKey(ignore: true)
   _$RegistrationResponseModelCopyWith<_RegistrationResponseModel> get copyWith;
 }

@@ -4,7 +4,8 @@ import 'package:spark_app/core/models/registration/registration_response.dart';
 
 class RegistrationRespository {
 
-  ApiService _apiService = ApiService.instance;
+  RegistrationRespository(this._apiService);
+  final ApiService _apiService;
 
   Future<RegistrationResponseModel> register({
     @required String firstname,

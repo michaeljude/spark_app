@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:spark_app/application/dashboard/bottom_navigation/bottom_navigation_bloc.dart';
 import 'package:spark_app/application/dashboard/home/home_screen.dart';
 import 'package:spark_app/application/dashboard/activity/activity_screen.dart';
-import 'package:spark_app/application/dashboard/payment/payment_screen.dart';
 import 'package:spark_app/application/dashboard/message/messagelist/message_screen.dart';
+import 'package:spark_app/application/dashboard/payment/payment_screen.dart';
 import 'package:spark_app/application/dashboard/account/account_screen.dart';
 
 import 'bottom_navigation_event.dart';
@@ -27,7 +25,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   Widget build(BuildContext context) {
     final BottomNavigationBloc bottomNavigationBloc = BlocProvider.of<BottomNavigationBloc>(context);
 
-    return Scaffold(
+    return Scaffold(//sample
 
       body: BlocBuilder<BottomNavigationBloc, BottomNavigationState>(
         builder: (BuildContext context, BottomNavigationState state) {
@@ -62,51 +60,25 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 type: BottomNavigationBarType.fixed,
                 selectedItemColor: Colors.green,
                 currentIndex: bottomNavigationBloc.currentIndex,
-              items: <BottomNavigationBarItem>[
+              items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
-                  icon: Icon(FeatherIcons.home),
+                  icon: Icon(Icons.home),
                   title: Text('Home'),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(FeatherIcons.file),
+                  icon: Icon(Icons.insert_drive_file),
                   title: Text('Activity'),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(FeatherIcons.creditCard),
+                  icon: Icon(Icons.payment),
                   title: Text('Payment'),
                 ),
                 BottomNavigationBarItem(
-                  icon: new Stack(
-                    children: <Widget>[
-                      new Icon(FeatherIcons.messageCircle),
-                      new Positioned(
-                        right: 0,
-                        child: new Container(
-                          padding: EdgeInsets.only(left: 1.0, top: 2.0, bottom: 1.0, right: 1.0),
-                          decoration: new BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          constraints: BoxConstraints(
-                            minWidth: 12,
-                            minHeight: 12,
-                          ),
-                          child: new Text(
-                            '2',
-                            style: new TextStyle(
-                              color: Colors.white,
-                              fontSize: 8,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  title: new Text('Message'),
+                  icon: Icon(Icons.messenger),
+                  title: Text('Message'),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(FeatherIcons.user),
+                  icon: Icon(Icons.account_circle),
                   title: Text('Account'),
                 ),
               ],

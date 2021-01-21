@@ -44,6 +44,7 @@ mixin _$LoginResponseModel {
   String get token;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $LoginResponseModelCopyWith<LoginResponseModel> get copyWith;
 }
 
@@ -153,6 +154,7 @@ class _$_LoginResponseModel implements _LoginResponseModel {
       const DeepCollectionEquality().hash(message) ^
       const DeepCollectionEquality().hash(token);
 
+  @JsonKey(ignore: true)
   @override
   _$LoginResponseModelCopyWith<_LoginResponseModel> get copyWith =>
       __$LoginResponseModelCopyWithImpl<_LoginResponseModel>(this, _$identity);
@@ -178,5 +180,6 @@ abstract class _LoginResponseModel implements LoginResponseModel {
   @JsonKey(name: "jwt")
   String get token;
   @override
+  @JsonKey(ignore: true)
   _$LoginResponseModelCopyWith<_LoginResponseModel> get copyWith;
 }

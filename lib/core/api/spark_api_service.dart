@@ -1,7 +1,9 @@
 
-import 'package:dio/dio.dart';
+
+import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter/cupertino.dart';
-import 'package:retrofit/http.dart';
+import 'package:retrofit/retrofit.dart';
+import 'package:spark_app/core/models/dashboard/searchdestination/parking_list_response_model.dart';
 import 'package:spark_app/core/models/login/login_response.dart';
 import 'package:spark_app/core/models/registration/registration_response.dart';
 
@@ -32,4 +34,11 @@ abstract class SparkApiService {
         @required @Field() String car_photo,
         @required @Field() String driver_license
     });
+
+    @POST('/parking_list.php')
+    @Headers(<String, dynamic>{
+      "Content-Type" : "application/json",
+      "include-auth-tokens": true
+      })
+    Future<List<ParkingListResponseModel>> getParkingList();
 }

@@ -92,4 +92,28 @@ class _SparkApiService implements SparkApiService {
     final value = RegistrationResponseModel.fromJson(_result.data);
     return value;
   }
+
+  @override
+  Future<List<ParkingListResponseModel>> getParkingList() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<List<dynamic>>('/parking_list.php',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{
+              r'Content-Type': 'application/json',
+              r'include-auth-tokens': null
+            },
+            extra: _extra,
+            contentType: 'application/json',
+            baseUrl: baseUrl),
+        data: _data);
+    var value = _result.data
+        .map((dynamic i) =>
+            ParkingListResponseModel.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
 }

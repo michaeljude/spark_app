@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:spark_app/application/dashboard/bottom_navigation/bottom_navigation_screen.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_bloc.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_event.dart';
@@ -26,13 +27,27 @@ class _LoginScreen extends State<LoginScreen> {
   LoginBloc _loginBloc;
   TextEditingController emailController;
   TextEditingController passwordController;
+  ProgressDialog _progressDialog;
 
   @override
   void initState() {
     super.initState();
     _loginBloc = BlocProvider.of<LoginBloc>(context);
-    this.emailController = TextEditingController();
-    this.passwordController = TextEditingController();
+    this.emailController = TextEditingController(text: "demo_spark@gmail.com");
+    this.passwordController = TextEditingController(text: "demospark");
+    setProgressDialog();
+  }
+
+  void setProgressDialog() {
+    _progressDialog = ProgressDialog(this.context, type: ProgressDialogType.Normal, isDismissible: false, showLogs: true);
+    _progressDialog.style(
+        message: 'Please wait...',
+        borderRadius: 10.0,
+        backgroundColor: Colors.white,
+        progressWidget: CircularProgressIndicator(),
+        elevation: 10.0,
+        insetAnimCurve: Curves.easeInOut,
+    );
   }
 
   @override
@@ -41,14 +56,17 @@ class _LoginScreen extends State<LoginScreen> {
       listener: (BuildContext context, LoginState state) {
         if (state is LoginSuccessState) {
           debugPrint("LoginSuccessState");
+          _progressDialog.hide();
 
           _dashboard(context);
         }
         else if (state is LoginStartedState) {
           debugPrint("LoginStartedState");
+          _progressDialog.show();
         }
         else if (state is LoginFailedState) {
           debugPrint("LoginFailedState");
+          _progressDialog.hide();
         }
       },
     child: AnnotatedRegion<SystemUiOverlayStyle>(

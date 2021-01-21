@@ -1,11 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:spark_app/core/repository/persistence/local_persistence.dart';
 
 class ApiInterceptor extends Interceptor {
 
-  ApiInterceptor({this.localPersistence});
+  ApiInterceptor({this.context});
 
-  LocalPersistence localPersistence;
+  BuildContext context;
 
   static const String includeAuthTokensHeader = 'include-auth-tokens';
 
@@ -14,8 +16,9 @@ class ApiInterceptor extends Interceptor {
     if(options.headers.containsKey("include-auth-tokens")) {
       options.headers.remove("include-auth-tokens");
 
-      String currentUser = await localPersistence.getCurrentUser();
-      String token = await localPersistence.getAppToken(LocalPersistence.appToken+currentUser);
+      var _localPersistence = LocalPersistence.instance();
+      String currentUser = await _localPersistence.getCurrentUser();
+      String token = await _localPersistence.getAppToken(LocalPersistence.appToken+currentUser);
 
       options.headers.addAll(<String, String> {
         "Authorization": token,

@@ -1,3 +1,4 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:spark_app/core/repository/persistence/secured_storage.dart';
 
 class LocalPersistence {
@@ -5,17 +6,26 @@ class LocalPersistence {
   static const String appToken = "keys.token-";
   static const String currentUser = "keys.currentUser";
 
-  SecuredStorage _securedStorage;
-  LocalPersistence _localPersistence;
+  final SecuredStorage securedStorage;
 
-  static LocalPersistence instance() => LocalPersistence();
+  LocalPersistence(this.securedStorage);
 
-  Future<void> setAppToken(String key, String token) => _securedStorage.saveString(key, token);
+  static LocalPersistence _localPersistence;
 
-  Future<String> getAppToken(String userId) => _securedStorage.getString(userId);
+  static LocalPersistence instance() {
+      if(_localPersistence == null) {
+        _localPersistence = LocalPersistence(SecuredStorage(FlutterSecureStorage()));
+      }
 
-  Future<void> setCurrentUser(String key, String token) => _securedStorage.saveString(key, token);
+      return _localPersistence;
+  }
 
-  Future<String> getCurrentUser() => _securedStorage.getString(currentUser);
+  Future<void> setAppToken(String key, String token) => securedStorage.saveString(key, token);
+
+  Future<String> getAppToken(String userId) => securedStorage.getString(userId);
+
+  Future<void> setCurrentUser(String key, String token) => securedStorage.saveString(key, token);
+
+  Future<String> getCurrentUser() => securedStorage.getString(currentUser);
 
 }
