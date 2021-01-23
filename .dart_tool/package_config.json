@@ -248,6 +248,12 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "expandable_bottom_sheet",
+      "rootUri": "file:///Users/judemichaelderoma/flutter/.pub-cache/hosted/pub.dartlang.org/expandable_bottom_sheet-0.2.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "fake_async",
       "rootUri": "file:///Users/judemichaelderoma/flutter/.pub-cache/hosted/pub.dartlang.org/fake_async-1.2.0-nullsafety.1",
       "packageUri": "lib/",
@@ -1058,7 +1064,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-01-22T12:35:04.536995Z",
+  "generated": "2021-01-23T02:22:27.428155Z",
   "generator": "pub",
   "generatorVersion": "2.10.4"
 }

@@ -1,3 +1,4 @@
+import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -46,6 +47,11 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
 
   BuildContext _context;
 
+  //BottomSheet
+  ParkingListResponseModel _parkingList;
+  GlobalKey<ExpandableBottomSheetState> key = new GlobalKey();
+  bool _isVisible = false;
+
   @override
   void initState() {
     getCurrentLocation();
@@ -55,6 +61,21 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
     _apiService = Provider.of<ApiService>(context, listen: false);
 
     this.markerMap = Map<String, Marker>();
+    _parkingList = ParkingListResponseModel(
+        message: "",
+        parkingId: 0,
+        ownerParkingId: 0,
+        parkingName: "",
+        parkingFlatrate: 0,
+        parkingDuration: 0,
+        parkingExceeding: 0,
+        parkingStreet: "",
+        parkingBarangay: "",
+        parkingMunicipal: "",
+        parkingProvince: "",
+        parkingCountry: "",
+        latitude: 0,
+        longitude: 0);
   }
 
   void setProgressDialog() {
@@ -123,216 +144,223 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
             title: model.parkingName,
           ),
           onTap: () {
-            _selectedPosition = Position(longitude: model.longitude, latitude: model.latitude);
-            showModalBottomSheet(
-                backgroundColor: Colors.transparent,
-                context: context,
-                builder: (builder) => _bottomSheetContainer(model));
+            _selectedPosition =
+                Position(longitude: model.longitude, latitude: model.latitude);
+            _parkingList = model;
+            key.currentState.expand();
+            _isVisible = true;
+            context.bloc<SearchDestinationBloc>().add(OnShowBottomSheetEvent());
           });
 
   Widget _bottomSheetContainer(ParkingListResponseModel parkingList) =>
-      Container(
-        padding: const EdgeInsets.all(0.0),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16), topRight: Radius.circular(16))),
-        child: Column(children: <Widget>[
-          RowAligned(
-            padding: const EdgeInsets.only(top: 21, left: 21, right: 21),
-            children: <Widget>[
-              Expanded(
-                child: SparkText(
-                  text: parkingList.parkingName,
-                  fontWeight: FontWeight.bold,
-                  color: HexColor("#19BA19"),
-                ),
-              ),
-              GestureDetector(
-                  child: Icon(
-                    Icons.favorite_border_outlined,
-                    size: 28,
+      Visibility(
+        visible: _isVisible,
+        child: Container(
+          padding: const EdgeInsets.all(0.0),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(16), topRight: Radius.circular(16))),
+          child: Column(children: <Widget>[
+            RowAligned(
+              padding: const EdgeInsets.only(top: 21, left: 21, right: 21),
+              children: <Widget>[
+                Expanded(
+                  child: SparkText(
+                    text: parkingList.parkingName,
+                    fontWeight: FontWeight.bold,
+                    color: HexColor("#19BA19"),
                   ),
-                  onTap: () => debugPrint("Favorite tapped")),
-            ],
-          ),
-          AlignedPadding(
-            alignment: Alignment.centerLeft,
-            edgeInsets:
-                const EdgeInsets.only(top: 12, bottom: 21, left: 21, right: 40),
-            child: SparkText(
-              text:
-                  "${parkingList.parkingStreet} ${parkingList.parkingBarangay} ${parkingList.parkingMunicipal} ${parkingList.parkingProvince}",
+                ),
+                GestureDetector(
+                    child: Icon(
+                      Icons.favorite_border_outlined,
+                      size: 28,
+                    ),
+                    onTap: () => debugPrint("Favorite tapped")),
+              ],
             ),
-          ),
-          AlignedPadding(
-            edgeInsets:
-                const EdgeInsets.only(top: 18, bottom: 14, left: 21, right: 21),
-            child: SparkText(
-              text: "Parking Details",
-              fontWeight: FontWeight.bold,
+            AlignedPadding(
+              alignment: Alignment.centerLeft,
+              edgeInsets: const EdgeInsets.only(
+                  top: 12, bottom: 21, left: 21, right: 40),
+              child: SparkText(
+                text:
+                    "${parkingList.parkingStreet} ${parkingList.parkingBarangay} ${parkingList.parkingMunicipal} ${parkingList.parkingProvince}",
+              ),
             ),
-          ),
-          RowAligned(
-            padding: const EdgeInsets.only(top: 21, left: 21, right: 21),
-            children: <Widget>[
-              Expanded(
-                  child: SparkText(
-                text: "Parking Fee",
-                size: 14,
-                color: HexColor("#707070"),
-              )),
-              SparkText(
-                text: "₱${parkingList.parkingFlatrate}",
-                color: HexColor("#117E96"),
-              )
-            ],
-          ),
-          RowAligned(
-            padding: const EdgeInsets.only(top: 8, left: 21, right: 21),
-            children: <Widget>[
-              Expanded(
-                  child: SparkText(
-                text: "Exceeding Rate",
-                size: 14,
-                color: HexColor("#707070"),
-              )),
-              SparkText(
-                text: "+ ₱${parkingList.parkingExceeding}",
-                color: HexColor("#FF0000"),
-              )
-            ],
-          ),
-          RowAligned(
-            padding: const EdgeInsets.only(top: 8, left: 21, right: 21),
-            children: <Widget>[
-              Expanded(
-                  child: SparkText(
-                text: "Duration",
-                size: 14,
-                color: HexColor("#707070"),
-              )),
-              SparkText(
-                text: "2 hours",
-                color: HexColor("#525252"),
-              )
-            ],
-          ),
-          RowAligned(
-            padding:
-                const EdgeInsets.only(top: 18, bottom: 12, left: 21, right: 21),
-            children: <Widget>[
-              Expanded(
-                  child: SparkText(
-                text: "TOTAL",
-                size: 18,
+            AlignedPadding(
+              edgeInsets: const EdgeInsets.only(
+                  top: 4, bottom: 14, left: 21, right: 21),
+              child: SparkText(
+                text: "Parking Details",
                 fontWeight: FontWeight.bold,
-                color: HexColor("#707070"),
-              )),
-              SparkText(
-                text: "₱ ${parkingList.parkingFlatrate * 2}",
-                color: HexColor("#525252"),
-                size: 18,
-                fontWeight: FontWeight.bold,
-              )
-            ],
-          ),
-          Container(
-            padding: const EdgeInsets.only(top: 14.0, left: 21, right: 21),
-            decoration: BoxDecoration(
-              border: Border.symmetric(
-                  horizontal: BorderSide(color: Colors.black.withOpacity(0.1))),
+              ),
             ),
-            child: RowAligned(
-              padding: const EdgeInsets.only(bottom: 12),
+            RowAligned(
+              padding: const EdgeInsets.only(top: 4, left: 21, right: 21),
               children: <Widget>[
                 Expanded(
                     child: SparkText(
-                  text: "Payment Option",
+                  text: "Parking Fee",
                   size: 14,
-                  fontWeight: FontWeight.bold,
                   color: HexColor("#707070"),
                 )),
                 SparkText(
-                  text: "Cash",
-                  size: 14,
-                  textDecoration: TextDecoration.underline,
+                  text: "₱${parkingList.parkingFlatrate}",
                   color: HexColor("#117E96"),
                 )
               ],
             ),
-          ),
-          Row(children: <Widget>[
-            Expanded(
-              child: Container(
-                  padding: const EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                      border: Border(
-                          right:
-                              BorderSide(color: Colors.black.withOpacity(0.1)),
-                          bottom: BorderSide(
-                              color: Colors.black.withOpacity(0.1)))),
-                  child: ColumnAligned(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    children: <Widget>[
-                      Icon(Icons.chat_bubble_outline_outlined),
-                      SparkText(
-                        text: "Send a message",
-                        size: 12,
-                        color: HexColor("#707070"),
-                      )
-                    ],
-                  )),
+            RowAligned(
+              padding: const EdgeInsets.only(top: 8, left: 21, right: 21),
+              children: <Widget>[
+                Expanded(
+                    child: SparkText(
+                  text: "Exceeding Rate",
+                  size: 14,
+                  color: HexColor("#707070"),
+                )),
+                SparkText(
+                  text: "+ ₱${parkingList.parkingExceeding}",
+                  color: HexColor("#FF0000"),
+                )
+              ],
             ),
-            Expanded(
-              child: Container(
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                              color: Colors.black.withOpacity(0.1)))),
-                  padding: const EdgeInsets.only(top: 20),
-                  child: ColumnAligned(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    children: <Widget>[
-                      Icon(Icons.headset_outlined),
-                      SparkText(
-                        text: "Contact Support",
-                        size: 12,
-                        color: HexColor("#707070"),
-                      )
-                    ],
+            RowAligned(
+              padding: const EdgeInsets.only(top: 8, left: 21, right: 21),
+              children: <Widget>[
+                Expanded(
+                    child: SparkText(
+                  text: "Duration",
+                  size: 14,
+                  color: HexColor("#707070"),
+                )),
+                SparkText(
+                  text: "2 hours",
+                  color: HexColor("#525252"),
+                )
+              ],
+            ),
+            RowAligned(
+              padding: const EdgeInsets.only(
+                  top: 18, bottom: 12, left: 21, right: 21),
+              children: <Widget>[
+                Expanded(
+                    child: SparkText(
+                  text: "TOTAL",
+                  size: 18,
+                  fontWeight: FontWeight.bold,
+                  color: HexColor("#707070"),
+                )),
+                SparkText(
+                  text: "₱ ${parkingList.parkingFlatrate * 2}",
+                  color: HexColor("#525252"),
+                  size: 18,
+                  fontWeight: FontWeight.bold,
+                )
+              ],
+            ),
+            Container(
+              padding: const EdgeInsets.only(top: 14.0, left: 21, right: 21),
+              decoration: BoxDecoration(
+                border: Border.symmetric(
+                    horizontal:
+                        BorderSide(color: Colors.black.withOpacity(0.1))),
+              ),
+              child: RowAligned(
+                padding: const EdgeInsets.only(bottom: 12),
+                children: <Widget>[
+                  Expanded(
+                      child: SparkText(
+                    text: "Payment Option",
+                    size: 14,
+                    fontWeight: FontWeight.bold,
+                    color: HexColor("#707070"),
                   )),
-            )
-          ]),
-          Row(children: <Widget>[
-            Expanded(
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 12.0),
-                child: SparkButton(
+                  SparkText(
+                    text: "Cash",
+                    size: 14,
+                    textDecoration: TextDecoration.underline,
                     color: HexColor("#117E96"),
-                    buttonText: "Cancel Booking",
-                    action: () {}),
+                  )
+                ],
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 12.0),
-                child: SparkButton(
-                    color: HexColor("#19BA19"),
-                    buttonText: "Book Now",
-                    action: () {
-                      _progressDialog.show();
-                      _createPolylines(position, _selectedPosition);
-                    }),
+            Row(children: <Widget>[
+              Expanded(
+                child: Container(
+                    padding: const EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                        border: Border(
+                            right: BorderSide(
+                                color: Colors.black.withOpacity(0.1)),
+                            bottom: BorderSide(
+                                color: Colors.black.withOpacity(0.1)))),
+                    child: ColumnAligned(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      children: <Widget>[
+                        Icon(Icons.chat_bubble_outline_outlined),
+                        SparkText(
+                          text: "Send a message",
+                          size: 12,
+                          color: HexColor("#707070"),
+                        )
+                      ],
+                    )),
               ),
-            )
-          ])
-        ]),
+              Expanded(
+                child: Container(
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                                color: Colors.black.withOpacity(0.1)))),
+                    padding: const EdgeInsets.only(top: 20),
+                    child: ColumnAligned(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      children: <Widget>[
+                        Icon(Icons.headset_outlined),
+                        SparkText(
+                          text: "Contact Support",
+                          size: 12,
+                          color: HexColor("#707070"),
+                        )
+                      ],
+                    )),
+              )
+            ]),
+            RowAligned(
+                padding: const EdgeInsets.only(bottom: 20),
+                children: <Widget>[
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 30.0, right: 30.0, top: 12.0),
+                      child: SparkButton(
+                          color: HexColor("#117E96"),
+                          buttonText: "Cancel Booking",
+                          action: () {}),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 30.0, right: 30.0, top: 12.0),
+                      child: SparkButton(
+                          color: HexColor("#19BA19"),
+                          buttonText: "Book Now",
+                          action: () {
+                            _progressDialog.show();
+                            _createPolylines(position, _selectedPosition);
+                          }),
+                    ),
+                  )
+                ])
+          ]),
+        ),
       );
 
-  // Widget _sendAMessage() => 
+  // Widget _sendAMessage() =>
 
   void _getParkingArea(
       List<ParkingListResponseModel> parkingList, BuildContext context) async {
@@ -384,7 +412,7 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
           }
           if (state.runtimeType == OnDrawRouteState) {
             _progressDialog.hide();
-            Navigator.pop(context);
+            key.currentState.contract();
           }
         },
         builder: (BuildContext context, SearchDestinationState state) {
@@ -394,57 +422,62 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
                 .bloc<SearchDestinationBloc>()
                 .add(SearchDestinationGetParking());
           }
-          return Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Stack(
-              children: [
-                GoogleMap(
-                  polylines: Set<Polyline>.of(polylines.values),
-                  initialCameraPosition:
-                      CameraPosition(target: _initialcameraposition),
-                  markers: this.markerMap.values.toSet(),
-                  mapType: MapType.normal,
-                  onMapCreated: _onMapCreated,
-                  myLocationButtonEnabled: false,
-                ),
-              ],
+          return ExpandableBottomSheet(
+            key: this.key,
+            expandableContent: _bottomSheetContainer(_parkingList),
+            background: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Stack(
+                children: [
+                  GoogleMap(
+                    polylines: Set<Polyline>.of(polylines.values),
+                    initialCameraPosition:
+                        CameraPosition(target: _initialcameraposition),
+                    markers: this.markerMap.values.toSet(),
+                    mapType: MapType.normal,
+                    onMapCreated: _onMapCreated,
+                    myLocationButtonEnabled: false,
+                  ),
+                ],
+              ),
             ),
           );
         },
       ),
     );
   }
+
   _createPolylines(Position start, Position destination) async {
-  // Initializing PolylinePoints
-  polylinePoints = PolylinePoints();
+    // Initializing PolylinePoints
+    polylinePoints = PolylinePoints();
 
-  PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-    "AIzaSyAmjWnnt1d36tZdhYU9oVuYeukG64uquew", // Google Maps API Key
-    PointLatLng(start.latitude, start.longitude),
-    PointLatLng(destination.latitude, destination.longitude),
-    travelMode: TravelMode.transit,
-  );
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      "AIzaSyAmjWnnt1d36tZdhYU9oVuYeukG64uquew", // Google Maps API Key
+      PointLatLng(start.latitude, start.longitude),
+      PointLatLng(destination.latitude, destination.longitude),
+      travelMode: TravelMode.transit,
+    );
 
-  // Adding the coordinates to the list
-  if (result.points.isNotEmpty) {
-    result.points.forEach((PointLatLng point) {
-      polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-    });
+    // Adding the coordinates to the list
+    if (result.points.isNotEmpty) {
+      result.points.forEach((PointLatLng point) {
+        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      });
+    }
+    PolylineId id = PolylineId('poly');
+
+    // Initializing Polyline
+    Polyline polyline = Polyline(
+      polylineId: id,
+      color: HexColor("#118098"),
+      points: polylineCoordinates,
+      width: 8,
+    );
+
+    // Adding the polyline to the map
+    polylines[id] = polyline;
+    debugPrint(polylines.toString());
+    _context.bloc<SearchDestinationBloc>().add(OnDrawRouteEvent());
   }
-  PolylineId id = PolylineId('poly');
-
-  // Initializing Polyline
-  Polyline polyline = Polyline(
-    polylineId: id,
-    color: HexColor("#118098"),
-    points: polylineCoordinates,
-    width: 8,
-  );
-
-  // Adding the polyline to the map
-  polylines[id] = polyline;
-  debugPrint(polylines.toString());
-  _context.bloc<SearchDestinationBloc>().add(OnDrawRouteEvent());
-}
 }

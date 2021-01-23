@@ -20,3 +20,4 @@ class SearchDestinationLoadingState extends SearchDestinationState{}
 class SearchDestinationHideLoadingState extends SearchDestinationState{}
 
 class OnDrawRouteState extends SearchDestinationState{}
+class OnShowBottomSheetState extends SearchDestinationState{}

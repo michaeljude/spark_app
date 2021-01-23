@@ -46,6 +46,10 @@ class SearchDestinationBloc extends Bloc<SearchDestinationEvent, SearchDestinati
       if(event is OnDrawRouteEvent) {
         yield OnDrawRouteState();
       }
+      
+      if(event is OnShowBottomSheetEvent) {
+        yield OnShowBottomSheetState();
+      }
   }
 
 
