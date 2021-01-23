@@ -40,7 +40,7 @@ class LoginOptionScreen extends StatelessWidget {
                       alignment: Alignment.center,
                       margin: EdgeInsets.all(40),
                         child: Text(
-                          "dkhawkudai diuwahdukaw dka khdawkh dawhdwaui dhwad awihd iuawhdwaio d",
+                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,

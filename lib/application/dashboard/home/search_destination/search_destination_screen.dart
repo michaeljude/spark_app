@@ -59,7 +59,7 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
 
   void setProgressDialog() {
     _progressDialog = ProgressDialog(this.context,
-        type: ProgressDialogType.Normal, isDismissible: true, showLogs: true);
+        type: ProgressDialogType.Normal, isDismissible: false, showLogs: true);
     _progressDialog.style(
       message: 'Please wait...',
       borderRadius: 10.0,
@@ -104,12 +104,12 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
     );
   }
 
-  Marker _getCurrentPosition() => Marker(
+  Marker _getCurrentPosition(BitmapDescriptor userMarker) => Marker(
         markerId: MarkerId("Current Location"),
         position: LatLng(position.latitude, position.longitude),
-        icon: BitmapDescriptor.defaultMarker,
+        icon: userMarker,
         infoWindow: InfoWindow(
-          title: "jude Location",
+          title: "My Location",
         ),
       );
 
@@ -351,9 +351,21 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
     return marker;
   }
 
-  Widget mapWidget() {
-    Marker marker = _getCurrentPosition();
+  Future<BitmapDescriptor> _getUserCustomMarker() async {
+    final ImageConfiguration config = createLocalImageConfiguration(context);
+    BitmapDescriptor marker = await BitmapDescriptor.fromAssetImage(
+        config, "assets/images/user_marker.png");
+    return marker;
+  }
+
+  void setUserMarker() async {
+    BitmapDescriptor carMarker = await _getUserCustomMarker();
+    Marker marker = _getCurrentPosition(carMarker);
     this.markerMap.putIfAbsent("MyLocation", () => marker);
+  }
+
+  Widget mapWidget() {
+    setUserMarker();
     return BlocProvider<SearchDestinationBloc>(
       create: (BuildContext context) =>
           SearchDestinationBloc(SearchDestinationRepository(_apiService)),
@@ -372,6 +384,7 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
           }
           if (state.runtimeType == OnDrawRouteState) {
             _progressDialog.hide();
+            Navigator.pop(context);
           }
         },
         builder: (BuildContext context, SearchDestinationState state) {
