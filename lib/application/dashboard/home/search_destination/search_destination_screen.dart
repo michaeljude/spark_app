@@ -456,9 +456,10 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
       "AIzaSyAmjWnnt1d36tZdhYU9oVuYeukG64uquew", // Google Maps API Key
       PointLatLng(start.latitude, start.longitude),
       PointLatLng(destination.latitude, destination.longitude),
-      travelMode: TravelMode.transit,
+      travelMode: TravelMode.driving,
     );
 
+    polylineCoordinates.clear();
     // Adding the coordinates to the list
     if (result.points.isNotEmpty) {
       result.points.forEach((PointLatLng point) {
@@ -476,6 +477,7 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
     );
 
     // Adding the polyline to the map
+    polylines.clear();
     polylines[id] = polyline;
     debugPrint(polylines.toString());
     _context.bloc<SearchDestinationBloc>().add(OnDrawRouteEvent());

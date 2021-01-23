@@ -50,6 +50,30 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
+            android.applicationVariants.all { variant ->
+                    variant.outputs.all {
+                        outputFileName = "spark_app";
+                        outputFileName += "-v" + android.defaultConfig.versionName;
+                        if (variant.buildType.name == "release") {
+                            outputFileName += ".apk";
+                        } else {
+                            outputFileName += "-debug.apk";
+                        }
+                    }
+                }
+            }
+        debug {
+            android.applicationVariants.all { variant ->
+                    variant.outputs.all {
+                        outputFileName = "spark_app";
+                        outputFileName += "-v" + android.defaultConfig.versionName;
+                        if (variant.buildType.name == "release") {
+                            outputFileName += ".apk";
+                        } else {
+                            outputFileName += "-debug.apk";
+                        }
+                    }
+                }
         }
     }
 }
