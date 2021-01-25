@@ -83,7 +83,7 @@ class _ApplicationState extends State<_Application> {
         BlocProvider<RegistrationBloc>(create: (_) => RegistrationBloc()),
         BlocProvider<BottomNavigationBloc>(
         create: (context) => BottomNavigationBloc(
-          homePageRepository: HomeRepository(),
+          homePageRepository: HomeRepository(_apiService),
           activityPageRepository: ActivityRepository(),
           paymentPageRepository: PaymentRepository(),
           messagePageRepository: MessageRepository(),

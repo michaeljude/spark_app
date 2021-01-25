@@ -19,7 +19,7 @@ class _$BookingResponseModelTearOff {
 // ignore: unused_element
   _BookingResponseModel call(
       {@JsonKey(name: 'message') String message,
-      @JsonKey(name: 'transaction_id') String transactionId}) {
+      @JsonKey(name: 'transaction_id') int transactionId}) {
     return _BookingResponseModel(
       message: message,
       transactionId: transactionId,
@@ -41,7 +41,7 @@ mixin _$BookingResponseModel {
   @JsonKey(name: 'message')
   String get message;
   @JsonKey(name: 'transaction_id')
-  String get transactionId;
+  int get transactionId;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -55,7 +55,7 @@ abstract class $BookingResponseModelCopyWith<$Res> {
       _$BookingResponseModelCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: 'message') String message,
-      @JsonKey(name: 'transaction_id') String transactionId});
+      @JsonKey(name: 'transaction_id') int transactionId});
 }
 
 /// @nodoc
@@ -76,7 +76,7 @@ class _$BookingResponseModelCopyWithImpl<$Res>
       message: message == freezed ? _value.message : message as String,
       transactionId: transactionId == freezed
           ? _value.transactionId
-          : transactionId as String,
+          : transactionId as int,
     ));
   }
 }
@@ -90,7 +90,7 @@ abstract class _$BookingResponseModelCopyWith<$Res>
   @override
   $Res call(
       {@JsonKey(name: 'message') String message,
-      @JsonKey(name: 'transaction_id') String transactionId});
+      @JsonKey(name: 'transaction_id') int transactionId});
 }
 
 /// @nodoc
@@ -113,7 +113,7 @@ class __$BookingResponseModelCopyWithImpl<$Res>
       message: message == freezed ? _value.message : message as String,
       transactionId: transactionId == freezed
           ? _value.transactionId
-          : transactionId as String,
+          : transactionId as int,
     ));
   }
 }
@@ -134,7 +134,7 @@ class _$_BookingResponseModel implements _BookingResponseModel {
   final String message;
   @override
   @JsonKey(name: 'transaction_id')
-  final String transactionId;
+  final int transactionId;
 
   @override
   String toString() {
@@ -174,7 +174,7 @@ class _$_BookingResponseModel implements _BookingResponseModel {
 abstract class _BookingResponseModel implements BookingResponseModel {
   factory _BookingResponseModel(
           {@JsonKey(name: 'message') String message,
-          @JsonKey(name: 'transaction_id') String transactionId}) =
+          @JsonKey(name: 'transaction_id') int transactionId}) =
       _$_BookingResponseModel;
 
   factory _BookingResponseModel.fromJson(Map<String, dynamic> json) =
@@ -185,7 +185,7 @@ abstract class _BookingResponseModel implements BookingResponseModel {
   String get message;
   @override
   @JsonKey(name: 'transaction_id')
-  String get transactionId;
+  int get transactionId;
   @override
   @JsonKey(ignore: true)
   _$BookingResponseModelCopyWith<_BookingResponseModel> get copyWith;

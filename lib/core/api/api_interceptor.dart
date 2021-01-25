@@ -20,8 +20,7 @@ class ApiInterceptor extends Interceptor {
       String token = await _localPersistence.getAppToken(LocalPersistence.appToken+currentUser);
 
       options.headers.addAll(<String, String> {
-        "jwt": token,
-        "Content-type": "application/json; charset=UTF-8"
+        "jwt": token
       });
     }
     return options;

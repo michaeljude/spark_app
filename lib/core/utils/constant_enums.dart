@@ -7,3 +7,9 @@ enum Positions {
   LEFT, 
   RIGHT
 }
+
+enum BookingStatus {
+  FREE,
+  BOOKED,
+  PARKED
+}

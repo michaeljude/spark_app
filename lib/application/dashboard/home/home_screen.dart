@@ -7,9 +7,7 @@ class HomeScreen extends StatefulWidget {
 
   static final String routeName = "/home";
 
-  final String text;
-
-  HomeScreen({this.text}) : super();
+  HomeScreen() : super();
 
   @override
   _HomeScreenState createState() => _HomeScreenState();

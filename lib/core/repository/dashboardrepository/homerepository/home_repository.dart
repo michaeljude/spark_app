@@ -1,12 +1,13 @@
+import 'package:spark_app/core/api/api_service.dart';
+import 'package:spark_app/core/models/home/get_status_response_model.dart';
+
 class HomeRepository {
-  String _data;
 
-  Future<void> fetchData() async {
-    // simulate real data fetching
-    await Future.delayed(Duration(milliseconds: 600));
-    // store dummy data
-    _data = 'Home Page';
-  }
+  HomeRepository(this._apiService);
 
-  String get data => _data;
+  ApiService _apiService;
+
+  Future<GetStatusResponseModel> getUserStatus(String customerId) => _apiService.getUserStatus(customerId);
+
+
 }

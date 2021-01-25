@@ -33,7 +33,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
             return Center(child: CircularProgressIndicator());
           }
           if (state is HomePageLoaded) {
-            return HomeScreen(text: state.text);
+            return HomeScreen();
           }
           if (state is ActivityPageLoaded) {
             return ActivityScreen(text: state.text);

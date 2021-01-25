@@ -29,15 +29,7 @@ class PageLoading extends BottomNavigationState {
 }
 
 class HomePageLoaded extends BottomNavigationState {
-  final String text;
-
-  HomePageLoaded({@required this.text}) : super([text]);
-
   @override
-  String toString() => 'HomePageLoaded with text: $text';
-
-  @override
-  // TODO: implement props
   List<Object> get props => throw UnimplementedError();
 }
 

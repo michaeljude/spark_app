@@ -118,9 +118,11 @@ class _SparkApiService implements SparkApiService {
     ArgumentError.checkNotNull(parkID, 'parkID');
     ArgumentError.checkNotNull(customerID, 'customerID');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = {'parkID': parkID, 'customerID': customerID};
-    _data.removeWhere((k, v) => v == null);
+    final queryParameters = <String, dynamic>{
+      r'parkID': parkID,
+      r'customerID': customerID
+    };
+    final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
         '/create_transaction.php',
         queryParameters: queryParameters,
@@ -131,6 +133,25 @@ class _SparkApiService implements SparkApiService {
             baseUrl: baseUrl),
         data: _data);
     final value = BookingResponseModel.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<GetStatusResponseModel> getUserStatus({customerID}) async {
+    ArgumentError.checkNotNull(customerID, 'customerID');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'customerID': customerID};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>('/user_status.php',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{r'include-auth-tokens': null},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = GetStatusResponseModel.fromJson(_result.data);
     return value;
   }
 }

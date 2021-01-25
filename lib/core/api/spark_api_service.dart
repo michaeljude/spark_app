@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:spark_app/core/models/dashboard/searchdestination/bookingmodel/booking_response_model.dart';
 import 'package:spark_app/core/models/dashboard/searchdestination/parking_list_response_model.dart';
+import 'package:spark_app/core/models/home/get_status_response_model.dart';
 import 'package:spark_app/core/models/login/login_response.dart';
 import 'package:spark_app/core/models/registration/registration_response.dart';
 
@@ -47,8 +48,16 @@ abstract class SparkApiService {
       "include-auth-tokens": true
     })
     Future<BookingResponseModel> bookNow(
-      @Field() int parkID,
-      @Field() String customerID
+      @Query('parkID') int parkID,
+      @Query('customerID') String customerID
     );
+
+    @GET('/user_status.php')
+    @Headers(<String, dynamic>{
+      "include-auth-tokens": true
+    })
+    Future<GetStatusResponseModel> getUserStatus({
+      @required @Query('customerID') String customerID
+    });
 
 }

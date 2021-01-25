@@ -11,11 +11,15 @@ import 'package:spark_app/application/dashboard/home/payment_details/payment_det
 import 'package:spark_app/application/dashboard/home/search_destination/search_destination_bloc.dart';
 import 'package:spark_app/application/dashboard/home/search_destination/search_destination_event.dart';
 import 'package:spark_app/application/dashboard/home/search_destination/search_destination_state.dart';
+import 'package:spark_app/application/dashboard/model/user_status_model.dart';
 import 'package:spark_app/core/api/api_service.dart';
 import 'package:spark_app/core/models/dashboard/searchdestination/parking_list_response_model.dart';
 import 'package:spark_app/core/repository/dashboardrepository/searchdestinationrepository/search_destination_repository.dart';
 import 'package:spark_app/core/utils/constant_enums.dart';
+import 'package:spark_app/core/widgets/button_no_icon.dart';
+import 'package:spark_app/core/widgets/column_aligned.dart';
 import 'package:spark_app/core/widgets/payment_details.dart';
+import 'package:spark_app/core/widgets/spark_text.dart';
 import 'package:spark_app/theme/app_theme.dart';
 
 class SearchDestinationScreen extends StatefulWidget {
@@ -78,7 +82,7 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
 
   void setProgressDialog() {
     _progressDialog = ProgressDialog(this.context,
-        type: ProgressDialogType.Normal, isDismissible: false, showLogs: true);
+        type: ProgressDialogType.Normal, isDismissible: true, showLogs: true);
     _progressDialog.style(
       message: 'Please wait...',
       borderRadius: 10.0,
@@ -138,10 +142,12 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
           markerId: MarkerId(model.parkingId.toString()),
           position: LatLng(model.latitude, model.longitude),
           icon: marker,
-          infoWindow: InfoWindow(title: model.parkingName, onTap: () {
-            _goToPaymentDetails(context, model);
-            debugPrint("Opening Payment Details Screen");
-          }),
+          infoWindow: InfoWindow(
+              title: model.parkingName,
+              onTap: () {
+                _goToPaymentDetails(context, model);
+                debugPrint("Opening Payment Details Screen");
+              }),
           onTap: () {
             _selectedPosition =
                 Position(longitude: model.longitude, latitude: model.latitude);
@@ -151,16 +157,44 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
             context.bloc<SearchDestinationBloc>().add(OnShowBottomSheetEvent());
           });
 
-  void _goToPaymentDetails(BuildContext context, ParkingListResponseModel parkingListModel) 
-    => Navigator.of(context).push(PaymentDetailsScreen.route(parkingListModel));
+  void _goToPaymentDetails(
+          BuildContext context, ParkingListResponseModel parkingListModel) =>
+      Navigator.of(context).push(PaymentDetailsScreen.route(parkingListModel));
 
   Widget _bottomSheetContainer(ParkingListResponseModel parkingList) =>
       Visibility(
           visible: _isVisible,
           child: PaymentDetails(parkingList, Origin.SEARCH_DIRECTION, () {
-            _progressDialog.show();
-            _createPolylines(position, _selectedPosition);
+            if (UserStatusModel.instance().status == BookingStatus.FREE) {
+              _progressDialog.show();
+              _context
+                  .bloc<SearchDestinationBloc>()
+                  .add(OnBookEvent(parkingListResponseModel: parkingList));
+            } else {
+              showErrorsDialog("You are already booked/parked");
+            }
           }));
+
+  void showErrorsDialog(String title) => showDialog(
+      context: context,
+      builder: (BuildContext context) => Center(
+            child: Container(
+                color: Colors.white,
+                child: ColumnAligned(
+                  padding: const EdgeInsets.all(10),
+                  children: <Widget>[
+                    SparkText(
+                        text: title, size: 30, fontWeight: FontWeight.bold),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    SparkButton(
+                        color: Colors.green,
+                        buttonText: "Okay",
+                        action: () => Navigator.of(context).pop())
+                  ],
+                )),
+          ));
 
   void _getParkingArea(
       List<ParkingListResponseModel> parkingList, BuildContext context) async {
@@ -200,8 +234,14 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
       child: BlocConsumer<SearchDestinationBloc, SearchDestinationState>(
         listener: (BuildContext context, SearchDestinationState state) {
           if (state is AddParkingMarker) {
-            _progressDialog.hide();
             _getParkingArea(state.parkingList, context);
+            if (UserStatusModel.instance().status == BookingStatus.BOOKED ||
+                UserStatusModel.instance().status == BookingStatus.PARKED) {
+              _createPolylines(position, UserStatusModel.instance().position);
+            }
+            else {
+              _progressDialog.hide();
+            }
             debugPrint("PARKING_LIST: ${state.parkingList.toString()}");
           }
           if (state.runtimeType == SearchDestinationLoadingState) {
@@ -210,16 +250,19 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
           if (state.runtimeType == SearchDestinationHideLoadingState) {
             _progressDialog.hide();
           }
+          if (state.runtimeType == OnGetParkingListFailedState) {
+            _progressDialog.hide();
+            showErrorsDialog("Something went wrong!");
+          }
           if (state.runtimeType == OnDrawRouteState) {
             _progressDialog.hide();
             key.currentState.contract();
           }
-          if(state.runtimeType == OnBookingFailed) {
+          if (state.runtimeType == OnBookingFailed) {
             _progressDialog.hide();
           }
-          if(state.runtimeType == OnBookingSuccess) {
-            _progressDialog.hide();
-
+          if (state.runtimeType == OnBookingSuccess) {
+            _createPolylines(position, _selectedPosition);
           }
         },
         builder: (BuildContext context, SearchDestinationState state) {
@@ -257,36 +300,41 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
 
   _createPolylines(Position start, Position destination) async {
     // Initializing PolylinePoints
-    polylinePoints = PolylinePoints();
+    try {
+      polylinePoints = PolylinePoints();
 
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      "AIzaSyAmjWnnt1d36tZdhYU9oVuYeukG64uquew", // Google Maps API Key
-      PointLatLng(start.latitude, start.longitude),
-      PointLatLng(destination.latitude, destination.longitude),
-      travelMode: TravelMode.driving,
-    );
+      PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+        "AIzaSyAmjWnnt1d36tZdhYU9oVuYeukG64uquew", // Google Maps API Key
+        PointLatLng(start.latitude, start.longitude),
+        PointLatLng(destination.latitude, destination.longitude),
+        travelMode: TravelMode.driving,
+      );
 
-    polylineCoordinates.clear();
-    // Adding the coordinates to the list
-    if (result.points.isNotEmpty) {
-      result.points.forEach((PointLatLng point) {
-        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-      });
+      polylineCoordinates.clear();
+      // Adding the coordinates to the list
+      if (result.points.isNotEmpty) {
+        result.points.forEach((PointLatLng point) {
+          polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+        });
+      }
+      PolylineId id = PolylineId('poly');
+
+      // Initializing Polyline
+      Polyline polyline = Polyline(
+        polylineId: id,
+        color: HexColor("#118098"),
+        points: polylineCoordinates,
+        width: 8,
+      );
+
+      // Adding the polyline to the map
+      polylines.clear();
+      polylines[id] = polyline;
+      debugPrint(polylines.toString());
+      _context.bloc<SearchDestinationBloc>().add(OnDrawRouteEvent());
+    } catch (e) {
+      _progressDialog.hide();
+      showErrorsDialog("Something went wrong!");
     }
-    PolylineId id = PolylineId('poly');
-
-    // Initializing Polyline
-    Polyline polyline = Polyline(
-      polylineId: id,
-      color: HexColor("#118098"),
-      points: polylineCoordinates,
-      width: 8,
-    );
-
-    // Adding the polyline to the map
-    polylines.clear();
-    polylines[id] = polyline;
-    debugPrint(polylines.toString());
-    _context.bloc<SearchDestinationBloc>().add(OnDrawRouteEvent());
   }
 }

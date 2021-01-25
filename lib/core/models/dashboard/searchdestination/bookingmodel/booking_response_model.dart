@@ -9,7 +9,7 @@ abstract class BookingResponseModel with _$BookingResponseModel {
 
   factory BookingResponseModel({
       @JsonKey(name: 'message') String message,
-      @JsonKey(name: 'transaction_id') String transactionId,
+      @JsonKey(name: 'transaction_id') int transactionId,
   }) = _BookingResponseModel;
 
   factory BookingResponseModel.fromJson(Map<String, dynamic> json) 

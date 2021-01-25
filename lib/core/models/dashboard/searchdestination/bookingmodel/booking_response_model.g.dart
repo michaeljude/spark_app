@@ -10,7 +10,7 @@ _$_BookingResponseModel _$_$_BookingResponseModelFromJson(
     Map<String, dynamic> json) {
   return _$_BookingResponseModel(
     message: json['message'] as String,
-    transactionId: json['transaction_id'] as String,
+    transactionId: json['transaction_id'] as int,
   );
 }
 

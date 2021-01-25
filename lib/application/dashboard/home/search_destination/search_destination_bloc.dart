@@ -1,10 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:spark_app/application/dashboard/home/search_destination/search_destination_event.dart';
 import 'package:spark_app/application/dashboard/home/search_destination/search_destination_state.dart';
+import 'package:spark_app/application/dashboard/model/user_status_model.dart';
 import 'package:spark_app/core/repository/dashboardrepository/searchdestinationrepository/search_destination_repository.dart';
 import 'package:spark_app/core/repository/persistence/local_persistence.dart';
+import 'package:spark_app/core/utils/constant_enums.dart';
 
 class SearchDestinationBloc extends Bloc<SearchDestinationEvent, SearchDestinationState> {
 
@@ -53,14 +56,18 @@ class SearchDestinationBloc extends Bloc<SearchDestinationEvent, SearchDestinati
       }
 
       if(event is OnBookEvent) {
-          yield SearchDestinationLoadingState();
-
           try {
-            
             String customerId = await LocalPersistence.instance().getCurrentUser();
 
             var result = await searchDestinationRepository.bookNow(event.parkingListResponseModel.parkingId, customerId);
-            
+            UserStatusModel.instance().status = BookingStatus.BOOKED;
+            UserStatusModel.instance().position = Position(
+              longitude: event.parkingListResponseModel.longitude, 
+              latitude: event.parkingListResponseModel.latitude
+            );
+            UserStatusModel.instance().transactionId = result.transactionId;
+
+            yield OnBookingSuccess();
 
           } on DioError catch (e) {
 

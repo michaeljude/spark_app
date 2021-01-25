@@ -26,7 +26,7 @@ class AppRoutes {
     PaymentScreen.routeName: (BuildContext context) => PaymentScreen(),
     MessageScreen.routeName: (BuildContext context) => MessageScreen(),
     AccountScreen.routeName: (BuildContext context) => AccountScreen(),
-    BottomNavigationScreen.routeName: (BuildContext context) => BottomNavigationScreen(),
+    BottomNavigationScreen.routeName: (BuildContext context) => new BottomNavigationScreen(),
     RegistrationScreen.routeName: (BuildContext context) => RegistrationScreen(),
     PersonalInformationScreen.routeName: (BuildContext context) => PersonalInformationScreen(),
     DriverDetailScreen.routeName: (BuildContext context) => DriverDetailScreen(),

@@ -1,15 +1,22 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 
 import 'package:spark_app/application/dashboard/bottom_navigation/bottom_navigation_event.dart';
 import 'package:spark_app/application/dashboard/bottom_navigation/bottom_navigation_state.dart';
+import 'package:spark_app/application/dashboard/model/user_status_model.dart';
+import 'package:spark_app/core/models/home/get_status_response_model.dart';
 import 'package:spark_app/core/repository/dashboardrepository/accountrepository/account_repository.dart';
 import 'package:spark_app/core/repository/dashboardrepository/activityrepository/activity_repository.dart';
 import 'package:spark_app/core/repository/dashboardrepository/homerepository/home_repository.dart';
 import 'package:spark_app/core/repository/dashboardrepository/messagerepository/message_repository.dart';
 import 'package:spark_app/core/repository/dashboardrepository/paymentrepository/payment_repository.dart';
+import 'package:spark_app/core/repository/persistence/local_persistence.dart';
+import 'package:spark_app/core/utils/constant_enums.dart';
+import 'package:spark_app/core/utils/spark_constants.dart';
 
-
-class BottomNavigationBloc extends Bloc<BottomNavigationEvent, BottomNavigationState> {
+class BottomNavigationBloc
+    extends Bloc<BottomNavigationEvent, BottomNavigationState> {
   final HomeRepository homePageRepository;
   final ActivityRepository activityPageRepository;
   final PaymentRepository paymentPageRepository;
@@ -17,23 +24,25 @@ class BottomNavigationBloc extends Bloc<BottomNavigationEvent, BottomNavigationS
   final AccountRepository accountPageRepository;
   int currentIndex = 0;
 
-  BottomNavigationBloc({
-    this.homePageRepository,
-    this.activityPageRepository,
-    this.paymentPageRepository,
-    this.messagePageRepository,
-    this.accountPageRepository
-  }) :  assert(homePageRepository != null),
+  BottomNavigationBloc(
+      {this.homePageRepository,
+      this.activityPageRepository,
+      this.paymentPageRepository,
+      this.messagePageRepository,
+      this.accountPageRepository})
+      : assert(homePageRepository != null),
         assert(activityPageRepository != null),
         assert(paymentPageRepository != null),
         assert(messagePageRepository != null),
-        assert(accountPageRepository != null), super(null);
+        assert(accountPageRepository != null),
+        super(null);
 
   @override
   BottomNavigationState get initialState => PageLoading();
 
   @override
-  Stream<BottomNavigationState> mapEventToState(BottomNavigationEvent event) async* {
+  Stream<BottomNavigationState> mapEventToState(
+      BottomNavigationEvent event) async* {
     if (event is AppStarted) {
       this.add(PageTapped(index: this.currentIndex));
     }
@@ -43,8 +52,7 @@ class BottomNavigationBloc extends Bloc<BottomNavigationEvent, BottomNavigationS
       yield PageLoading();
 
       if (this.currentIndex == 0) {
-        String data = await _getHomePageData();
-        yield HomePageLoaded(text: data);
+        yield await _getHomePageData();
       }
       if (this.currentIndex == 1) {
         String data = await _getActivityPageData();
@@ -65,13 +73,41 @@ class BottomNavigationBloc extends Bloc<BottomNavigationEvent, BottomNavigationS
     }
   }
 
-  Future<String> _getHomePageData() async {
-    String data = homePageRepository.data;
-    if (data == null) {
-      await homePageRepository.fetchData();
-      data = homePageRepository.data;
+  Future<BottomNavigationState> _getHomePageData() async {
+    String customerId = await LocalPersistence.instance().getCurrentUser();
+    BottomNavigationState state;
+
+    try {
+      var result = await homePageRepository.getUserStatus(customerId);
+      _setStatus(result);
+      state = HomePageLoaded();
+    } catch (e) {
+      debugPrint(e.toString());
+      state = HomePageLoaded();
     }
-    return data;
+
+    debugPrint("STATE: ${state.toString()}");
+    return state;
+  }
+
+  void _setStatus(GetStatusResponseModel status) {
+      UserStatusModel userStatusModel = UserStatusModel.instance();
+      if(status.clientParkingStatus.toLowerCase() == SparkConstants.FREE.toLowerCase()) {
+          userStatusModel.status = BookingStatus.FREE;
+          debugPrint("FREE USER");
+      }
+      else if(status.clientParkingStatus.toLowerCase() == SparkConstants.BOOKED.toLowerCase()) {
+        userStatusModel.status = BookingStatus.BOOKED;
+        userStatusModel.position = Position(longitude: status.longitude, latitude: status.latitude);
+        userStatusModel.transactionId = status.transaction_id;
+        debugPrint("BOOKED USER");
+      }
+      else if(status.clientParkingStatus.toLowerCase() == SparkConstants.PARKED.toLowerCase()) {
+        userStatusModel.status = BookingStatus.PARKED;
+        userStatusModel.position = Position(longitude: status.longitude, latitude: status.latitude);
+        userStatusModel.transactionId = status.transaction_id;
+        debugPrint("PARKED USER");
+      }
   }
 
   Future<String> _getActivityPageData() async {
@@ -82,6 +118,7 @@ class BottomNavigationBloc extends Bloc<BottomNavigationEvent, BottomNavigationS
     }
     return data;
   }
+
   Future<String> _getPaymentPageData() async {
     String data = paymentPageRepository.data;
     if (data == null) {
@@ -90,6 +127,7 @@ class BottomNavigationBloc extends Bloc<BottomNavigationEvent, BottomNavigationS
     }
     return data;
   }
+
   Future<String> _getMessagePageData() async {
     String data = messagePageRepository.data;
     if (data == null) {
@@ -98,6 +136,7 @@ class BottomNavigationBloc extends Bloc<BottomNavigationEvent, BottomNavigationS
     }
     return data;
   }
+
   Future<String> _getAccountPageData() async {
     String data = accountPageRepository.data;
     if (data == null) {
