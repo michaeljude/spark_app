@@ -102,17 +102,35 @@ class _SparkApiService implements SparkApiService {
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
-            headers: <String, dynamic>{
-              r'include-auth-tokens': null
-            },
+            headers: <String, dynamic>{r'include-auth-tokens': null},
             extra: _extra,
-            contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
     var value = _result.data
         .map((dynamic i) =>
             ParkingListResponseModel.fromJson(i as Map<String, dynamic>))
         .toList();
+    return value;
+  }
+
+  @override
+  Future<BookingResponseModel> bookNow(parkID, customerID) async {
+    ArgumentError.checkNotNull(parkID, 'parkID');
+    ArgumentError.checkNotNull(customerID, 'customerID');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = {'parkID': parkID, 'customerID': customerID};
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>(
+        '/create_transaction.php',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{r'include-auth-tokens': null},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = BookingResponseModel.fromJson(_result.data);
     return value;
   }
 }

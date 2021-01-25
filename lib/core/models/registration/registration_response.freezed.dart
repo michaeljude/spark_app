@@ -18,7 +18,7 @@ class _$RegistrationResponseModelTearOff {
   const _$RegistrationResponseModelTearOff();
 
 // ignore: unused_element
-  _RegistrationResponseModel call({@JsonKey(name: "message") String message}) {
+  _RegistrationResponseModel call({@JsonKey(name: 'message') String message}) {
     return _RegistrationResponseModel(
       message: message,
     );
@@ -36,7 +36,7 @@ const $RegistrationResponseModel = _$RegistrationResponseModelTearOff();
 
 /// @nodoc
 mixin _$RegistrationResponseModel {
-  @JsonKey(name: "message")
+  @JsonKey(name: 'message')
   String get message;
 
   Map<String, dynamic> toJson();
@@ -49,7 +49,7 @@ abstract class $RegistrationResponseModelCopyWith<$Res> {
   factory $RegistrationResponseModelCopyWith(RegistrationResponseModel value,
           $Res Function(RegistrationResponseModel) then) =
       _$RegistrationResponseModelCopyWithImpl<$Res>;
-  $Res call({@JsonKey(name: "message") String message});
+  $Res call({@JsonKey(name: 'message') String message});
 }
 
 /// @nodoc
@@ -78,7 +78,7 @@ abstract class _$RegistrationResponseModelCopyWith<$Res>
           $Res Function(_RegistrationResponseModel) then) =
       __$RegistrationResponseModelCopyWithImpl<$Res>;
   @override
-  $Res call({@JsonKey(name: "message") String message});
+  $Res call({@JsonKey(name: 'message') String message});
 }
 
 /// @nodoc
@@ -107,13 +107,13 @@ class __$RegistrationResponseModelCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_RegistrationResponseModel implements _RegistrationResponseModel {
-  _$_RegistrationResponseModel({@JsonKey(name: "message") this.message});
+  _$_RegistrationResponseModel({@JsonKey(name: 'message') this.message});
 
   factory _$_RegistrationResponseModel.fromJson(Map<String, dynamic> json) =>
       _$_$_RegistrationResponseModelFromJson(json);
 
   @override
-  @JsonKey(name: "message")
+  @JsonKey(name: 'message')
   final String message;
 
   @override
@@ -148,14 +148,14 @@ class _$_RegistrationResponseModel implements _RegistrationResponseModel {
 
 abstract class _RegistrationResponseModel implements RegistrationResponseModel {
   factory _RegistrationResponseModel(
-          {@JsonKey(name: "message") String message}) =
+          {@JsonKey(name: 'message') String message}) =
       _$_RegistrationResponseModel;
 
   factory _RegistrationResponseModel.fromJson(Map<String, dynamic> json) =
       _$_RegistrationResponseModel.fromJson;
 
   @override
-  @JsonKey(name: "message")
+  @JsonKey(name: 'message')
   String get message;
   @override
   @JsonKey(ignore: true)

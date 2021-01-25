@@ -153,7 +153,7 @@ class _LoginOptionScreen extends State<LoginOptionScreen> {
   }
 
   void _loginViaGuest(BuildContext context) =>
-      Navigator.pushNamed(context, LoginScreen.routeName);
+      Navigator.of(context).pushNamed(LoginScreen.routeName);
 
   void _loginViaFacebook(BuildContext context) {}
   void _loginViaGoogle(BuildContext context) {}

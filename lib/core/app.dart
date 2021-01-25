@@ -20,6 +20,7 @@ import 'package:spark_app/core/repository/dashboardrepository/paymentrepository/
 import 'package:spark_app/core/repository/persistence/local_persistence.dart';
 import 'package:spark_app/core/repository/persistence/secured_storage.dart';
 import 'package:spark_app/core/routes/routes.dart';
+import 'package:spark_app/core/utils/base_widgets.dart';
 import 'package:spark_app/core/utils/utils.dart';
 
 
@@ -76,6 +77,7 @@ class _ApplicationState extends State<_Application> {
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
         Provider<ValidationUtils>.value(value: _validationUtils),
+        Provider<BaseWidgets>.value(value: BaseWidgets.instance(context)),
         Provider<ApiService>.value(value: _apiService),
         BlocProvider<LoginBloc>(create: (context) => LoginBloc(repository: this._loginRepository, buildContext: context)),
         BlocProvider<RegistrationBloc>(create: (_) => RegistrationBloc()),

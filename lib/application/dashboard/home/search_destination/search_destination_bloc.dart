@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spark_app/application/dashboard/home/search_destination/search_destination_event.dart';
 import 'package:spark_app/application/dashboard/home/search_destination/search_destination_state.dart';
 import 'package:spark_app/core/repository/dashboardrepository/searchdestinationrepository/search_destination_repository.dart';
+import 'package:spark_app/core/repository/persistence/local_persistence.dart';
 
 class SearchDestinationBloc extends Bloc<SearchDestinationEvent, SearchDestinationState> {
 
@@ -49,6 +50,25 @@ class SearchDestinationBloc extends Bloc<SearchDestinationEvent, SearchDestinati
       
       if(event is OnShowBottomSheetEvent) {
         yield OnShowBottomSheetState();
+      }
+
+      if(event is OnBookEvent) {
+          yield SearchDestinationLoadingState();
+
+          try {
+            
+            String customerId = await LocalPersistence.instance().getCurrentUser();
+
+            var result = await searchDestinationRepository.bookNow(event.parkingListResponseModel.parkingId, customerId);
+            
+
+          } on DioError catch (e) {
+
+            yield SearchDestinationHideLoadingState();
+          } catch(e) {
+
+            yield SearchDestinationHideLoadingState();
+          }
       }
   }
 

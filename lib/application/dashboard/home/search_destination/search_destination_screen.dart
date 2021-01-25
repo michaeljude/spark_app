@@ -7,17 +7,15 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
+import 'package:spark_app/application/dashboard/home/payment_details/payment_details_screen.dart';
 import 'package:spark_app/application/dashboard/home/search_destination/search_destination_bloc.dart';
 import 'package:spark_app/application/dashboard/home/search_destination/search_destination_event.dart';
 import 'package:spark_app/application/dashboard/home/search_destination/search_destination_state.dart';
 import 'package:spark_app/core/api/api_service.dart';
 import 'package:spark_app/core/models/dashboard/searchdestination/parking_list_response_model.dart';
 import 'package:spark_app/core/repository/dashboardrepository/searchdestinationrepository/search_destination_repository.dart';
-import 'package:spark_app/core/widgets/aligned_padding.dart';
-import 'package:spark_app/core/widgets/button_no_icon.dart';
-import 'package:spark_app/core/widgets/column_aligned.dart';
-import 'package:spark_app/core/widgets/row_aligned.dart';
-import 'package:spark_app/core/widgets/spark_text.dart';
+import 'package:spark_app/core/utils/constant_enums.dart';
+import 'package:spark_app/core/widgets/payment_details.dart';
 import 'package:spark_app/theme/app_theme.dart';
 
 class SearchDestinationScreen extends StatefulWidget {
@@ -140,9 +138,10 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
           markerId: MarkerId(model.parkingId.toString()),
           position: LatLng(model.latitude, model.longitude),
           icon: marker,
-          infoWindow: InfoWindow(
-            title: model.parkingName,
-          ),
+          infoWindow: InfoWindow(title: model.parkingName, onTap: () {
+            _goToPaymentDetails(context, model);
+            debugPrint("Opening Payment Details Screen");
+          }),
           onTap: () {
             _selectedPosition =
                 Position(longitude: model.longitude, latitude: model.latitude);
@@ -152,215 +151,16 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
             context.bloc<SearchDestinationBloc>().add(OnShowBottomSheetEvent());
           });
 
+  void _goToPaymentDetails(BuildContext context, ParkingListResponseModel parkingListModel) 
+    => Navigator.of(context).push(PaymentDetailsScreen.route(parkingListModel));
+
   Widget _bottomSheetContainer(ParkingListResponseModel parkingList) =>
       Visibility(
-        visible: _isVisible,
-        child: Container(
-          padding: const EdgeInsets.all(0.0),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16), topRight: Radius.circular(16))),
-          child: Column(children: <Widget>[
-            RowAligned(
-              padding: const EdgeInsets.only(top: 21, left: 21, right: 21),
-              children: <Widget>[
-                Expanded(
-                  child: SparkText(
-                    text: parkingList.parkingName,
-                    fontWeight: FontWeight.bold,
-                    color: HexColor("#19BA19"),
-                  ),
-                ),
-                GestureDetector(
-                    child: Icon(
-                      Icons.favorite_border_outlined,
-                      size: 28,
-                    ),
-                    onTap: () => debugPrint("Favorite tapped")),
-              ],
-            ),
-            AlignedPadding(
-              alignment: Alignment.centerLeft,
-              edgeInsets: const EdgeInsets.only(
-                  top: 12, bottom: 21, left: 21, right: 40),
-              child: SparkText(
-                text:
-                    "${parkingList.parkingStreet} ${parkingList.parkingBarangay} ${parkingList.parkingMunicipal} ${parkingList.parkingProvince}",
-              ),
-            ),
-            AlignedPadding(
-              edgeInsets: const EdgeInsets.only(
-                  top: 4, bottom: 14, left: 21, right: 21),
-              child: SparkText(
-                text: "Parking Details",
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            RowAligned(
-              padding: const EdgeInsets.only(top: 4, left: 21, right: 21),
-              children: <Widget>[
-                Expanded(
-                    child: SparkText(
-                  text: "Parking Fee",
-                  size: 14,
-                  color: HexColor("#707070"),
-                )),
-                SparkText(
-                  text: "₱${parkingList.parkingFlatrate}",
-                  color: HexColor("#117E96"),
-                )
-              ],
-            ),
-            RowAligned(
-              padding: const EdgeInsets.only(top: 8, left: 21, right: 21),
-              children: <Widget>[
-                Expanded(
-                    child: SparkText(
-                  text: "Exceeding Rate",
-                  size: 14,
-                  color: HexColor("#707070"),
-                )),
-                SparkText(
-                  text: "+ ₱${parkingList.parkingExceeding}",
-                  color: HexColor("#FF0000"),
-                )
-              ],
-            ),
-            RowAligned(
-              padding: const EdgeInsets.only(top: 8, left: 21, right: 21),
-              children: <Widget>[
-                Expanded(
-                    child: SparkText(
-                  text: "Duration",
-                  size: 14,
-                  color: HexColor("#707070"),
-                )),
-                SparkText(
-                  text: "2 hours",
-                  color: HexColor("#525252"),
-                )
-              ],
-            ),
-            RowAligned(
-              padding: const EdgeInsets.only(
-                  top: 18, bottom: 12, left: 21, right: 21),
-              children: <Widget>[
-                Expanded(
-                    child: SparkText(
-                  text: "TOTAL",
-                  size: 18,
-                  fontWeight: FontWeight.bold,
-                  color: HexColor("#707070"),
-                )),
-                SparkText(
-                  text: "₱ ${parkingList.parkingFlatrate * 2}",
-                  color: HexColor("#525252"),
-                  size: 18,
-                  fontWeight: FontWeight.bold,
-                )
-              ],
-            ),
-            Container(
-              padding: const EdgeInsets.only(top: 14.0, left: 21, right: 21),
-              decoration: BoxDecoration(
-                border: Border.symmetric(
-                    horizontal:
-                        BorderSide(color: Colors.black.withOpacity(0.1))),
-              ),
-              child: RowAligned(
-                padding: const EdgeInsets.only(bottom: 12),
-                children: <Widget>[
-                  Expanded(
-                      child: SparkText(
-                    text: "Payment Option",
-                    size: 14,
-                    fontWeight: FontWeight.bold,
-                    color: HexColor("#707070"),
-                  )),
-                  SparkText(
-                    text: "Cash",
-                    size: 14,
-                    textDecoration: TextDecoration.underline,
-                    color: HexColor("#117E96"),
-                  )
-                ],
-              ),
-            ),
-            Row(children: <Widget>[
-              Expanded(
-                child: Container(
-                    padding: const EdgeInsets.only(top: 20),
-                    decoration: BoxDecoration(
-                        border: Border(
-                            right: BorderSide(
-                                color: Colors.black.withOpacity(0.1)),
-                            bottom: BorderSide(
-                                color: Colors.black.withOpacity(0.1)))),
-                    child: ColumnAligned(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      children: <Widget>[
-                        Icon(Icons.chat_bubble_outline_outlined),
-                        SparkText(
-                          text: "Send a message",
-                          size: 12,
-                          color: HexColor("#707070"),
-                        )
-                      ],
-                    )),
-              ),
-              Expanded(
-                child: Container(
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                                color: Colors.black.withOpacity(0.1)))),
-                    padding: const EdgeInsets.only(top: 20),
-                    child: ColumnAligned(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      children: <Widget>[
-                        Icon(Icons.headset_outlined),
-                        SparkText(
-                          text: "Contact Support",
-                          size: 12,
-                          color: HexColor("#707070"),
-                        )
-                      ],
-                    )),
-              )
-            ]),
-            RowAligned(
-                padding: const EdgeInsets.only(bottom: 20),
-                children: <Widget>[
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 30.0, right: 30.0, top: 12.0),
-                      child: SparkButton(
-                          color: HexColor("#117E96"),
-                          buttonText: "Cancel Booking",
-                          action: () {}),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 30.0, right: 30.0, top: 12.0),
-                      child: SparkButton(
-                          color: HexColor("#19BA19"),
-                          buttonText: "Book Now",
-                          action: () {
-                            _progressDialog.show();
-                            _createPolylines(position, _selectedPosition);
-                          }),
-                    ),
-                  )
-                ])
-          ]),
-        ),
-      );
-
-  // Widget _sendAMessage() =>
+          visible: _isVisible,
+          child: PaymentDetails(parkingList, Origin.SEARCH_DIRECTION, () {
+            _progressDialog.show();
+            _createPolylines(position, _selectedPosition);
+          }));
 
   void _getParkingArea(
       List<ParkingListResponseModel> parkingList, BuildContext context) async {
@@ -413,6 +213,13 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
           if (state.runtimeType == OnDrawRouteState) {
             _progressDialog.hide();
             key.currentState.contract();
+          }
+          if(state.runtimeType == OnBookingFailed) {
+            _progressDialog.hide();
+          }
+          if(state.runtimeType == OnBookingSuccess) {
+            _progressDialog.hide();
+
           }
         },
         builder: (BuildContext context, SearchDestinationState state) {
