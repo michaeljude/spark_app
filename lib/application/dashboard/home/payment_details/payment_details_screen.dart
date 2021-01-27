@@ -72,7 +72,7 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
                           context.bloc<PaymentDetailsBloc>().add(SetUserAsParkedEvent());
                         }, bookingStatus: UserStatusModel.instance().status,),
                     Expanded(
-                        child: Align(
+                        child: Align( 
                       alignment: Alignment.bottomCenter,
                       child: RowAligned(
                           padding: const EdgeInsets.only(bottom: 25),

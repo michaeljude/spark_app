@@ -272,6 +272,30 @@
       "languageVersion": "2.2"
     },
     {
+      "name": "firebase_core",
+      "rootUri": "file:///Users/judemichaelderoma/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.5.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "firebase_core_platform_interface",
+      "rootUri": "file:///Users/judemichaelderoma/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_platform_interface-2.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "firebase_core_web",
+      "rootUri": "file:///Users/judemichaelderoma/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-0.2.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "firebase_messaging",
+      "rootUri": "file:///Users/judemichaelderoma/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging-7.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "fixnum",
       "rootUri": "file:///Users/judemichaelderoma/flutter/.pub-cache/hosted/pub.dartlang.org/fixnum-0.10.11",
       "packageUri": "lib/",
@@ -1070,7 +1094,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-01-25T06:25:25.246352Z",
+  "generated": "2021-01-27T05:17:14.582323Z",
   "generator": "pub",
   "generatorVersion": "2.10.4"
 }
