@@ -89,7 +89,7 @@ class _LoginScreen extends State<LoginScreen> {
               ),
               Container(
                 alignment: Alignment.center,
-                margin: EdgeInsets.all(40),
+                margin: EdgeInsets.only(left: 40, right: 40),
                 child: Text(
                   "Login to access your account.",
                   style: TextStyle(

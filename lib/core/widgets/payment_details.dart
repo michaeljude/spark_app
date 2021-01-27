@@ -12,8 +12,9 @@ class PaymentDetails extends StatefulWidget {
   final ParkingListResponseModel parkingList;
   final Function action;
   final Origin origin;
+  final BookingStatus bookingStatus;
 
-  PaymentDetails(this.parkingList, this.origin, this.action);
+  PaymentDetails(this.parkingList, this.origin, this.action, {this.bookingStatus});
 
   @override
   State<StatefulWidget> createState() => _PaymentDetailsState();
@@ -223,9 +224,7 @@ class _PaymentDetailsState extends State<PaymentDetails> {
                 child: SparkButton(
                     color: HexColor("#19BA19"),
                     buttonText: "Book Now",
-                    action: () {
-                      widget.action();
-                    }),
+                    action: widget.action()),
               ),
             )
           ]);
@@ -235,7 +234,8 @@ class _PaymentDetailsState extends State<PaymentDetails> {
         children: <Widget>[
           SizedBox(height: 18),
           SparkButton(
-              color: HexColor("#19BA19"), buttonText: "Parked", action: null),
+            isEnabled: widget.bookingStatus == BookingStatus.BOOKED,
+              color: HexColor("#19BA19"), buttonText: "Parked", action: () => widget.action()),
           SizedBox(
             height: 8,
           ),

@@ -154,4 +154,26 @@ class _SparkApiService implements SparkApiService {
     final value = GetStatusResponseModel.fromJson(_result.data);
     return value;
   }
+
+  @override
+  Future<GenericResponseModel> setUserParked(
+      {customerID, transactionID}) async {
+    ArgumentError.checkNotNull(customerID, 'customerID');
+    ArgumentError.checkNotNull(transactionID, 'transactionID');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _data = {'customerID': customerID, 'transactionID': transactionID};
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>('/user_parked.php',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{r'include-auth-tokens': null},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = GenericResponseModel.fromJson(_result.data);
+    return value;
+  }
 }

@@ -171,7 +171,7 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
                   .bloc<SearchDestinationBloc>()
                   .add(OnBookEvent(parkingListResponseModel: parkingList));
             } else {
-              showErrorsDialog("You are already booked/parked");
+              //showErrorsDialog("You are already booked/parked");
             }
           }));
 
@@ -235,8 +235,7 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
         listener: (BuildContext context, SearchDestinationState state) {
           if (state is AddParkingMarker) {
             _getParkingArea(state.parkingList, context);
-            if (UserStatusModel.instance().status == BookingStatus.BOOKED ||
-                UserStatusModel.instance().status == BookingStatus.PARKED) {
+            if (UserStatusModel.instance().status == BookingStatus.BOOKED) {
               _createPolylines(position, UserStatusModel.instance().position);
             }
             else {

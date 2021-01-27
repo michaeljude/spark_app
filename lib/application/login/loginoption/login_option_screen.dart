@@ -49,9 +49,9 @@ class _LoginOptionScreen extends State<LoginOptionScreen> {
           ),
           Container(
             alignment: Alignment.center,
-            margin: EdgeInsets.all(40),
+            margin: EdgeInsets.only(left: 40, right: 40),
             child: Text(
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+              "Welcom to Spark",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16,

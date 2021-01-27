@@ -21,9 +21,19 @@ class BottomNavigationScreen extends StatefulWidget {
 }
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
+
+  BottomNavigationBloc bottomNavigationBloc;
+  
+  @override
+  void initState() {
+    super.initState();
+
+    bottomNavigationBloc = BlocProvider.of<BottomNavigationBloc>(context);
+    bottomNavigationBloc.add(AppStarted());
+  }
+
   @override
   Widget build(BuildContext context) {
-    final BottomNavigationBloc bottomNavigationBloc = BlocProvider.of<BottomNavigationBloc>(context);
 
     return Scaffold(//sample
 

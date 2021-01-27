@@ -7,6 +7,7 @@ import 'package:spark_app/core/api/spark_api_service.dart';
 import 'package:spark_app/core/app.dart';
 import 'package:spark_app/core/models/dashboard/searchdestination/bookingmodel/booking_response_model.dart';
 import 'package:spark_app/core/models/dashboard/searchdestination/parking_list_response_model.dart';
+import 'package:spark_app/core/models/generic_response.dart';
 import 'package:spark_app/core/models/home/get_status_response_model.dart';
 import 'package:spark_app/core/models/login/login_response.dart';
 import 'package:spark_app/core/models/registration/registration_response.dart';
@@ -79,5 +80,9 @@ class ApiService {
   Future<GetStatusResponseModel> getUserStatus(
     String customerId
   ) => _sparkApiService.getUserStatus(customerID: customerId);
+
+  Future<GenericResponseModel> setUserAsParked(
+    String customerId, int transationId
+  ) => _sparkApiService.setUserParked(customerID: customerId, transactionID: transationId);
 
 }

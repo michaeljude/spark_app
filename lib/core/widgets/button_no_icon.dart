@@ -6,11 +6,13 @@ class SparkButton extends StatelessWidget {
   final Color color;
   final String buttonText;
   final Function action;
+  final bool isEnabled;
 
   SparkButton({
     @required this.color,
     @required this.buttonText,
     @required this.action,
+    this.isEnabled = true
   });
 
   @override
@@ -22,14 +24,14 @@ class SparkButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8)
         ),
-        onPressed: () {
+        onPressed: isEnabled ? () {
           this.action();
-        },
-        color: this.color,
+        } : null,
+        color: _getBackgroudColor(),
         child: Text(
           this.buttonText,
           style: TextStyle(
-            color: Colors.white,
+            color: _getFontColor(),
             fontSize: 17,
           ),
           textAlign: TextAlign.center,
@@ -38,5 +40,16 @@ class SparkButton extends StatelessWidget {
     );
   }
 
+  Color _getBackgroudColor() {
+    if(this.isEnabled) {
+      return this.color;
+    } else return Colors.grey; 
+  }
+
+  Color _getFontColor() {
+    if(this.isEnabled) {
+      return Colors.white;
+    } else return Colors.black45; 
+  }
 
 }
