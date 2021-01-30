@@ -1,12 +1,14 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:spark_app/application/dashboard/account/account_screen.dart';
 import 'package:spark_app/application/dashboard/activity/activity_screen.dart';
 import 'package:spark_app/application/dashboard/bottom_navigation/bottom_navigation_bloc.dart';
 import 'package:spark_app/application/dashboard/home/home_screen.dart';
 import 'package:spark_app/application/dashboard/message/messagelist/message_screen.dart';
 import 'package:spark_app/application/dashboard/payment/payment_screen.dart';
+import 'package:spark_app/core/models/spark_data_model.dart';
 
 import 'bottom_navigation_event.dart';
 import 'bottom_navigation_state.dart';
@@ -30,25 +32,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   
       bottomNavigationBloc = BlocProvider.of<BottomNavigationBloc>(context);
       bottomNavigationBloc.add(AppStarted());
-  
-      // setFirebaseMessaging();
     }
-  
-    // void setFirebaseMessaging() {
-    //   widget._firebaseMessaging.configure(
-    //     onMessage: (Map<String, dynamic> message) async {
-    //       print("onMessage: $message");
-    //     },
-    //     //onBackgroundMessage: myBackgroundMessageHandler,
-    //     onLaunch: (Map<String, dynamic> message) async {
-    //       print("onLaunch: $message");
-    //     },
-    //     onResume: (Map<String, dynamic> message) async {
-    //       print("onResume: $message");
-    //     },
-    //   );
-    // }
-  
+    
     @override
     Widget build(BuildContext context) {
       return Scaffold(//sample

@@ -36,6 +36,7 @@ class PaymentDetailsBloc
 
       yield ShowLoadingState();
       try {
+        var customerId = await LocalPersistence.instance().getCurrentUser();
         var result = await _repository.getTransactionDetails(transactionID: UserStatusModel.instance().transactionId);
         yield SuccessfulGetTransactionDetails(
           bookedTime: result.bookedTime,

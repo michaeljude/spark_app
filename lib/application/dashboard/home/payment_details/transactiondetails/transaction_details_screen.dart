@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:spark_app/application/dashboard/model/user_status_model.dart';
 import 'package:spark_app/core/models/dashboard/searchdestination/parking_list_response_model.dart';
 import 'package:spark_app/core/widgets/aligned_padding.dart';
 import 'package:spark_app/core/widgets/row_aligned.dart';
@@ -10,15 +12,29 @@ class TransactionDetailsScreen extends StatelessWidget {
   final String bookedTime;
   final String serverTime;
   final ParkingListResponseModel parkingList;
+  final String paymentMethod;
+  final String customerId;
 
-  TransactionDetailsScreen({this.bookedTime, this.serverTime, this.parkingList});
+  TransactionDetailsScreen(
+      {this.customerId,
+      this.bookedTime,
+      this.serverTime,
+      this.parkingList,
+      this.paymentMethod});
 
-  static Route<dynamic> route({String bookedTime, String serverTime, ParkingListResponseModel parkingList}) {
+  static Route<dynamic> route(
+      {String bookedTime,
+      String serverTime,
+      ParkingListResponseModel parkingList,
+      String paymentMethod,
+      String customerId}) {
     return MaterialPageRoute(
         builder: (BuildContext context) => TransactionDetailsScreen(
               bookedTime: bookedTime,
               serverTime: serverTime,
               parkingList: parkingList,
+              paymentMethod: paymentMethod,
+              customerId: customerId,
             ));
   }
 
@@ -35,9 +51,26 @@ class TransactionDetailsScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             AlignedPadding(
-              alignment: Alignment.centerLeft,
+                alignment: Alignment.center,
+                edgeInsets: const EdgeInsets.only(left: 21, right: 40),
+                child: QrImage(
+                  data:
+                      "{'customerID': $customerId, 'transactionID': ${UserStatusModel.instance().transactionId}}",
+                  version: QrVersions.auto,
+                  size: 100.0,
+                )),
+            AlignedPadding(
+              alignment: Alignment.center,
+              edgeInsets: const EdgeInsets.only(top: 12, left: 21, right: 40),
+              child: SparkText(
+                fontWeight: FontWeight.bold,
+                text: "${this.parkingList.parkingName}",
+              ),
+            ),
+            AlignedPadding(
+              alignment: Alignment.center,
               edgeInsets: const EdgeInsets.only(
-                  top: 12, bottom: 21, left: 21, right: 40),
+                  top: 4, bottom: 21, left: 21, right: 40),
               child: SparkText(
                 text:
                     "${this.parkingList.parkingStreet} ${this.parkingList.parkingBarangay} ${this.parkingList.parkingMunicipal} ${this.parkingList.parkingProvince}",
@@ -47,7 +80,7 @@ class TransactionDetailsScreen extends StatelessWidget {
               edgeInsets: const EdgeInsets.only(
                   top: 4, bottom: 14, left: 21, right: 21),
               child: SparkText(
-                text: "Parking Details",
+                text: "Transaction Details",
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -97,6 +130,21 @@ class TransactionDetailsScreen extends StatelessWidget {
               ],
             ),
             RowAligned(
+              padding: const EdgeInsets.only(top: 8, left: 21, right: 21),
+              children: <Widget>[
+                Expanded(
+                    child: SparkText(
+                  text: "Payment Mode",
+                  size: 14,
+                  color: HexColor("#707070"),
+                )),
+                SparkText(
+                  text: paymentMethod,
+                  color: HexColor("#525252"),
+                )
+              ],
+            ),
+            RowAligned(
               padding: const EdgeInsets.only(
                   top: 18, bottom: 12, left: 21, right: 21),
               children: <Widget>[
@@ -108,7 +156,7 @@ class TransactionDetailsScreen extends StatelessWidget {
                   color: HexColor("#707070"),
                 )),
                 SparkText(
-                  text: "₱ ${this.parkingList.parkingFlatrate * 2}",
+                  text: "₱ ${this.parkingList.parkingFlatrate}",
                   color: HexColor("#525252"),
                   size: 18,
                   fontWeight: FontWeight.bold,

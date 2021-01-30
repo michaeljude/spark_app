@@ -764,6 +764,18 @@
       "languageVersion": "2.10"
     },
     {
+      "name": "qr",
+      "rootUri": "file:///Users/judemichaelderoma/flutter/.pub-cache/hosted/pub.dartlang.org/qr-1.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
+      "name": "qr_flutter",
+      "rootUri": "file:///Users/judemichaelderoma/flutter/.pub-cache/hosted/pub.dartlang.org/qr_flutter-3.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
       "name": "quiver",
       "rootUri": "file:///Users/judemichaelderoma/flutter/.pub-cache/hosted/pub.dartlang.org/quiver-2.1.5",
       "packageUri": "lib/",
@@ -1094,7 +1106,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-01-27T05:17:14.582323Z",
+  "generated": "2021-01-30T10:30:59.276116Z",
   "generator": "pub",
-  "generatorVersion": "2.10.4"
+  "generatorVersion": "2.10.5"
 }

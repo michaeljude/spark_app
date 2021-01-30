@@ -50,8 +50,8 @@ abstract class SparkApiService {
       "include-auth-tokens": true
     })
     Future<BookingResponseModel> bookNow(
-      @Query('parkID') int parkID,
-      @Query('customerID') String customerID
+      @Field() int parkID,
+      @Field() String customerID
     );
 
     @GET('/user_status.php')
@@ -72,6 +72,9 @@ abstract class SparkApiService {
     });
 
     @GET('/user_transaction_details.php')
+    @Headers(<String, dynamic>{
+      "include-auth-tokens": true
+    })
     Future<TransactionDetailsResponseModel> getUserTransactionDetails(
       @Query('transactionID') int transactionID
     );

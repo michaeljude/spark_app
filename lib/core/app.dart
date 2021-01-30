@@ -18,8 +18,9 @@ import 'package:spark_app/core/repository/dashboardrepository/paymentrepository/
 import 'package:spark_app/core/repository/loginrepository/login_repository.dart';
 import 'package:spark_app/core/routes/routes.dart';
 import 'package:spark_app/core/utils/base_widgets.dart';
-import 'package:spark_app/core/utils/firebase/firebase_service.dart';
 import 'package:spark_app/core/utils/utils.dart';
+
+import 'models/spark_data_model.dart';
 
 Alice globalAlice = Alice(
     showInspectorOnShake: false, showNotification: false, darkTheme: true);
@@ -53,14 +54,15 @@ class _ApplicationState extends State<_Application> {
   ApiService _apiService;
   LoginRepository _loginRepository;
   ValidationUtils _validationUtils;
-
   FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  SparkDataModel _sparkDataModel;
 
   @override
   void initState() {
     super.initState();
     _apiService = ApiService(context: context);
     _apiService.setDio(Dio());
+    _sparkDataModel = SparkDataModel();
     globalAlice.showInspector();
     this._loginRepository = LoginRepository(_apiService);
     this._validationUtils = ValidationUtils.instance();
@@ -70,11 +72,29 @@ class _ApplicationState extends State<_Application> {
     setFirebaseMessaging();
   }
 
+  static Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
+  if (message.containsKey('data')) {
+    // Handle data message
+    final dynamic data = message['data'];
+  }
+
+  if (message.containsKey('notification')) {
+    // Handle notification message
+    final dynamic notification = message['notification'];
+  }
+
+  // Or do other work.
+}
+
   void setFirebaseMessaging() {
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessageReceived: $message");
+        setState(() {
+          
+        });
       },
+      onBackgroundMessage: _ApplicationState.myBackgroundMessageHandler,
       onLaunch: (Map<String, dynamic> message) async {
         print("onLaunch: $message");
       },
@@ -90,6 +110,7 @@ class _ApplicationState extends State<_Application> {
       providers: [
         Provider<ValidationUtils>.value(value: _validationUtils),
         Provider<BaseWidgets>.value(value: BaseWidgets.instance(context)),
+        Provider<SparkDataModel>.value(value: _sparkDataModel),
         Provider<ApiService>.value(value: _apiService),
         BlocProvider<LoginBloc>(
             create: (context) => LoginBloc(

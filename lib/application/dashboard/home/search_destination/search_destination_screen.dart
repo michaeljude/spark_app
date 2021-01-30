@@ -333,7 +333,8 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
       _context.bloc<SearchDestinationBloc>().add(OnDrawRouteEvent());
     } catch (e) {
       _progressDialog.hide();
-      showErrorsDialog("Something went wrong!");
+      debugPrint("DIRECTION ERROR: $e");
+      showErrorsDialog("Something wbaent wrong!");
     }
   }
 }

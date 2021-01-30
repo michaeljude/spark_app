@@ -118,11 +118,9 @@ class _SparkApiService implements SparkApiService {
     ArgumentError.checkNotNull(parkID, 'parkID');
     ArgumentError.checkNotNull(customerID, 'customerID');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'parkID': parkID,
-      r'customerID': customerID
-    };
-    final _data = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = {'parkID': parkID, 'customerID': customerID};
+    _data.removeWhere((k, v) => v == null);
     final _result = await _dio.request<Map<String, dynamic>>(
         '/create_transaction.php',
         queryParameters: queryParameters,
@@ -189,7 +187,7 @@ class _SparkApiService implements SparkApiService {
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
-            headers: <String, dynamic>{},
+            headers: <String, dynamic>{r'include-auth-tokens': null},
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);

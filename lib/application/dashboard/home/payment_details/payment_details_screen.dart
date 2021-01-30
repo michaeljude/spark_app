@@ -52,7 +52,10 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
         child: BlocConsumer<PaymentDetailsBloc, PaymentDetailsState>(
             builder: (context, state) {
           return SparkScaffold(
-            icon: Icon(Icons.arrow_back, color: Colors.black,),
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
             onLeadingIconFunction: () => Navigator.of(context).pop(),
             backgroundColor: Colors.white,
             body: Column(
@@ -107,7 +110,9 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
                                   color: HexColor("#19BA19"),
                                   buttonText: "Payment",
                                   action: () {
-                                    context.bloc<PaymentDetailsBloc>().add(GetTransactionDetailsEvent());
+                                    context
+                                        .bloc<PaymentDetailsBloc>()
+                                        .add(GetTransactionDetailsEvent());
                                   }),
                             ),
                           ),
@@ -126,13 +131,14 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
           if (state.runtimeType == SuccessfullyParkedState) {}
           if (state.runtimeType == FailedParkedState) {}
           if (state is SuccessfulGetTransactionDetails) {
-            TransactionDetailsScreen.route(
-              bookedTime: state.bookedTime, serverTime: state.serverTime, parkingList: widget.parkingList
-            );
+            Navigator.of(context).push(TransactionDetailsScreen.route(
+                customerId: state.customerId,
+                bookedTime: state.bookedTime,
+                serverTime: state.serverTime,
+                parkingList: widget.parkingList,
+                paymentMethod: "Cash"));
           }
-          if (state.runtimeType == FailedGetTransactionDetails) {
-
-          }
+          if (state.runtimeType == FailedGetTransactionDetails) {}
         }));
   }
 }
