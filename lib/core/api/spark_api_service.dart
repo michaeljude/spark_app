@@ -3,6 +3,7 @@
 import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter/cupertino.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:spark_app/core/models/dashboard/paymentdetails/transaction_details_response_model.dart';
 import 'package:spark_app/core/models/dashboard/searchdestination/bookingmodel/booking_response_model.dart';
 import 'package:spark_app/core/models/dashboard/searchdestination/parking_list_response_model.dart';
 import 'package:spark_app/core/models/generic_response.dart';
@@ -69,4 +70,9 @@ abstract class SparkApiService {
       @required @Field() String customerID,
       @required @Field() int transactionID
     });
+
+    @GET('/user_transaction_details.php')
+    Future<TransactionDetailsResponseModel> getUserTransactionDetails(
+      @Query('transactionID') int transactionID
+    );
 }

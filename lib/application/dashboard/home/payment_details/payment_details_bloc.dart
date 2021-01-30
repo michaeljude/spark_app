@@ -24,12 +24,29 @@ class PaymentDetailsBloc
         await _repository.setUserAsParked(UserStatusModel.instance().transactionId, customerId);
         UserStatusModel.instance().status = BookingStatus.PARKED;
         yield SuccessfullyParkedState();
-      } on DioError catch (e) {
+      } on DioError catch (_) {
         yield FailedParkedState();
       } catch (e) {
         yield FailedParkedState();
       }
 
+      yield HideLoadingState();
+    }
+    if(event.runtimeType == GetTransactionDetailsEvent) {
+
+      yield ShowLoadingState();
+      try {
+        var result = await _repository.getTransactionDetails(transactionID: UserStatusModel.instance().transactionId);
+        yield SuccessfulGetTransactionDetails(
+          bookedTime: result.bookedTime,
+          serverTime: result.serverTime
+        );
+
+      } on DioError catch(_) {
+        yield FailedGetTransactionDetails();
+      } catch(e) {
+        yield FailedGetTransactionDetails();
+      }
       yield HideLoadingState();
     }
   }

@@ -74,7 +74,7 @@ class _LoginOptionScreen extends State<LoginOptionScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(28.0),
+            padding: const EdgeInsets.only(left: 28.0, right: 28, bottom: 20),
             child: Row(
               children: <Widget>[
                 Expanded(
@@ -133,6 +133,7 @@ class _LoginOptionScreen extends State<LoginOptionScreen> {
                   size: 18,
                 )),
           ),
+          SizedBox(height: 10,),
         ],
       ),
     ));

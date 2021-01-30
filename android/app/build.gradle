@@ -44,6 +44,9 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
+    dependencies {
+        implementation 'com.google.firebase:firebase-messaging:21.0.1'
+    }
 
     buildTypes {
         release {

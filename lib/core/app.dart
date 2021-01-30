@@ -18,6 +18,7 @@ import 'package:spark_app/core/repository/dashboardrepository/paymentrepository/
 import 'package:spark_app/core/repository/loginrepository/login_repository.dart';
 import 'package:spark_app/core/routes/routes.dart';
 import 'package:spark_app/core/utils/base_widgets.dart';
+import 'package:spark_app/core/utils/firebase/firebase_service.dart';
 import 'package:spark_app/core/utils/utils.dart';
 
 Alice globalAlice = Alice(
@@ -66,6 +67,21 @@ class _ApplicationState extends State<_Application> {
     _firebaseMessaging.getToken().then((token) {
       print(token);
     });
+    setFirebaseMessaging();
+  }
+
+  void setFirebaseMessaging() {
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessageReceived: $message");
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+      },
+    );
   }
 
   @override
@@ -97,5 +113,10 @@ class _ApplicationState extends State<_Application> {
         routes: AppRoutes.routes,
       ),
     );
+  }
+  @override
+  void dispose() {
+    super.dispose();
+
   }
 }

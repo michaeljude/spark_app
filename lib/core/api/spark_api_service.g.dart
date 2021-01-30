@@ -176,4 +176,24 @@ class _SparkApiService implements SparkApiService {
     final value = GenericResponseModel.fromJson(_result.data);
     return value;
   }
+
+  @override
+  Future<TransactionDetailsResponseModel> getUserTransactionDetails(
+      transactionID) async {
+    ArgumentError.checkNotNull(transactionID, 'transactionID');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'transactionID': transactionID};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        '/user_transaction_details.php',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = TransactionDetailsResponseModel.fromJson(_result.data);
+    return value;
+  }
 }

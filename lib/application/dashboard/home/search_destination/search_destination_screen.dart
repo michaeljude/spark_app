@@ -171,29 +171,33 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
                   .bloc<SearchDestinationBloc>()
                   .add(OnBookEvent(parkingListResponseModel: parkingList));
             } else {
-              //showErrorsDialog("You are already booked/parked");
+              showErrorsDialog("You are already booked/parked");
             }
           }));
 
   void showErrorsDialog(String title) => showDialog(
       context: context,
       builder: (BuildContext context) => Center(
-            child: Container(
-                color: Colors.white,
-                child: ColumnAligned(
-                  padding: const EdgeInsets.all(10),
-                  children: <Widget>[
-                    SparkText(
-                        text: title, size: 30, fontWeight: FontWeight.bold),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    SparkButton(
-                        color: Colors.green,
-                        buttonText: "Okay",
-                        action: () => Navigator.of(context).pop())
-                  ],
-                )),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * .7,
+              width: MediaQuery.of(context).size.width * .9,
+              child: Container(
+                  color: Colors.white,
+                  child: ColumnAligned(
+                    padding: const EdgeInsets.all(10),
+                    children: <Widget>[
+                      SparkText(
+                          text: title, size: 30, fontWeight: FontWeight.bold),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      SparkButton(
+                          color: Colors.green,
+                          buttonText: "Okay",
+                          action: () => Navigator.of(context).pop())
+                    ],
+                  )),
+            ),
           ));
 
   void _getParkingArea(
@@ -277,9 +281,7 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
             background: Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: Stack(
-                children: [
-                  GoogleMap(
+              child: Stack(children: [GoogleMap(
                     polylines: Set<Polyline>.of(polylines.values),
                     initialCameraPosition:
                         CameraPosition(target: _initialcameraposition),
@@ -287,9 +289,7 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
                     mapType: MapType.normal,
                     onMapCreated: _onMapCreated,
                     myLocationButtonEnabled: false,
-                  ),
-                ],
-              ),
+                  ),],),
             ),
           );
         },

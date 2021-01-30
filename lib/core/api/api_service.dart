@@ -5,6 +5,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:spark_app/core/api/api_interceptor.dart';
 import 'package:spark_app/core/api/spark_api_service.dart';
 import 'package:spark_app/core/app.dart';
+import 'package:spark_app/core/models/dashboard/paymentdetails/transaction_details_response_model.dart';
 import 'package:spark_app/core/models/dashboard/searchdestination/bookingmodel/booking_response_model.dart';
 import 'package:spark_app/core/models/dashboard/searchdestination/parking_list_response_model.dart';
 import 'package:spark_app/core/models/generic_response.dart';
@@ -85,4 +86,7 @@ class ApiService {
     String customerId, int transationId
   ) => _sparkApiService.setUserParked(customerID: customerId, transactionID: transationId);
 
+  Future<TransactionDetailsResponseModel> getTransactionDetails({
+      int transactionID
+  }) => _sparkApiService.getUserTransactionDetails(transactionID);
 }
