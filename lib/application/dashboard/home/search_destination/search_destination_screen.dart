@@ -145,16 +145,23 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
           infoWindow: InfoWindow(
               title: model.parkingName,
               onTap: () {
-                _goToPaymentDetails(context, model);
-                debugPrint("Opening Payment Details Screen");
+                if (UserStatusModel.instance().status == BookingStatus.BOOKED ||
+                    UserStatusModel.instance().status == BookingStatus.PARKED) {
+                  _goToPaymentDetails(context, model);
+                  debugPrint("Opening Payment Details Screen");
+                }
               }),
           onTap: () {
             _selectedPosition =
                 Position(longitude: model.longitude, latitude: model.latitude);
             _parkingList = model;
-            key.currentState.expand();
-            _isVisible = true;
-            context.bloc<SearchDestinationBloc>().add(OnShowBottomSheetEvent());
+            if (UserStatusModel.instance().status == BookingStatus.FREE) {
+              key.currentState.expand();
+              _isVisible = true;
+              context
+                  .bloc<SearchDestinationBloc>()
+                  .add(OnShowBottomSheetEvent());
+            }
           });
 
   void _goToPaymentDetails(
@@ -241,8 +248,7 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
             _getParkingArea(state.parkingList, context);
             if (UserStatusModel.instance().status == BookingStatus.BOOKED) {
               _createPolylines(position, UserStatusModel.instance().position);
-            }
-            else {
+            } else {
               _progressDialog.hide();
             }
             debugPrint("PARKING_LIST: ${state.parkingList.toString()}");
@@ -281,7 +287,9 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
             background: Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: Stack(children: [GoogleMap(
+              child: Stack(
+                children: [
+                  GoogleMap(
                     polylines: Set<Polyline>.of(polylines.values),
                     initialCameraPosition:
                         CameraPosition(target: _initialcameraposition),
@@ -289,7 +297,9 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
                     mapType: MapType.normal,
                     onMapCreated: _onMapCreated,
                     myLocationButtonEnabled: false,
-                  ),],),
+                  ),
+                ],
+              ),
             ),
           );
         },

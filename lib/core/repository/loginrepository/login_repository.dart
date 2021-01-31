@@ -7,7 +7,9 @@ class LoginRepository {
   LoginRepository(this._apiService);
   final ApiService _apiService;
 
-  Future<LoginResponseModel> login({@required String email, @required String password}) =>
-    _apiService.login(email: email, password: password);
+  Future<LoginResponseModel> login({
+    @required String email, @required String password, @required String token
+  }) =>
+    _apiService.login(email: email, password: password, device_token: token);
 
 }

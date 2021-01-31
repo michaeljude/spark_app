@@ -66,9 +66,6 @@ class _ApplicationState extends State<_Application> {
     globalAlice.showInspector();
     this._loginRepository = LoginRepository(_apiService);
     this._validationUtils = ValidationUtils.instance();
-    _firebaseMessaging.getToken().then((token) {
-      print(token);
-    });
     setFirebaseMessaging();
   }
 
@@ -112,6 +109,7 @@ class _ApplicationState extends State<_Application> {
         Provider<BaseWidgets>.value(value: BaseWidgets.instance(context)),
         Provider<SparkDataModel>.value(value: _sparkDataModel),
         Provider<ApiService>.value(value: _apiService),
+        Provider<FirebaseMessaging>.value(value: _firebaseMessaging),
         BlocProvider<LoginBloc>(
             create: (context) => LoginBloc(
                 repository: this._loginRepository, buildContext: context)),

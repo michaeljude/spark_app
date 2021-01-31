@@ -17,13 +17,18 @@ class _SparkApiService implements SparkApiService {
   String baseUrl;
 
   @override
-  Future<LoginResponseModel> login({email, password}) async {
+  Future<LoginResponseModel> login({email, password, device_token}) async {
     ArgumentError.checkNotNull(email, 'email');
     ArgumentError.checkNotNull(password, 'password');
+    ArgumentError.checkNotNull(device_token, 'device_token');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
-    final _data = {'email': email, 'password': password};
+    final _data = {
+      'email': email,
+      'password': password,
+      'device_token': device_token
+    };
     _data.removeWhere((k, v) => v == null);
     final _result = await _dio.request<Map<String, dynamic>>('/login.php',
         queryParameters: queryParameters,

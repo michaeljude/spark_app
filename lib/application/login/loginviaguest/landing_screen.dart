@@ -1,9 +1,11 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:provider/provider.dart';
 import 'package:spark_app/application/dashboard/bottom_navigation/bottom_navigation_screen.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_bloc.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_event.dart';
@@ -28,6 +30,7 @@ class _LoginScreen extends State<LoginScreen> {
   TextEditingController emailController;
   TextEditingController passwordController;
   ProgressDialog _progressDialog;
+  String token;
 
   @override
   void initState() {
@@ -35,6 +38,12 @@ class _LoginScreen extends State<LoginScreen> {
     _loginBloc = BlocProvider.of<LoginBloc>(context);
     this.emailController = TextEditingController(text: "demo_spark@gmail.com");
     this.passwordController = TextEditingController(text: "demospark");
+
+    Provider.of<FirebaseMessaging>(context, listen: false).getToken().then((token) {
+      debugPrint(token);
+      this.token = token;
+    });
+
     setProgressDialog();
   }
 
@@ -147,7 +156,7 @@ class _LoginScreen extends State<LoginScreen> {
                     color: const Color(0xff19BA19),
                     buttonText: "LOGIN",
                     action: () {
-                      _loginBloc.add(LoginViaGuestEvent(emailController.text, passwordController.text));
+                      _loginBloc.add(LoginViaGuestEvent(emailController.text, passwordController.text, token));
                     },
                   ),
                 ),

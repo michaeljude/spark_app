@@ -39,8 +39,8 @@ class ApiService {
     _dio.interceptors.add(globalAlice.getDioInterceptor());
   }
 
-  Future<LoginResponseModel> login({@required String email, @required String password}) =>
-      _sparkApiService.login(email: email, password: password);
+  Future<LoginResponseModel> login({@required String email, @required String password, @required String device_token}) =>
+      _sparkApiService.login(email: email, password: password, device_token: device_token);
 
   Future<RegistrationResponseModel> register({
     @required String firstname,

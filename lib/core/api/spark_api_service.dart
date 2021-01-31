@@ -21,6 +21,7 @@ abstract class SparkApiService {
     Future<LoginResponseModel> login({
         @required @Field() String email,
         @required @Field() String password,
+        @required @Field() String device_token,
     });
 
     @POST('/create_user.php')
