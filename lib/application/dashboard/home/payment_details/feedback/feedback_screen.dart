@@ -208,7 +208,7 @@ class FeedbackScreen extends StatelessWidget {
                       ),
                       AlignedPadding(
                         alignment: Alignment.bottomCenter,
-                        edgeInsets: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                        edgeInsets: const EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 20),
                         child: Expanded(
                             child: SparkButton(
                                 color: HexColor("#117E96"),

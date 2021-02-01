@@ -56,7 +56,7 @@ android {
             android.applicationVariants.all { variant ->
                     variant.outputs.all {
                         outputFileName = "spark_app";
-                        outputFileName += "-v" + android.defaultConfig.versionName;
+                        outputFileName += "-v" + "${android.defaultConfig.versionName}(${android.defaultConfig.versionCode})";
                         if (variant.buildType.name == "release") {
                             outputFileName += ".apk";
                         } else {
@@ -69,7 +69,7 @@ android {
             android.applicationVariants.all { variant ->
                     variant.outputs.all {
                         outputFileName = "spark_app";
-                        outputFileName += "-v" + android.defaultConfig.versionName;
+                        outputFileName += "-v" + "${android.defaultConfig.versionName}(${android.defaultConfig.versionCode})";
                         if (variant.buildType.name == "release") {
                             outputFileName += ".apk";
                         } else {
