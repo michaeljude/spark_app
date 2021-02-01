@@ -20,12 +20,14 @@ class _$GetStatusResponseModelTearOff {
 // ignore: unused_element
   _GetStatusResponseModel call(
       {@JsonKey(name: 'message') String message,
+      @JsonKey(name: 'parking_name') String parkingName,
       @JsonKey(name: 'client_parking_status') String clientParkingStatus,
       @JsonKey(name: 'latitude') double latitude,
       @JsonKey(name: 'longitude') double longitude,
       @JsonKey(name: 'transaction_id') int transaction_id}) {
     return _GetStatusResponseModel(
       message: message,
+      parkingName: parkingName,
       clientParkingStatus: clientParkingStatus,
       latitude: latitude,
       longitude: longitude,
@@ -47,6 +49,8 @@ const $GetStatusResponseModel = _$GetStatusResponseModelTearOff();
 mixin _$GetStatusResponseModel {
   @JsonKey(name: 'message')
   String get message;
+  @JsonKey(name: 'parking_name')
+  String get parkingName;
   @JsonKey(name: 'client_parking_status')
   String get clientParkingStatus;
   @JsonKey(name: 'latitude')
@@ -68,6 +72,7 @@ abstract class $GetStatusResponseModelCopyWith<$Res> {
       _$GetStatusResponseModelCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: 'message') String message,
+      @JsonKey(name: 'parking_name') String parkingName,
       @JsonKey(name: 'client_parking_status') String clientParkingStatus,
       @JsonKey(name: 'latitude') double latitude,
       @JsonKey(name: 'longitude') double longitude,
@@ -86,6 +91,7 @@ class _$GetStatusResponseModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object message = freezed,
+    Object parkingName = freezed,
     Object clientParkingStatus = freezed,
     Object latitude = freezed,
     Object longitude = freezed,
@@ -93,6 +99,8 @@ class _$GetStatusResponseModelCopyWithImpl<$Res>
   }) {
     return _then(_value.copyWith(
       message: message == freezed ? _value.message : message as String,
+      parkingName:
+          parkingName == freezed ? _value.parkingName : parkingName as String,
       clientParkingStatus: clientParkingStatus == freezed
           ? _value.clientParkingStatus
           : clientParkingStatus as String,
@@ -114,6 +122,7 @@ abstract class _$GetStatusResponseModelCopyWith<$Res>
   @override
   $Res call(
       {@JsonKey(name: 'message') String message,
+      @JsonKey(name: 'parking_name') String parkingName,
       @JsonKey(name: 'client_parking_status') String clientParkingStatus,
       @JsonKey(name: 'latitude') double latitude,
       @JsonKey(name: 'longitude') double longitude,
@@ -134,6 +143,7 @@ class __$GetStatusResponseModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object message = freezed,
+    Object parkingName = freezed,
     Object clientParkingStatus = freezed,
     Object latitude = freezed,
     Object longitude = freezed,
@@ -141,6 +151,8 @@ class __$GetStatusResponseModelCopyWithImpl<$Res>
   }) {
     return _then(_GetStatusResponseModel(
       message: message == freezed ? _value.message : message as String,
+      parkingName:
+          parkingName == freezed ? _value.parkingName : parkingName as String,
       clientParkingStatus: clientParkingStatus == freezed
           ? _value.clientParkingStatus
           : clientParkingStatus as String,
@@ -159,6 +171,7 @@ class __$GetStatusResponseModelCopyWithImpl<$Res>
 class _$_GetStatusResponseModel implements _GetStatusResponseModel {
   _$_GetStatusResponseModel(
       {@JsonKey(name: 'message') this.message,
+      @JsonKey(name: 'parking_name') this.parkingName,
       @JsonKey(name: 'client_parking_status') this.clientParkingStatus,
       @JsonKey(name: 'latitude') this.latitude,
       @JsonKey(name: 'longitude') this.longitude,
@@ -170,6 +183,9 @@ class _$_GetStatusResponseModel implements _GetStatusResponseModel {
   @override
   @JsonKey(name: 'message')
   final String message;
+  @override
+  @JsonKey(name: 'parking_name')
+  final String parkingName;
   @override
   @JsonKey(name: 'client_parking_status')
   final String clientParkingStatus;
@@ -185,7 +201,7 @@ class _$_GetStatusResponseModel implements _GetStatusResponseModel {
 
   @override
   String toString() {
-    return 'GetStatusResponseModel(message: $message, clientParkingStatus: $clientParkingStatus, latitude: $latitude, longitude: $longitude, transaction_id: $transaction_id)';
+    return 'GetStatusResponseModel(message: $message, parkingName: $parkingName, clientParkingStatus: $clientParkingStatus, latitude: $latitude, longitude: $longitude, transaction_id: $transaction_id)';
   }
 
   @override
@@ -195,6 +211,9 @@ class _$_GetStatusResponseModel implements _GetStatusResponseModel {
             (identical(other.message, message) ||
                 const DeepCollectionEquality()
                     .equals(other.message, message)) &&
+            (identical(other.parkingName, parkingName) ||
+                const DeepCollectionEquality()
+                    .equals(other.parkingName, parkingName)) &&
             (identical(other.clientParkingStatus, clientParkingStatus) ||
                 const DeepCollectionEquality()
                     .equals(other.clientParkingStatus, clientParkingStatus)) &&
@@ -213,6 +232,7 @@ class _$_GetStatusResponseModel implements _GetStatusResponseModel {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(parkingName) ^
       const DeepCollectionEquality().hash(clientParkingStatus) ^
       const DeepCollectionEquality().hash(latitude) ^
       const DeepCollectionEquality().hash(longitude) ^
@@ -233,6 +253,7 @@ class _$_GetStatusResponseModel implements _GetStatusResponseModel {
 abstract class _GetStatusResponseModel implements GetStatusResponseModel {
   factory _GetStatusResponseModel(
           {@JsonKey(name: 'message') String message,
+          @JsonKey(name: 'parking_name') String parkingName,
           @JsonKey(name: 'client_parking_status') String clientParkingStatus,
           @JsonKey(name: 'latitude') double latitude,
           @JsonKey(name: 'longitude') double longitude,
@@ -245,6 +266,9 @@ abstract class _GetStatusResponseModel implements GetStatusResponseModel {
   @override
   @JsonKey(name: 'message')
   String get message;
+  @override
+  @JsonKey(name: 'parking_name')
+  String get parkingName;
   @override
   @JsonKey(name: 'client_parking_status')
   String get clientParkingStatus;

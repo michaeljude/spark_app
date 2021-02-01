@@ -100,12 +100,14 @@ class BottomNavigationBloc
         userStatusModel.status = BookingStatus.BOOKED;
         userStatusModel.position = Position(longitude: status.longitude, latitude: status.latitude);
         userStatusModel.transactionId = status.transaction_id;
+        userStatusModel.parkingName = status.parkingName;
         debugPrint("BOOKED USER");
       }
       else if(status.clientParkingStatus.toLowerCase() == SparkConstants.PARKED.toLowerCase()) {
         userStatusModel.status = BookingStatus.PARKED;
         userStatusModel.position = Position(longitude: status.longitude, latitude: status.latitude);
         userStatusModel.transactionId = status.transaction_id;
+        userStatusModel.parkingName = status.parkingName;
         debugPrint("PARKED USER");
       }
   }

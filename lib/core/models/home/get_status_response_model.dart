@@ -7,6 +7,7 @@ abstract class GetStatusResponseModel with _$GetStatusResponseModel {
 
   factory GetStatusResponseModel({
       @JsonKey(name: 'message') String message,
+      @JsonKey(name: 'parking_name') String parkingName,
       @JsonKey(name: 'client_parking_status') String clientParkingStatus,
       @JsonKey(name: 'latitude') double latitude,
       @JsonKey(name: 'longitude') double longitude,

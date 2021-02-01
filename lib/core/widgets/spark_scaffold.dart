@@ -16,19 +16,21 @@ class SparkScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: AppBar(
-              backgroundColor: this.backgroundColor,
-              elevation: 0.0,
-              leading: IconButton(
-                icon: this.icon,
-                onPressed: () {
-                  this.onLeadingIconFunction();
-                },
+    return SafeArea(
+          child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              appBar: AppBar(
+                backgroundColor: this.backgroundColor,
+                elevation: 0.0,
+                leading: IconButton(
+                  icon: this.icon,
+                  onPressed: () {
+                    this.onLeadingIconFunction();
+                  },
+                ),
               ),
-            ),
-            body: this.body
+              body: this.body
+      ),
     );
   }
 

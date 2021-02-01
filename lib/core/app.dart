@@ -7,6 +7,8 @@ import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:spark_app/application/dashboard/bottom_navigation/bottom_navigation_bloc.dart';
 import 'package:spark_app/application/dashboard/bottom_navigation/bottom_navigation_event.dart';
+import 'package:spark_app/application/dashboard/home/payment_details/transactiondetails/transaction_details_bloc.dart';
+import 'package:spark_app/application/dashboard/home/payment_details/transactiondetails/transaction_details_event.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_bloc.dart';
 import 'package:spark_app/application/login/registration/registration_bloc.dart';
 import 'package:spark_app/core/api/api_service.dart';
@@ -57,6 +59,8 @@ class _ApplicationState extends State<_Application> {
   FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   SparkDataModel _sparkDataModel;
 
+  TransactionDetailsBloc _transactionDetailsBloc;
+
   @override
   void initState() {
     super.initState();
@@ -64,32 +68,33 @@ class _ApplicationState extends State<_Application> {
     _apiService.setDio(Dio());
     _sparkDataModel = SparkDataModel();
     globalAlice.showInspector();
+    _transactionDetailsBloc = TransactionDetailsBloc();
     this._loginRepository = LoginRepository(_apiService);
     this._validationUtils = ValidationUtils.instance();
     setFirebaseMessaging();
   }
 
-  static Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
-  if (message.containsKey('data')) {
-    // Handle data message
-    final dynamic data = message['data'];
-  }
+  static Future<dynamic> myBackgroundMessageHandler(
+      Map<String, dynamic> message) async {
+    if (message.containsKey('data')) {
+      // Handle data message
+      final dynamic data = message['data'];
+    }
 
-  if (message.containsKey('notification')) {
-    // Handle notification message
-    final dynamic notification = message['notification'];
-  }
+    if (message.containsKey('notification')) {
+      // Handle notification message
+      final dynamic notification = message['notification'];
+    }
 
-  // Or do other work.
-}
+    // Or do other work.
+  }
 
   void setFirebaseMessaging() {
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessageReceived: $message");
-        setState(() {
-          
-        });
+
+        _onMessageReceive(message);
       },
       onBackgroundMessage: _ApplicationState.myBackgroundMessageHandler,
       onLaunch: (Map<String, dynamic> message) async {
@@ -99,6 +104,12 @@ class _ApplicationState extends State<_Application> {
         print("onResume: $message");
       },
     );
+  }
+
+  void _onMessageReceive(Map<String, dynamic> message) {
+    if (message["notification"]["title"] == "Spark Payment") {
+      _transactionDetailsBloc.add(TransactionDetailsOnReceiptReceived());
+    }
   }
 
   @override
@@ -114,6 +125,7 @@ class _ApplicationState extends State<_Application> {
             create: (context) => LoginBloc(
                 repository: this._loginRepository, buildContext: context)),
         BlocProvider<RegistrationBloc>(create: (_) => RegistrationBloc()),
+        BlocProvider<TransactionDetailsBloc>(create: (_) => _transactionDetailsBloc),
         BlocProvider<BottomNavigationBloc>(
           create: (context) => BottomNavigationBloc(
             homePageRepository: HomeRepository(_apiService),
@@ -133,9 +145,9 @@ class _ApplicationState extends State<_Application> {
       ),
     );
   }
+
   @override
   void dispose() {
     super.dispose();
-
   }
 }

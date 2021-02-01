@@ -1,13 +1,13 @@
 class SparkDataModel {
 
-  bool _isWaitingForReceipt = false;
+  bool _hasReceivedReceipt = false;
 
   SparkDataModel();
 
-  bool get isWaitingForReceipt => _isWaitingForReceipt;
+  bool get hasReceivedReceipt => _hasReceivedReceipt;
 
-  set setIsWaitingForReceipt(bool val){
-      _isWaitingForReceipt = val;
+  set setHasReceivedReceipt(bool val){
+      _hasReceivedReceipt = val;
   }
 
 }

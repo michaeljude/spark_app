@@ -1,0 +1,5 @@
+class TransactionDetailsState {}
+
+class TransactionDetailsInitialState extends TransactionDetailsState{}
+
+class TransactionDetailsOnShowFeedbackScreen extends TransactionDetailsState{}

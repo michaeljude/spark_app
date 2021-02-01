@@ -191,6 +191,7 @@ class _LoginScreen extends State<LoginScreen> {
 
   void _goToRegistration() => Navigator.pushNamed(context, RegistrationScreen.routeName);
 
-  void _dashboard(BuildContext context) => Navigator.pushNamed(context, BottomNavigationScreen.routeName);
+  void _dashboard(BuildContext context) => 
+  Navigator.pushNamedAndRemoveUntil(context, BottomNavigationScreen.routeName, (route) => false);
 
 }

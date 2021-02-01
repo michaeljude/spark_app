@@ -146,7 +146,8 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
               title: model.parkingName,
               onTap: () {
                 if (UserStatusModel.instance().status == BookingStatus.BOOKED ||
-                    UserStatusModel.instance().status == BookingStatus.PARKED) {
+                    UserStatusModel.instance().status == BookingStatus.PARKED &&
+                    UserStatusModel.instance().parkingName == model.parkingName) {
                   _goToPaymentDetails(context, model);
                   debugPrint("Opening Payment Details Screen");
                 }

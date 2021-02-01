@@ -4,6 +4,7 @@ import 'package:spark_app/core/utils/constant_enums.dart';
 class UserStatusModel {
 
   BookingStatus status;
+  String parkingName;
   int transactionId;
   Position position;
 

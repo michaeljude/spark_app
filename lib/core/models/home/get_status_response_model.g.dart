@@ -10,6 +10,7 @@ _$_GetStatusResponseModel _$_$_GetStatusResponseModelFromJson(
     Map<String, dynamic> json) {
   return _$_GetStatusResponseModel(
     message: json['message'] as String,
+    parkingName: json['parking_name'] as String,
     clientParkingStatus: json['client_parking_status'] as String,
     latitude: (json['latitude'] as num)?.toDouble(),
     longitude: (json['longitude'] as num)?.toDouble(),
@@ -21,6 +22,7 @@ Map<String, dynamic> _$_$_GetStatusResponseModelToJson(
         _$_GetStatusResponseModel instance) =>
     <String, dynamic>{
       'message': instance.message,
+      'parking_name': instance.parkingName,
       'client_parking_status': instance.clientParkingStatus,
       'latitude': instance.latitude,
       'longitude': instance.longitude,
