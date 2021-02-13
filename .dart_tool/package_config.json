@@ -806,6 +806,12 @@
       "languageVersion": "2.3"
     },
     {
+      "name": "search_map_place",
+      "rootUri": "file:///Users/judemichaelderoma/flutter/.pub-cache/hosted/pub.dartlang.org/search_map_place-0.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.5"
+    },
+    {
       "name": "sensors",
       "rootUri": "file:///Users/judemichaelderoma/flutter/.pub-cache/hosted/pub.dartlang.org/sensors-0.4.2+6",
       "packageUri": "lib/",
@@ -1106,7 +1112,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-01-30T10:30:59.276116Z",
+  "generated": "2021-02-10T13:53:18.819469Z",
   "generator": "pub",
   "generatorVersion": "2.10.5"
 }

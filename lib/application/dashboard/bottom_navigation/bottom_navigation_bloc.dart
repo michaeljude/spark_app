@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
@@ -76,18 +78,25 @@ class BottomNavigationBloc
   Future<BottomNavigationState> _getHomePageData() async {
     String customerId = await LocalPersistence.instance().getCurrentUser();
     BottomNavigationState state;
-
+    bool hasError = false;
     try {
       var result = await homePageRepository.getUserStatus(customerId);
       _setStatus(result);
-      state = HomePageLoaded();
     } catch (e) {
       debugPrint(e.toString());
-      state = HomePageLoaded();
+      hasError = true;
     }
 
-    debugPrint("STATE: ${state.toString()}");
-    return state;
+    try {
+      var result = await homePageRepository.getParkingList();
+      LocalPersistence localPersistence = LocalPersistence.instance();
+      String parkingList = jsonEncode(result);
+      localPersistence.securedStorage.saveString(SparkConstants.PARKING_LIST, parkingList);
+    } catch(e) {
+      hasError = true;
+    }
+
+    return HomePageLoaded(hasError);
   }
 
   void _setStatus(GetStatusResponseModel status) {

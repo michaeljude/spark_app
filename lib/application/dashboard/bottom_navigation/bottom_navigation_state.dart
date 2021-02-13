@@ -29,6 +29,11 @@ class PageLoading extends BottomNavigationState {
 }
 
 class HomePageLoaded extends BottomNavigationState {
+
+  final bool hasError;
+
+  HomePageLoaded(this.hasError);
+
   @override
   List<Object> get props => throw UnimplementedError();
 }

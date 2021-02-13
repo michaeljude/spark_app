@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:spark_app/core/utils/base_widgets.dart';
+import 'package:spark_app/core/utils/constant_enums.dart';
 import 'package:spark_app/theme/app_theme.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:spark_app/application/dashboard/home/search_destination/search_destination_screen.dart';
@@ -7,7 +10,9 @@ class HomeScreen extends StatefulWidget {
 
   static final String routeName = "/home";
 
-  HomeScreen() : super();
+  final bool hasError;
+
+  HomeScreen(this.hasError) : super();
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -32,6 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     });
     super.initState();
+
+    if(widget.hasError) {
+      Provider.of<BaseWidgets>(context, listen: false).showErrorsDialog(context, "Something went wrong");
+    }
   }
 
   @override
@@ -352,6 +361,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-void _searchdestination(BuildContext context) => Navigator.pushNamed(context, SearchDestinationScreen.routeName);
+void _searchdestination(BuildContext context) => 
+Navigator.of(context).push(SearchDestinationScreen.route(origin: Origin.SEARCH_DIRECTION));
 
 

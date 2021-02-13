@@ -16,6 +16,10 @@ import 'bottom_navigation_state.dart';
 class BottomNavigationScreen extends StatefulWidget {
 
   static final String routeName = "/bottom_navigation";
+
+  static Route<dynamic> route() =>  MaterialPageRoute(builder: (context) => BottomNavigationScreen());
+
+
   FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   @override
@@ -44,7 +48,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               return Center(child: CircularProgressIndicator());
             }
             if (state is HomePageLoaded) {
-              return HomeScreen();
+              return HomeScreen(state.hasError);
             }
             if (state is ActivityPageLoaded) {
               return ActivityScreen(text: state.text);

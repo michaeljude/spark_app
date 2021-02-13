@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:spark_app/application/dashboard/home/search_destination/searchlocation/search_location_modal.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_screen.dart';
 import 'package:spark_app/application/login/loginoption/login_option_screen.dart';
 import 'package:spark_app/application/login/registration/driver_detail_screen.dart';
@@ -21,7 +22,7 @@ class AppRoutes {
     SplashScreen.routeName: (BuildContext context) => SplashScreen(),
     LoginOptionScreen.routeName: (BuildContext context) => LoginOptionScreen(),
     LoginScreen.routeName: (BuildContext context) => LoginScreen(),
-    HomeScreen.routeName: (BuildContext context) => HomeScreen(),
+    HomeScreen.routeName: (BuildContext context) => HomeScreen(false),
     ActivityScreen.routeName: (BuildContext context) => ActivityScreen(),
     PaymentScreen.routeName: (BuildContext context) => PaymentScreen(),
     MessageScreen.routeName: (BuildContext context) => MessageScreen(),
@@ -32,5 +33,6 @@ class AppRoutes {
     DriverDetailScreen.routeName: (BuildContext context) => DriverDetailScreen(),
     CameraScreen.routeName: (BuildContext context) => CameraScreen(),
     SearchDestinationScreen.routeName: (BuildContext context) => SearchDestinationScreen(),
+    SearchLocationModal.routeName: (context) => SearchLocationModal()
   };
 }

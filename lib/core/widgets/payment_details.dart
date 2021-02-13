@@ -11,11 +11,12 @@ import 'package:spark_app/theme/app_theme.dart';
 class PaymentDetails extends StatefulWidget {
   final ParkingListResponseModel parkingList;
   final Function action;
+  final Function favoriteAction;
   final Origin origin;
   final BookingStatus bookingStatus;
 
   PaymentDetails(this.parkingList, this.origin, this.action,
-      {this.bookingStatus});
+      {this.bookingStatus, this.favoriteAction});
 
   @override
   State<StatefulWidget> createState() => _PaymentDetailsState();
@@ -47,7 +48,7 @@ class _PaymentDetailsState extends State<PaymentDetails> {
                   size: 28,
                 ),
                 onTap: () {
-                  //
+                  widget.favoriteAction();
                 }),
           ],
         ),

@@ -1,6 +1,6 @@
 enum Origin {
   SEARCH_DIRECTION,
-  INFO_WINDOW
+  INFO_WINDOW,
 }
 
 enum Positions {

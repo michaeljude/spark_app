@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:spark_app/application/dashboard/bottom_navigation/bottom_navigation_screen.dart';
 import 'package:spark_app/application/login/loginoption/login_option_screen.dart';
+import 'package:spark_app/core/repository/persistence/local_persistence.dart';
 
 class SplashScreen extends StatefulWidget {
 
@@ -20,7 +22,7 @@ class _SplashScreen extends State<SplashScreen> {
     super.initState();
     _opacity = 0.0;
 
-    _goToLoginPage();
+    _goToNextPage();
   }
 
   @override
@@ -74,9 +76,14 @@ class _SplashScreen extends State<SplashScreen> {
     });
   }
 
-  Future<void> _goToLoginPage() async {
+  Future<void> _goToNextPage() async {
+      bool hasUser = await LocalPersistence.instance().hasUser();
       return Future<void>.delayed(Duration(milliseconds: 5000), () {
-        Navigator.pushReplacementNamed(context, LoginOptionScreen.routeName);
+        if(!hasUser) {
+          Navigator.pushReplacementNamed(context, LoginOptionScreen.routeName);
+        } else {
+          Navigator.pushReplacement(context, BottomNavigationScreen.route());
+        }
       });
   }
 

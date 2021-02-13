@@ -28,4 +28,10 @@ class LocalPersistence {
 
   Future<String> getCurrentUser() => securedStorage.getString(currentUser);
 
+  Future<bool> hasUser() async {
+    String user = await securedStorage.getString(currentUser);
+    if(user == null) return false;
+    else return true;
+  }
+
 }
