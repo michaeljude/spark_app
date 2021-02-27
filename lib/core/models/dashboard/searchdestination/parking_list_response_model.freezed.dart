@@ -32,7 +32,8 @@ class _$ParkingListResponseModelTearOff {
       @JsonKey(name: "parking_province") String parkingProvince,
       @JsonKey(name: "parking_country") String parkingCountry,
       @JsonKey(name: "latitude") double latitude,
-      @JsonKey(name: "longitude") double longitude}) {
+      @JsonKey(name: "longitude") double longitude,
+      @JsonKey(name: "parking_type") String parkingType}) {
     return _ParkingListResponseModel(
       message: message,
       parkingId: parkingId,
@@ -48,6 +49,7 @@ class _$ParkingListResponseModelTearOff {
       parkingCountry: parkingCountry,
       latitude: latitude,
       longitude: longitude,
+      parkingType: parkingType,
     );
   }
 
@@ -91,6 +93,8 @@ mixin _$ParkingListResponseModel {
   double get latitude;
   @JsonKey(name: "longitude")
   double get longitude;
+  @JsonKey(name: "parking_type")
+  String get parkingType;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -116,7 +120,8 @@ abstract class $ParkingListResponseModelCopyWith<$Res> {
       @JsonKey(name: "parking_province") String parkingProvince,
       @JsonKey(name: "parking_country") String parkingCountry,
       @JsonKey(name: "latitude") double latitude,
-      @JsonKey(name: "longitude") double longitude});
+      @JsonKey(name: "longitude") double longitude,
+      @JsonKey(name: "parking_type") String parkingType});
 }
 
 /// @nodoc
@@ -144,6 +149,7 @@ class _$ParkingListResponseModelCopyWithImpl<$Res>
     Object parkingCountry = freezed,
     Object latitude = freezed,
     Object longitude = freezed,
+    Object parkingType = freezed,
   }) {
     return _then(_value.copyWith(
       message: message == freezed ? _value.message : message as String,
@@ -179,6 +185,8 @@ class _$ParkingListResponseModelCopyWithImpl<$Res>
           : parkingCountry as String,
       latitude: latitude == freezed ? _value.latitude : latitude as double,
       longitude: longitude == freezed ? _value.longitude : longitude as double,
+      parkingType:
+          parkingType == freezed ? _value.parkingType : parkingType as String,
     ));
   }
 }
@@ -204,7 +212,8 @@ abstract class _$ParkingListResponseModelCopyWith<$Res>
       @JsonKey(name: "parking_province") String parkingProvince,
       @JsonKey(name: "parking_country") String parkingCountry,
       @JsonKey(name: "latitude") double latitude,
-      @JsonKey(name: "longitude") double longitude});
+      @JsonKey(name: "longitude") double longitude,
+      @JsonKey(name: "parking_type") String parkingType});
 }
 
 /// @nodoc
@@ -235,6 +244,7 @@ class __$ParkingListResponseModelCopyWithImpl<$Res>
     Object parkingCountry = freezed,
     Object latitude = freezed,
     Object longitude = freezed,
+    Object parkingType = freezed,
   }) {
     return _then(_ParkingListResponseModel(
       message: message == freezed ? _value.message : message as String,
@@ -270,6 +280,8 @@ class __$ParkingListResponseModelCopyWithImpl<$Res>
           : parkingCountry as String,
       latitude: latitude == freezed ? _value.latitude : latitude as double,
       longitude: longitude == freezed ? _value.longitude : longitude as double,
+      parkingType:
+          parkingType == freezed ? _value.parkingType : parkingType as String,
     ));
   }
 }
@@ -292,7 +304,8 @@ class _$_ParkingListResponseModel implements _ParkingListResponseModel {
       @JsonKey(name: "parking_province") this.parkingProvince,
       @JsonKey(name: "parking_country") this.parkingCountry,
       @JsonKey(name: "latitude") this.latitude,
-      @JsonKey(name: "longitude") this.longitude});
+      @JsonKey(name: "longitude") this.longitude,
+      @JsonKey(name: "parking_type") this.parkingType});
 
   factory _$_ParkingListResponseModel.fromJson(Map<String, dynamic> json) =>
       _$_$_ParkingListResponseModelFromJson(json);
@@ -339,10 +352,13 @@ class _$_ParkingListResponseModel implements _ParkingListResponseModel {
   @override
   @JsonKey(name: "longitude")
   final double longitude;
+  @override
+  @JsonKey(name: "parking_type")
+  final String parkingType;
 
   @override
   String toString() {
-    return 'ParkingListResponseModel(message: $message, parkingId: $parkingId, ownerParkingId: $ownerParkingId, parkingName: $parkingName, parkingFlatrate: $parkingFlatrate, parkingDuration: $parkingDuration, parkingExceeding: $parkingExceeding, parkingStreet: $parkingStreet, parkingBarangay: $parkingBarangay, parkingMunicipal: $parkingMunicipal, parkingProvince: $parkingProvince, parkingCountry: $parkingCountry, latitude: $latitude, longitude: $longitude)';
+    return 'ParkingListResponseModel(message: $message, parkingId: $parkingId, ownerParkingId: $ownerParkingId, parkingName: $parkingName, parkingFlatrate: $parkingFlatrate, parkingDuration: $parkingDuration, parkingExceeding: $parkingExceeding, parkingStreet: $parkingStreet, parkingBarangay: $parkingBarangay, parkingMunicipal: $parkingMunicipal, parkingProvince: $parkingProvince, parkingCountry: $parkingCountry, latitude: $latitude, longitude: $longitude, parkingType: $parkingType)';
   }
 
   @override
@@ -390,7 +406,10 @@ class _$_ParkingListResponseModel implements _ParkingListResponseModel {
                     .equals(other.latitude, latitude)) &&
             (identical(other.longitude, longitude) ||
                 const DeepCollectionEquality()
-                    .equals(other.longitude, longitude)));
+                    .equals(other.longitude, longitude)) &&
+            (identical(other.parkingType, parkingType) ||
+                const DeepCollectionEquality()
+                    .equals(other.parkingType, parkingType)));
   }
 
   @override
@@ -409,7 +428,8 @@ class _$_ParkingListResponseModel implements _ParkingListResponseModel {
       const DeepCollectionEquality().hash(parkingProvince) ^
       const DeepCollectionEquality().hash(parkingCountry) ^
       const DeepCollectionEquality().hash(latitude) ^
-      const DeepCollectionEquality().hash(longitude);
+      const DeepCollectionEquality().hash(longitude) ^
+      const DeepCollectionEquality().hash(parkingType);
 
   @JsonKey(ignore: true)
   @override
@@ -438,7 +458,8 @@ abstract class _ParkingListResponseModel implements ParkingListResponseModel {
           @JsonKey(name: "parking_province") String parkingProvince,
           @JsonKey(name: "parking_country") String parkingCountry,
           @JsonKey(name: "latitude") double latitude,
-          @JsonKey(name: "longitude") double longitude}) =
+          @JsonKey(name: "longitude") double longitude,
+          @JsonKey(name: "parking_type") String parkingType}) =
       _$_ParkingListResponseModel;
 
   factory _ParkingListResponseModel.fromJson(Map<String, dynamic> json) =
@@ -486,6 +507,9 @@ abstract class _ParkingListResponseModel implements ParkingListResponseModel {
   @override
   @JsonKey(name: "longitude")
   double get longitude;
+  @override
+  @JsonKey(name: "parking_type")
+  String get parkingType;
   @override
   @JsonKey(ignore: true)
   _$ParkingListResponseModelCopyWith<_ParkingListResponseModel> get copyWith;

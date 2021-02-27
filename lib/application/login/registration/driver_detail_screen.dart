@@ -8,22 +8,20 @@ import 'package:spark_app/application/login/registration/registration_bloc.dart'
 import 'package:spark_app/application/login/registration/registration_state.dart';
 import 'package:spark_app/application/reusablescreens/camera_screen.dart';
 import 'package:spark_app/core/widgets/aligned_padding.dart';
+import 'package:spark_app/core/widgets/button_no_icon.dart';
 import 'package:spark_app/core/widgets/labeled_text_field.dart';
 import 'package:spark_app/core/widgets/labeled_widget.dart';
 import 'package:spark_app/core/widgets/login_button.dart';
 import 'package:spark_app/core/widgets/spark_text.dart';
 
 class DriverDetailScreen extends StatefulWidget {
-
   static final String routeName = "/driver-detail";
 
   @override
   State<StatefulWidget> createState() => _DriverDetailScreen();
-
 }
 
 class _DriverDetailScreen extends State<DriverDetailScreen> {
-
   RegistrationBloc _bloc;
   int _carCount = 1;
   int _licenseCount = 1;
@@ -49,7 +47,10 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
                 backgroundColor: Colors.white,
                 elevation: 0.0,
                 leading: IconButton(
-                  icon: Icon(Icons.arrow_back, color: Colors.black,),
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                  ),
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -58,9 +59,7 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
               ),
               body: SingleChildScrollView(
                 child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white
-                  ),
+                  decoration: BoxDecoration(color: Colors.white),
                   child: Padding(
                     padding: const EdgeInsets.all(34.0),
                     child: Column(
@@ -69,8 +68,7 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
                           child: SparkText(
                               text: "Vehicle Information",
                               size: 18,
-                              fontWeight: FontWeight.bold
-                          ),
+                              fontWeight: FontWeight.bold),
                           edgeInsets: const EdgeInsets.only(bottom: 18),
                           alignment: Alignment.centerLeft,
                         ),
@@ -94,7 +92,8 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
                           padding: EdgeInsets.only(top: 12),
                           child: LabeledTextField(
                             title: "Description",
-                            hint: "Ex. Color black. Have a scratch in front of the car",
+                            hint:
+                                "Ex. Color black. Have a scratch in front of the car",
                             isRequired: true,
                             isMultiline: true,
                           ),
@@ -103,49 +102,48 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
                           child: SparkText(
                               text: "Car Photos",
                               size: 18,
-                              fontWeight: FontWeight.bold
-                          ),
-                          edgeInsets: const EdgeInsets.only(bottom: 18, top: 18),
+                              fontWeight: FontWeight.bold),
+                          edgeInsets:
+                              const EdgeInsets.only(bottom: 18, top: 18),
                           alignment: Alignment.centerLeft,
                         ),
                         LabeledWidget(
-                          title: "Upload ID Photo",
-                          subtitle: "Pro tip: Make sure it's clear and the whole card is seen "
-                              "in the shot. Don't forget to check it's expiry date!",
-                          child: SizedBox(
-                            height: 150,
-                            width: double.infinity,
-                            child: _buildCarListView(),
-                          )
-                        ),
+                            title: "Upload ID Photo",
+                            subtitle:
+                                "Pro tip: Make sure it's clear and the whole card is seen "
+                                "in the shot. Don't forget to check it's expiry date!",
+                            child: SizedBox(
+                              height: 150,
+                              width: double.infinity,
+                              child: _buildCarListView(),
+                            )),
                         AlignedPadding(
                           child: SparkText(
                               text: "Driver's License",
                               size: 18,
-                              fontWeight: FontWeight.bold
-                          ),
-                          edgeInsets: const EdgeInsets.only(bottom: 18, top: 18),
+                              fontWeight: FontWeight.bold),
+                          edgeInsets:
+                              const EdgeInsets.only(bottom: 18, top: 18),
                           alignment: Alignment.centerLeft,
                         ),
                         LabeledWidget(
-                          title: "Upload ID Photo",
-                          subtitle: "Pro tip: Make sure it's clear and the whole card is seen "
-                              "in the shot. Don't forget to check it's expiry date!",
-                          child: SizedBox(
-                            height: 150,
-                            width: double.infinity,
-                            child: _buildLicenseListView(),
-                          )
-                        ),
+                            title: "Upload ID Photo",
+                            subtitle:
+                                "Pro tip: Make sure it's clear and the whole card is seen "
+                                "in the shot. Don't forget to check it's expiry date!",
+                            child: SizedBox(
+                              height: 150,
+                              width: double.infinity,
+                              child: _buildLicenseListView(),
+                            )),
                         AlignedPadding(
-                          edgeInsets: const EdgeInsets.only(bottom: 20,top: 100),
+                          edgeInsets:
+                              const EdgeInsets.only(bottom: 20, top: 100),
                           alignment: Alignment.bottomCenter,
-                          child: LogoButton(
+                          child: SparkButton(
                             color: const Color(0xff19BA19),
                             buttonText: "SIGN UP",
-                            action: () {
-
-                            },
+                            action: () {},
                           ),
                         ),
                       ],
@@ -155,9 +153,8 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
               ),
             ),
           );
-    }, listener: (BuildContext context, RegistrationState state) {
-
-    });
+        },
+        listener: (BuildContext context, RegistrationState state) {});
   }
 
   Widget _buildCarListView() {
@@ -166,11 +163,11 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
         itemCount: _carCount,
         itemBuilder: (BuildContext context, int index) {
           return _carWidget(index);
-    });
+        });
   }
 
   Widget _carWidget(int index) {
-    if ((index == _carCount-1) || _carCount <= 1) {
+    if ((index == _carCount - 1) || _carCount <= 1) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: SizedBox(
@@ -186,8 +183,7 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
                   child: Icon(Icons.add),
                 ),
               ),
-            )
-        ),
+            )),
       );
     } else {
       return Padding(
@@ -195,22 +191,25 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
         child: SizedBox(
             width: 200,
             height: 150,
-            child: Image.file(File(_carPhotoList[index]),fit: BoxFit.fitWidth,)
-        ),
+            child: Image.file(
+              File(_carPhotoList[index]),
+              fit: BoxFit.fitWidth,
+            )),
       );
     }
   }
+
   Widget _buildLicenseListView() {
     return ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: _licenseCount,
         itemBuilder: (BuildContext context, int index) {
           return _licenseWidget(index);
-    });
+        });
   }
 
   Widget _licenseWidget(int index) {
-    if ((index == _licenseCount-1) || _licenseCount <= 1) {
+    if ((index == _licenseCount - 1) || _licenseCount <= 1) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: SizedBox(
@@ -226,8 +225,7 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
                   child: Icon(Icons.add),
                 ),
               ),
-            )
-        ),
+            )),
       );
     } else {
       return Padding(
@@ -235,8 +233,10 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
         child: SizedBox(
             width: 200,
             height: 150,
-            child: Image.file(File(_licensePhotoList[index]),fit: BoxFit.fitWidth,)
-        ),
+            child: Image.file(
+              File(_licensePhotoList[index]),
+              fit: BoxFit.fitWidth,
+            )),
       );
     }
   }
@@ -247,7 +247,7 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
       MaterialPageRoute(builder: (context) => CameraScreen()),
     );
     setState(() {
-      if(type == PhotoType.LICENSE) {
+      if (type == PhotoType.LICENSE) {
         _licensePhotoList.add(result);
         _licenseCount++;
       } else {
@@ -257,10 +257,6 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
     });
     debugPrint("Returned: $result");
   }
-
 }
 
-enum PhotoType {
-  LICENSE,
-  CAR
-}
+enum PhotoType { LICENSE, CAR }

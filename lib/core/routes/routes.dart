@@ -22,7 +22,7 @@ class AppRoutes {
     SplashScreen.routeName: (BuildContext context) => SplashScreen(),
     LoginOptionScreen.routeName: (BuildContext context) => LoginOptionScreen(),
     LoginScreen.routeName: (BuildContext context) => LoginScreen(),
-    HomeScreen.routeName: (BuildContext context) => HomeScreen(false),
+    HomeScreen.routeName: (BuildContext context) => HomeScreen(),
     ActivityScreen.routeName: (BuildContext context) => ActivityScreen(),
     PaymentScreen.routeName: (BuildContext context) => PaymentScreen(),
     MessageScreen.routeName: (BuildContext context) => MessageScreen(),

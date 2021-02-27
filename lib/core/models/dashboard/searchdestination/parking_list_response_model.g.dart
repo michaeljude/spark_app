@@ -23,6 +23,7 @@ _$_ParkingListResponseModel _$_$_ParkingListResponseModelFromJson(
     parkingCountry: json['parking_country'] as String,
     latitude: (json['latitude'] as num)?.toDouble(),
     longitude: (json['longitude'] as num)?.toDouble(),
+    parkingType: json['parking_type'] as String,
   );
 }
 
@@ -43,4 +44,5 @@ Map<String, dynamic> _$_$_ParkingListResponseModelToJson(
       'parking_country': instance.parkingCountry,
       'latitude': instance.latitude,
       'longitude': instance.longitude,
+      'parking_type': instance.parkingType,
     };

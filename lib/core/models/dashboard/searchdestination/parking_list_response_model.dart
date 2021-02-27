@@ -19,6 +19,7 @@ abstract class ParkingListResponseModel with _$ParkingListResponseModel {
     @JsonKey(name: "parking_country") String parkingCountry,
     @JsonKey(name: "latitude") double latitude,
     @JsonKey(name: "longitude") double longitude,
+    @JsonKey(name: "parking_type") String parkingType,
   }) = _ParkingListResponseModel;
 
   factory ParkingListResponseModel.fromJson(Map<String, dynamic> json) =>

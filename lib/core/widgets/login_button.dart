@@ -21,7 +21,6 @@ class LogoButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 50,
       child: RaisedButton.icon(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8)
@@ -35,13 +34,16 @@ class LogoButton extends StatelessWidget {
           color: this.iconColor,
 
         ),
-        label: Text(
-          this.buttonText,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 17,
+        label: Padding(
+          padding: const EdgeInsets.only(top: 14, bottom: 14),
+          child: Text(
+            this.buttonText,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 17,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
         ),
       ),
     );

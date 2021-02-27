@@ -9,8 +9,6 @@ class SearchDestinationRepository {
   SearchDestinationRepository(this.apiService);
 
   final ApiService apiService;
-
-  Future<List<ParkingListResponseModel>> getParkingList() => apiService.getParkingList();
   
   Future<BookingResponseModel> bookNow(int parkingId, String customerId) => apiService.bookNow(parkingId, customerId);
 

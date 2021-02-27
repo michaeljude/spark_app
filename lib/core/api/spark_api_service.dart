@@ -44,7 +44,9 @@ abstract class SparkApiService {
     @Headers(<String, dynamic>{
       "include-auth-tokens": true
       })
-    Future<List<ParkingListResponseModel>> getParkingList();
+    Future<List<ParkingListResponseModel>> getParkingList(
+      @Field() String customerID
+    );
 
     @POST('/create_transaction.php')
     @Headers(<String, dynamic>{

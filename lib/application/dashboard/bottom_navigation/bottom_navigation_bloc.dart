@@ -88,11 +88,12 @@ class BottomNavigationBloc
     }
 
     try {
-      var result = await homePageRepository.getParkingList();
+      var result = await homePageRepository.getParkingList(customerId);
       LocalPersistence localPersistence = LocalPersistence.instance();
       String parkingList = jsonEncode(result);
-      localPersistence.securedStorage.saveString(SparkConstants.PARKING_LIST, parkingList);
-    } catch(e) {
+      localPersistence.securedStorage
+          .saveString(SparkConstants.PARKING_LIST, parkingList);
+    } catch (e) {
       hasError = true;
     }
 
@@ -100,25 +101,28 @@ class BottomNavigationBloc
   }
 
   void _setStatus(GetStatusResponseModel status) {
-      UserStatusModel userStatusModel = UserStatusModel.instance();
-      if(status.clientParkingStatus.toLowerCase() == SparkConstants.FREE.toLowerCase()) {
-          userStatusModel.status = BookingStatus.FREE;
-          debugPrint("FREE USER");
-      }
-      else if(status.clientParkingStatus.toLowerCase() == SparkConstants.BOOKED.toLowerCase()) {
-        userStatusModel.status = BookingStatus.BOOKED;
-        userStatusModel.position = Position(longitude: status.longitude, latitude: status.latitude);
-        userStatusModel.transactionId = status.transaction_id;
-        userStatusModel.parkingName = status.parkingName;
-        debugPrint("BOOKED USER");
-      }
-      else if(status.clientParkingStatus.toLowerCase() == SparkConstants.PARKED.toLowerCase()) {
-        userStatusModel.status = BookingStatus.PARKED;
-        userStatusModel.position = Position(longitude: status.longitude, latitude: status.latitude);
-        userStatusModel.transactionId = status.transaction_id;
-        userStatusModel.parkingName = status.parkingName;
-        debugPrint("PARKED USER");
-      }
+    UserStatusModel userStatusModel = UserStatusModel.instance();
+    if (status.clientParkingStatus.toLowerCase() ==
+        SparkConstants.FREE.toLowerCase()) {
+      userStatusModel.status = BookingStatus.FREE;
+      debugPrint("FREE USER");
+    } else if (status.clientParkingStatus.toLowerCase() ==
+        SparkConstants.BOOKED.toLowerCase()) {
+      userStatusModel.status = BookingStatus.BOOKED;
+      userStatusModel.position =
+          Position(longitude: status.longitude, latitude: status.latitude);
+      userStatusModel.transactionId = status.transaction_id;
+      userStatusModel.parkingName = status.parkingName;
+      debugPrint("BOOKED USER");
+    } else if (status.clientParkingStatus.toLowerCase() ==
+        SparkConstants.PARKED.toLowerCase()) {
+      userStatusModel.status = BookingStatus.PARKED;
+      userStatusModel.position =
+          Position(longitude: status.longitude, latitude: status.latitude);
+      userStatusModel.transactionId = status.transaction_id;
+      userStatusModel.parkingName = status.parkingName;
+      debugPrint("PARKED USER");
+    }
   }
 
   Future<String> _getActivityPageData() async {

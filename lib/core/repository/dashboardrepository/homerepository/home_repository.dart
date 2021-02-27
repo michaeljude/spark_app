@@ -10,5 +10,5 @@ class HomeRepository {
 
   Future<GetStatusResponseModel> getUserStatus(String customerId) => _apiService.getUserStatus(customerId);
 
-  Future<List<ParkingListResponseModel>> getParkingList() => _apiService.getParkingList();
+  Future<List<ParkingListResponseModel>> getParkingList(String customerId) => _apiService.getParkingList(customerId);
 }

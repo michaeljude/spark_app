@@ -99,10 +99,12 @@ class _SparkApiService implements SparkApiService {
   }
 
   @override
-  Future<List<ParkingListResponseModel>> getParkingList() async {
+  Future<List<ParkingListResponseModel>> getParkingList(customerID) async {
+    ArgumentError.checkNotNull(customerID, 'customerID');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final _data = {'customerID': customerID};
+    _data.removeWhere((k, v) => v == null);
     final _result = await _dio.request<List<dynamic>>('/parking_list.php',
         queryParameters: queryParameters,
         options: RequestOptions(

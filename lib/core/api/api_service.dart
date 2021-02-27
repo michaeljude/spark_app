@@ -71,7 +71,7 @@ class ApiService {
           driver_license: driver_license
       );
 
-  Future<List<ParkingListResponseModel>> getParkingList() => _sparkApiService.getParkingList();
+  Future<List<ParkingListResponseModel>> getParkingList(String customerId) => _sparkApiService.getParkingList(customerId);
 
   Future<BookingResponseModel> bookNow(
     int parkingId,

@@ -19,7 +19,6 @@ class SparkButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 50,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8)
@@ -28,13 +27,16 @@ class SparkButton extends StatelessWidget {
           this.action();
         } : null,
         color: _getBackgroudColor(),
-        child: Text(
-          this.buttonText,
-          style: TextStyle(
-            color: _getFontColor(),
-            fontSize: 17,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 14.0, bottom: 14.0),
+          child: Text(
+            this.buttonText,
+            style: TextStyle(
+              color: _getFontColor(),
+              fontSize: 17,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
         ),
       ),
     );

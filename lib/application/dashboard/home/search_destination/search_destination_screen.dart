@@ -27,16 +27,20 @@ import 'package:spark_app/core/widgets/spark_text_field.dart';
 import 'package:spark_app/theme/app_theme.dart';
 
 class SearchDestinationScreen extends StatefulWidget {
+  SearchDestinationScreen({this.origin, this.initialParkingSearched});
+
   static final String routeName = "/search_destination";
 
-  static Route<dynamic> route({Origin origin}) => MaterialPageRoute(
-      builder: (context) => SearchDestinationScreen(
-            origin: origin,
-          ));
+  static Route<dynamic> route(
+          {Origin origin, ParkingListResponseModel parking}) =>
+      MaterialPageRoute(
+          builder: (context) => SearchDestinationScreen(
+                origin: origin,
+                initialParkingSearched: parking,
+              ));
 
   final Origin origin;
-
-  SearchDestinationScreen({this.origin});
+  final ParkingListResponseModel initialParkingSearched;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -67,6 +71,7 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
 
   //BottomSheet
   ParkingListResponseModel _parkingList;
+  ParkingListResponseModel _initialSearchedParking;
   GlobalKey<ExpandableBottomSheetState> key = new GlobalKey();
   bool _isVisible = false;
 
@@ -79,6 +84,8 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
       isSearchBarVisible = true;
       _searchController = TextEditingController();
     }
+
+    _initialSearchedParking = widget.initialParkingSearched;
 
     setProgressDialog();
     _apiService = Provider.of<ApiService>(context, listen: false);
@@ -126,12 +133,18 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
 
   void _onMapCreated(GoogleMapController _cntlr) {
     _controller = _cntlr;
-    _controller.animateCamera(
-      CameraUpdate.newCameraPosition(
-        CameraPosition(
-            target: LatLng(position.latitude, position.longitude), zoom: 15),
-      ),
-    );
+
+    if (_initialSearchedParking == null) {
+      _controller.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+              target: LatLng(position.latitude, position.longitude), zoom: 15),
+        ),
+      );
+    } else {
+      _goToInitialSearchedParking();
+    }
+
     // _location.onLocationChanged.listen((l) {
     //   _controller.animateCamera(
     //     CameraUpdate.newCameraPosition(
@@ -139,6 +152,23 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
     //     ),
     //   );
     // });
+  }
+
+  void _goToInitialSearchedParking() async {
+    if (_initialSearchedParking != null) {
+      LatLng latlng = LatLng(widget.initialParkingSearched.latitude,
+          widget.initialParkingSearched.longitude);
+      _controller.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+              target: LatLng(latlng.latitude, latlng.longitude), zoom: 15),
+        ),
+      );
+
+      _searchController.text =
+          "${_initialSearchedParking.parkingStreet} ${_initialSearchedParking.parkingBarangay} ${_initialSearchedParking.parkingMunicipal} ${_initialSearchedParking.parkingProvince}";
+    }
+    _initialSearchedParking = null;
   }
 
   @override
@@ -166,24 +196,30 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
           infoWindow: InfoWindow(
               title: model.parkingName,
               onTap: () {
-                if (UserStatusModel.instance().status == BookingStatus.BOOKED ||
-                    UserStatusModel.instance().status == BookingStatus.PARKED &&
-                        UserStatusModel.instance().parkingName ==
-                            model.parkingName) {
-                  _goToPaymentDetails(context, model);
-                  debugPrint("Opening Payment Details Screen");
+                if (model.parkingType == ParkingType.spark.type) {
+                  if (UserStatusModel.instance().status ==
+                          BookingStatus.BOOKED ||
+                      UserStatusModel.instance().status ==
+                              BookingStatus.PARKED &&
+                          UserStatusModel.instance().parkingName ==
+                              model.parkingName) {
+                    _goToPaymentDetails(context, model);
+                    debugPrint("Opening Payment Details Screen");
+                  }
                 }
               }),
           onTap: () {
-            _selectedPosition =
-                Position(longitude: model.longitude, latitude: model.latitude);
-            _parkingList = model;
-            if (UserStatusModel.instance().status == BookingStatus.FREE) {
-              key.currentState.expand();
-              _isVisible = true;
-              context
-                  .bloc<SearchDestinationBloc>()
-                  .add(OnShowBottomSheetEvent());
+            if (model.parkingType == ParkingType.spark.type) {
+              _selectedPosition = Position(
+                  longitude: model.longitude, latitude: model.latitude);
+              _parkingList = model;
+              if (UserStatusModel.instance().status == BookingStatus.FREE) {
+                key.currentState.expand();
+                _isVisible = true;
+                context
+                    .bloc<SearchDestinationBloc>()
+                    .add(OnShowBottomSheetEvent());
+              }
             }
           });
 
@@ -232,18 +268,26 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
 
   void _getParkingArea(
       List<ParkingListResponseModel> parkingList, BuildContext context) async {
-    BitmapDescriptor marker = await _getCustomMarker();
-    parkingList.forEach((element) {
+    parkingList.forEach((element) async {
+      BitmapDescriptor marker = await _getCustomMarker(element.parkingType);
       markerMap.putIfAbsent(
           element.parkingName, () => _getMarker(context, element, marker));
     });
     debugPrint("");
   }
 
-  Future<BitmapDescriptor> _getCustomMarker() async {
+  Future<BitmapDescriptor> _getCustomMarker(String type) async {
     final ImageConfiguration config = createLocalImageConfiguration(context);
-    BitmapDescriptor marker = await BitmapDescriptor.fromAssetImage(
-        config, "assets/images/spark_marker.png");
+
+    String markerPin;
+    if (type == ParkingType.spark.type) {
+      markerPin = 'assets/images/spark_marker.png';
+    } else {
+      markerPin = 'assets/images/non_spark_marker.png';
+    }
+
+    BitmapDescriptor marker =
+        await BitmapDescriptor.fromAssetImage(config, markerPin);
     return marker;
   }
 

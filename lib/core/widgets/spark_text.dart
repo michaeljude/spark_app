@@ -10,6 +10,7 @@ class SparkText extends StatefulWidget {
   final TextDecoration textDecoration;
   final Positions position;
   final Color color;
+  final TextAlign textAlign;
 
   @override
   State<StatefulWidget> createState() => _SparkText();
@@ -20,14 +21,18 @@ class SparkText extends StatefulWidget {
       this.fontWeight,
       this.color = Colors.black87,
       this.isRequired = false,
-      this.position = Positions.RIGHT,
-      this.textDecoration});
+      this.position,
+      this.textDecoration,
+      this.textAlign = TextAlign.left})
+      : assert((isRequired == false && position == null) ||
+            (isRequired == true && position != null));
 }
 
 class _SparkText extends State<SparkText> {
   @override
   Widget build(BuildContext context) {
     return RichText(
+      textAlign: widget.textAlign,
       text: TextSpan(
           style: TextStyle(
               color: widget.color,
