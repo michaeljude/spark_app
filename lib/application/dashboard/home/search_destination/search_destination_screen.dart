@@ -8,6 +8,7 @@ import 'package:location/location.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:search_map_place/search_map_place.dart';
+import 'package:spark_app/application/dashboard/home/parkfiltering/bloc/favorite_bloc.dart';
 import 'package:spark_app/application/dashboard/home/payment_details/payment_details_screen.dart';
 import 'package:spark_app/application/dashboard/home/search_destination/search_destination_bloc.dart';
 import 'package:spark_app/application/dashboard/home/search_destination/search_destination_event.dart';
@@ -74,6 +75,7 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
   ParkingListResponseModel _initialSearchedParking;
   GlobalKey<ExpandableBottomSheetState> key = new GlobalKey();
   bool _isVisible = false;
+  bool _isFavorite;
 
   @override
   void initState() {
@@ -229,8 +231,11 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
 
   Widget _bottomSheetContainer(ParkingListResponseModel parkingList) =>
       Visibility(
-          visible: _isVisible,
-          child: PaymentDetails(parkingList, Origin.SEARCH_DIRECTION, () {
+        visible: _isVisible,
+        child: PaymentDetails(
+          parkingList,
+          Origin.SEARCH_DIRECTION,
+          () {
             if (UserStatusModel.instance().status == BookingStatus.FREE) {
               _progressDialog.show();
               _context
@@ -239,7 +244,27 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
             } else {
               showErrorsDialog("You are already booked/parked");
             }
-          }));
+          },
+          favoriteAction: () {
+            _context.bloc<SearchDestinationBloc>().add(OnFavoriteEvent(
+                parkId: parkingList.parkingId,
+                action: parkingList.isFavorite
+                    ? FavoriteAction.delete.action
+                    : FavoriteAction.create.action));
+          },
+          isFavorite: _isFavoriteChanged(parkingList.isFavorite),
+        ),
+      );
+
+  bool _isFavoriteChanged(bool isFavorite) {
+    if (_isFavorite != null) {
+      bool fav = _isFavorite;
+      _isFavorite = null;
+      return fav;
+    } else {
+      return isFavorite;
+    }
+  }
 
   void showErrorsDialog(String title) => showDialog(
       context: context,
@@ -325,6 +350,13 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
           }
           if (state.runtimeType == SearchDestinationHideLoadingState) {
             _progressDialog.hide();
+          }
+          if (state is OnSuccessFavorite) {
+            markerMap.clear();
+            setUserMarker();
+            _getParkingArea(state.parkingList, context);
+            _isFavorite = state.isFavorite;
+            //setState(() {});
           }
           if (state.runtimeType == OnGetParkingListFailedState) {
             _progressDialog.hide();

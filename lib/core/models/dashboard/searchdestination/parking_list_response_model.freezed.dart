@@ -33,7 +33,8 @@ class _$ParkingListResponseModelTearOff {
       @JsonKey(name: "parking_country") String parkingCountry,
       @JsonKey(name: "latitude") double latitude,
       @JsonKey(name: "longitude") double longitude,
-      @JsonKey(name: "parking_type") String parkingType}) {
+      @JsonKey(name: "parking_type") String parkingType,
+      @JsonKey(name: "isFavorite") bool isFavorite}) {
     return _ParkingListResponseModel(
       message: message,
       parkingId: parkingId,
@@ -50,6 +51,7 @@ class _$ParkingListResponseModelTearOff {
       latitude: latitude,
       longitude: longitude,
       parkingType: parkingType,
+      isFavorite: isFavorite,
     );
   }
 
@@ -95,6 +97,8 @@ mixin _$ParkingListResponseModel {
   double get longitude;
   @JsonKey(name: "parking_type")
   String get parkingType;
+  @JsonKey(name: "isFavorite")
+  bool get isFavorite;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -121,7 +125,8 @@ abstract class $ParkingListResponseModelCopyWith<$Res> {
       @JsonKey(name: "parking_country") String parkingCountry,
       @JsonKey(name: "latitude") double latitude,
       @JsonKey(name: "longitude") double longitude,
-      @JsonKey(name: "parking_type") String parkingType});
+      @JsonKey(name: "parking_type") String parkingType,
+      @JsonKey(name: "isFavorite") bool isFavorite});
 }
 
 /// @nodoc
@@ -150,6 +155,7 @@ class _$ParkingListResponseModelCopyWithImpl<$Res>
     Object latitude = freezed,
     Object longitude = freezed,
     Object parkingType = freezed,
+    Object isFavorite = freezed,
   }) {
     return _then(_value.copyWith(
       message: message == freezed ? _value.message : message as String,
@@ -187,6 +193,8 @@ class _$ParkingListResponseModelCopyWithImpl<$Res>
       longitude: longitude == freezed ? _value.longitude : longitude as double,
       parkingType:
           parkingType == freezed ? _value.parkingType : parkingType as String,
+      isFavorite:
+          isFavorite == freezed ? _value.isFavorite : isFavorite as bool,
     ));
   }
 }
@@ -213,7 +221,8 @@ abstract class _$ParkingListResponseModelCopyWith<$Res>
       @JsonKey(name: "parking_country") String parkingCountry,
       @JsonKey(name: "latitude") double latitude,
       @JsonKey(name: "longitude") double longitude,
-      @JsonKey(name: "parking_type") String parkingType});
+      @JsonKey(name: "parking_type") String parkingType,
+      @JsonKey(name: "isFavorite") bool isFavorite});
 }
 
 /// @nodoc
@@ -245,6 +254,7 @@ class __$ParkingListResponseModelCopyWithImpl<$Res>
     Object latitude = freezed,
     Object longitude = freezed,
     Object parkingType = freezed,
+    Object isFavorite = freezed,
   }) {
     return _then(_ParkingListResponseModel(
       message: message == freezed ? _value.message : message as String,
@@ -282,6 +292,8 @@ class __$ParkingListResponseModelCopyWithImpl<$Res>
       longitude: longitude == freezed ? _value.longitude : longitude as double,
       parkingType:
           parkingType == freezed ? _value.parkingType : parkingType as String,
+      isFavorite:
+          isFavorite == freezed ? _value.isFavorite : isFavorite as bool,
     ));
   }
 }
@@ -305,7 +317,8 @@ class _$_ParkingListResponseModel implements _ParkingListResponseModel {
       @JsonKey(name: "parking_country") this.parkingCountry,
       @JsonKey(name: "latitude") this.latitude,
       @JsonKey(name: "longitude") this.longitude,
-      @JsonKey(name: "parking_type") this.parkingType});
+      @JsonKey(name: "parking_type") this.parkingType,
+      @JsonKey(name: "isFavorite") this.isFavorite});
 
   factory _$_ParkingListResponseModel.fromJson(Map<String, dynamic> json) =>
       _$_$_ParkingListResponseModelFromJson(json);
@@ -355,10 +368,13 @@ class _$_ParkingListResponseModel implements _ParkingListResponseModel {
   @override
   @JsonKey(name: "parking_type")
   final String parkingType;
+  @override
+  @JsonKey(name: "isFavorite")
+  final bool isFavorite;
 
   @override
   String toString() {
-    return 'ParkingListResponseModel(message: $message, parkingId: $parkingId, ownerParkingId: $ownerParkingId, parkingName: $parkingName, parkingFlatrate: $parkingFlatrate, parkingDuration: $parkingDuration, parkingExceeding: $parkingExceeding, parkingStreet: $parkingStreet, parkingBarangay: $parkingBarangay, parkingMunicipal: $parkingMunicipal, parkingProvince: $parkingProvince, parkingCountry: $parkingCountry, latitude: $latitude, longitude: $longitude, parkingType: $parkingType)';
+    return 'ParkingListResponseModel(message: $message, parkingId: $parkingId, ownerParkingId: $ownerParkingId, parkingName: $parkingName, parkingFlatrate: $parkingFlatrate, parkingDuration: $parkingDuration, parkingExceeding: $parkingExceeding, parkingStreet: $parkingStreet, parkingBarangay: $parkingBarangay, parkingMunicipal: $parkingMunicipal, parkingProvince: $parkingProvince, parkingCountry: $parkingCountry, latitude: $latitude, longitude: $longitude, parkingType: $parkingType, isFavorite: $isFavorite)';
   }
 
   @override
@@ -409,7 +425,10 @@ class _$_ParkingListResponseModel implements _ParkingListResponseModel {
                     .equals(other.longitude, longitude)) &&
             (identical(other.parkingType, parkingType) ||
                 const DeepCollectionEquality()
-                    .equals(other.parkingType, parkingType)));
+                    .equals(other.parkingType, parkingType)) &&
+            (identical(other.isFavorite, isFavorite) ||
+                const DeepCollectionEquality()
+                    .equals(other.isFavorite, isFavorite)));
   }
 
   @override
@@ -429,7 +448,8 @@ class _$_ParkingListResponseModel implements _ParkingListResponseModel {
       const DeepCollectionEquality().hash(parkingCountry) ^
       const DeepCollectionEquality().hash(latitude) ^
       const DeepCollectionEquality().hash(longitude) ^
-      const DeepCollectionEquality().hash(parkingType);
+      const DeepCollectionEquality().hash(parkingType) ^
+      const DeepCollectionEquality().hash(isFavorite);
 
   @JsonKey(ignore: true)
   @override
@@ -459,7 +479,8 @@ abstract class _ParkingListResponseModel implements ParkingListResponseModel {
           @JsonKey(name: "parking_country") String parkingCountry,
           @JsonKey(name: "latitude") double latitude,
           @JsonKey(name: "longitude") double longitude,
-          @JsonKey(name: "parking_type") String parkingType}) =
+          @JsonKey(name: "parking_type") String parkingType,
+          @JsonKey(name: "isFavorite") bool isFavorite}) =
       _$_ParkingListResponseModel;
 
   factory _ParkingListResponseModel.fromJson(Map<String, dynamic> json) =
@@ -510,6 +531,9 @@ abstract class _ParkingListResponseModel implements ParkingListResponseModel {
   @override
   @JsonKey(name: "parking_type")
   String get parkingType;
+  @override
+  @JsonKey(name: "isFavorite")
+  bool get isFavorite;
   @override
   @JsonKey(ignore: true)
   _$ParkingListResponseModelCopyWith<_ParkingListResponseModel> get copyWith;

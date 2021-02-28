@@ -24,6 +24,7 @@ _$_ParkingListResponseModel _$_$_ParkingListResponseModelFromJson(
     latitude: (json['latitude'] as num)?.toDouble(),
     longitude: (json['longitude'] as num)?.toDouble(),
     parkingType: json['parking_type'] as String,
+    isFavorite: json['isFavorite'] as bool,
   );
 }
 
@@ -45,4 +46,5 @@ Map<String, dynamic> _$_$_ParkingListResponseModelToJson(
       'latitude': instance.latitude,
       'longitude': instance.longitude,
       'parking_type': instance.parkingType,
+      'isFavorite': instance.isFavorite,
     };

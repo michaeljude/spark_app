@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spark_app/application/dashboard/home/home_bloc.dart';
 import 'package:spark_app/application/dashboard/home/home_state.dart';
-import 'package:spark_app/application/dashboard/home/nearbyparkings/nearby_parking_screen.dart';
+import 'package:spark_app/application/dashboard/home/parkfiltering/park_filtering_screen.dart';
 import 'package:spark_app/application/dashboard/home/search_destination/search_destination_screen.dart';
 import 'package:spark_app/core/models/dashboard/searchdestination/parking_list_response_model.dart';
 import 'package:spark_app/core/utils/constant_enums.dart';
+import 'package:spark_app/core/widgets/column_aligned.dart';
 import 'package:spark_app/theme/app_theme.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -44,9 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocProvider<HomeBloc>(
         create: (BuildContext context) => HomeBloc(),
         child: BlocConsumer<HomeBloc, HomeState>(
-          listener: (BuildContext context, HomeState state) {
-            
-          },
+          listener: (BuildContext context, HomeState state) {},
           builder: (BuildContext context, HomeState state) {
             return Container(
               color: DesignCourseAppTheme.nearlyWhite,
@@ -62,7 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: SingleChildScrollView(
                         child: Container(
                           color: HexColor('#FFFFFF'),
-                          child: Column(
+                          child: ColumnAligned(
+                            padding: const EdgeInsets.fromLTRB(10, 0, 15, 0),
                             children: <Widget>[
                               getSparkCreditUI(),
                               getMenuUI(),
@@ -105,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       letterSpacing: 0.2,
                       color: HexColor('#525252'))),
               Spacer(flex: 3),
-              Text('PHP 400.00',
+              Text('PHP 0.00',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -188,7 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Text(
                           'Nearby Parking',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 14,
                             letterSpacing: 0.27,
                             color: HexColor('#525252'),
                           ),
@@ -200,16 +200,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(
                   child: Column(
                     children: <Widget>[
-                      Image.asset(
-                        "assets/images/favorite_parking.png",
-                        height: 75,
+                      GestureDetector(
+                        onTap: () => _goToFavoriteParkingScreen(context),
+                        child: Image.asset(
+                          "assets/images/favorite_parking.png",
+                          height: 75,
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: Text(
                           'Favorites',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 14,
                             letterSpacing: 0.27,
                             color: HexColor('#525252'),
                           ),
@@ -230,7 +233,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Text(
                           'Walk-in Parking',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 14,
                             letterSpacing: 0.27,
                             color: HexColor('#525252'),
                           ),
@@ -343,7 +346,7 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'Welcome, Ceej!',
+                  'Welcome, Sparky!',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -379,7 +382,17 @@ class _HomeScreenState extends State<HomeScreen> {
           origin: Origin.SEARCH_DIRECTION, parking: parking));
 
   void _goToNearbyParkingScreen(BuildContext context) async {
-    var result = await Navigator.of(context).push(NearbyParkingScreen.route());
+    var result = await Navigator.of(context)
+        .push(ParkFilteringScreen.route(FilteringType.nearby.type));
+
+    if (result != null && result is ParkingListResponseModel) {
+      _searchdestination(context, parking: result);
+    }
+  }
+
+  void _goToFavoriteParkingScreen(BuildContext context) async {
+    var result = await Navigator.of(context)
+        .push(ParkFilteringScreen.route(FilteringType.favorite.type));
 
     if (result != null && result is ParkingListResponseModel) {
       _searchdestination(context, parking: result);

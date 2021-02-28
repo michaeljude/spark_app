@@ -74,6 +74,16 @@ abstract class SparkApiService {
       @required @Field() int transactionID
     });
 
+    @POST('/favorite.php')
+    @Headers(<String, dynamic>{
+      "include-auth-tokens": true
+    })
+    Future<List<ParkingListResponseModel>> favorite({
+      @required @Field() String customerID,
+      @required @Field() int parkID,
+      @required @Field() String action
+    });
+
     @GET('/user_transaction_details.php')
     @Headers(<String, dynamic>{
       "include-auth-tokens": true

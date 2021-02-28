@@ -2,15 +2,16 @@ import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:spark_app/application/dashboard/home/nearbyparkings/bloc/nearby_parking_state.dart';
+import 'package:spark_app/application/dashboard/home/parkfiltering/bloc/park_filtering_state.dart';
 import 'package:spark_app/core/models/dashboard/searchdestination/parking_list_response_model.dart';
 import 'package:spark_app/core/repository/persistence/local_persistence.dart';
 import 'package:spark_app/core/utils/spark_constants.dart';
 
-class NearbyParkingBloc extends Cubit<NearbyParkingState> {
-  NearbyParkingBloc() : super(NearbyParkingState.initialState());
+class ParkFilteringBloc extends Cubit<ParkFilteringState> {
+  ParkFilteringBloc() : super(ParkFilteringState.initialState());
 
   List<ParkingListResponseModel> nearbyParking = <ParkingListResponseModel>[];
+  List<ParkingListResponseModel> favoriteParking = <ParkingListResponseModel>[];
   List<ParkingListResponseModel> _parkingList = <ParkingListResponseModel>[];
 
   void getParkingList() async {
@@ -24,7 +25,7 @@ class NearbyParkingBloc extends Cubit<NearbyParkingState> {
             .map((dynamic e) => ParkingListResponseModel.fromJson(e))
             .toList();
 
-        emit(NearbyParkingState.showNearbyParkingList());
+        emit(ParkFilteringState.showNearbyParkingList());
       }
     } catch (e) {}
   }
@@ -46,6 +47,22 @@ class NearbyParkingBloc extends Cubit<NearbyParkingState> {
     });
 
     if (nearbyParking.isEmpty)
+      return false;
+    else
+      return true;
+  }
+
+  Future<bool> getFavoriteParking() async {
+    favoriteParking.clear();
+
+    await Future.forEach(_parkingList,
+        (ParkingListResponseModel element) async {
+      if (element.isFavorite) {
+        favoriteParking.add(element);
+      }
+    });
+
+  if (favoriteParking.isEmpty)
       return false;
     else
       return true;

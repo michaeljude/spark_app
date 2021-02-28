@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spark_app/application/dashboard/home/parkfiltering/bloc/favorite_bloc.dart';
+import 'package:spark_app/application/dashboard/home/parkfiltering/bloc/favorite_state.dart';
 import 'package:spark_app/core/models/dashboard/searchdestination/parking_list_response_model.dart';
 import 'package:spark_app/core/utils/constant_enums.dart';
+import 'package:spark_app/core/utils/constants/app_colors.dart';
 import 'package:spark_app/core/widgets/aligned_padding.dart';
 import 'package:spark_app/core/widgets/button_no_icon.dart';
 import 'package:spark_app/core/widgets/column_aligned.dart';
@@ -12,17 +16,22 @@ class PaymentDetails extends StatefulWidget {
   final ParkingListResponseModel parkingList;
   final Function action;
   final Function favoriteAction;
+  final bool isFavorite;
   final Origin origin;
   final BookingStatus bookingStatus;
 
   PaymentDetails(this.parkingList, this.origin, this.action,
-      {this.bookingStatus, this.favoriteAction});
+      {this.bookingStatus,
+      this.favoriteAction,
+      this.isFavorite = false,});
 
   @override
   State<StatefulWidget> createState() => _PaymentDetailsState();
 }
 
 class _PaymentDetailsState extends State<PaymentDetails> {
+  bool isFavorite;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,14 +51,7 @@ class _PaymentDetailsState extends State<PaymentDetails> {
                 color: HexColor("#19BA19"),
               ),
             ),
-            GestureDetector(
-                child: Icon(
-                  Icons.favorite_border_outlined,
-                  size: 28,
-                ),
-                onTap: () {
-                  widget.favoriteAction();
-                }),
+            _buildFavoriteButton()
           ],
         ),
         AlignedPadding(
@@ -202,6 +204,18 @@ class _PaymentDetailsState extends State<PaymentDetails> {
         _setButton()
       ]),
     );
+  }
+
+  Widget _buildFavoriteButton() {
+      return GestureDetector(
+          child: Icon(
+            widget.isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
+            size: 28,
+            color: widget.isFavorite ? AppColors.primaryColor : Colors.black,
+          ),
+          onTap: () {
+            widget.favoriteAction();
+          });
   }
 
   Widget _setButton() {

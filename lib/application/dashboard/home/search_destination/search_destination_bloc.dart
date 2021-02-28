@@ -24,7 +24,7 @@ class SearchDestinationBloc
   Stream<SearchDestinationState> mapEventToState(
       SearchDestinationEvent event) async* {
     if (event is SearchDestinationGetParking) {
-      yield SearchDestinationLoadingState();
+      //yield SearchDestinationLoadingState();
 
       try {
         LocalPersistence localPersistence = LocalPersistence.instance();
@@ -37,11 +37,9 @@ class SearchDestinationBloc
               .toList();
           debugPrint("");
           yield AddParkingMarker(parkingList);
-        } else {
-          yield SearchDestinationHideLoadingState();
         }
       } catch (e) {
-        yield SearchDestinationHideLoadingState();
+        //yield SearchDestinationHideLoadingState();
       }
     }
     if (event is SearchDestinationOnRefreshEvent) {
@@ -54,6 +52,31 @@ class SearchDestinationBloc
 
     if (event is OnShowBottomSheetEvent) {
       yield OnShowBottomSheetState();
+    }
+
+    if (event is OnFavoriteEvent) {
+      try {
+        String customerId = await LocalPersistence.instance().getCurrentUser();
+        List<ParkingListResponseModel> result =
+            await searchDestinationRepository.favorite(
+                customerId: customerId,
+                action: event.action,
+                parkId: event.parkId);
+
+        String parkingList = jsonEncode(result);
+        LocalPersistence localPersistence = LocalPersistence.instance();
+        localPersistence.securedStorage
+            .saveString(SparkConstants.PARKING_LIST, parkingList);
+
+        yield OnSuccessFavorite(
+            isFavorite:
+                event.action == FavoriteAction.create.action ? true : false,
+            parkingList: result);
+      } on DioError catch (e) {
+        yield OnFailedFavorite();
+      } catch (e) {
+        yield OnFailedFavorite();
+      }
     }
 
     if (event is OnBookEvent) {

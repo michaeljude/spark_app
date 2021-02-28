@@ -1,17 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:spark_app/application/login/registration/driver_detail_screen.dart';
 import 'package:spark_app/application/login/registration/registration_bloc.dart';
 import 'package:spark_app/application/login/registration/registration_event.dart';
 import 'package:spark_app/application/login/registration/registration_state.dart';
-import 'package:spark_app/application/login/registration/registration_temp_date.dart';
 import 'package:spark_app/core/utils/constant_enums.dart';
-import 'package:spark_app/core/utils/utils.dart';
 import 'package:spark_app/core/widgets/button_no_icon.dart';
 import 'package:spark_app/core/widgets/labeled_text_field.dart';
-import 'package:spark_app/core/widgets/login_button.dart';
 import 'package:spark_app/core/widgets/spark_text.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -32,10 +28,10 @@ class _RegistrationScreen extends State<RegistrationScreen> {
   void initState() {
     super.initState();
 
-    _emailController = TextEditingController();
-    _contactNoController = TextEditingController();
-    _passwordController = TextEditingController();
-    _confirmPasswordController = TextEditingController();
+    _emailController = TextEditingController(text: 'sparky@gmail.com');
+    _contactNoController = TextEditingController(text: '09101367520');
+    _passwordController = TextEditingController(text: '123456');
+    _confirmPasswordController = TextEditingController(text: '123456');
 
     _bloc = RegistrationBloc();
   }
@@ -195,8 +191,8 @@ class _PersonalInformationScreen extends State<PersonalInformationScreen> {
     super.initState();
 
     _bloc = context.bloc<RegistrationBloc>();
-    _firstNameController = TextEditingController();
-    _lastNameController = TextEditingController();
+    _firstNameController = TextEditingController(text: 'Spark1');
+    _lastNameController = TextEditingController(text: 'Spark1');
     _birthdayNameController = TextEditingController();
   }
 
@@ -311,7 +307,7 @@ class _PersonalInformationScreen extends State<PersonalInformationScreen> {
           ));
 
   void _goToDriverDetailScreen(BuildContext context) =>
-      Navigator.pushNamed(context, DriverDetailScreen.routeName);
+      Navigator.of(context).push(DriverDetailsScreen.route(_bloc));
 
   Widget radioGroup() {
     return Column(

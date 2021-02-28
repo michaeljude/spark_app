@@ -4,6 +4,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:spark_app/application/login/registration/registration_bloc.dart';
 import 'package:spark_app/application/login/registration/registration_state.dart';
 import 'package:spark_app/application/reusablescreens/camera_screen.dart';
@@ -14,15 +15,33 @@ import 'package:spark_app/core/widgets/labeled_widget.dart';
 import 'package:spark_app/core/widgets/login_button.dart';
 import 'package:spark_app/core/widgets/spark_text.dart';
 
-class DriverDetailScreen extends StatefulWidget {
-  static final String routeName = "/driver-detail";
+class DriverDetailsScreen extends StatelessWidget {
+  const DriverDetailsScreen({
+    Key key,
+    this.bloc,
+  }) : super(key: key);
+  final RegistrationBloc bloc;
+
+  static Route<void> route(RegistrationBloc bloc) => MaterialPageRoute(
+      builder: (BuildContext context) => DriverDetailsScreen(
+            bloc: bloc,
+          ));
 
   @override
-  State<StatefulWidget> createState() => _DriverDetailScreen();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (BuildContext context) => bloc,
+      child: DriverDetailView(),
+    );
+  }
 }
 
-class _DriverDetailScreen extends State<DriverDetailScreen> {
-  RegistrationBloc _bloc;
+class DriverDetailView extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _DriverDetailView();
+}
+
+class _DriverDetailView extends State<DriverDetailView> {
   int _carCount = 1;
   int _licenseCount = 1;
   List<String> _carPhotoList;
@@ -32,12 +51,11 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
   void initState() {
     super.initState();
     _carPhotoList = List<String>();
+    _licensePhotoList = List<String>();
   }
 
   @override
   Widget build(BuildContext context) {
-    _bloc = BlocProvider.of<RegistrationBloc>(context);
-
     return BlocConsumer<RegistrationBloc, RegistrationState>(
         builder: (BuildContext context, RegistrationState state) {
           return SafeArea(
@@ -52,7 +70,7 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
                     color: Colors.black,
                   ),
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.of(context).pop();
                   },
                   tooltip: "BackButton",
                 ),
@@ -242,8 +260,7 @@ class _DriverDetailScreen extends State<DriverDetailScreen> {
   }
 
   void _goToCamera(BuildContext context, PhotoType type) async {
-    final result = await Navigator.push(
-      context,
+    final result = await Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => CameraScreen()),
     );
     setState(() {

@@ -183,6 +183,36 @@ class _SparkApiService implements SparkApiService {
   }
 
   @override
+  Future<List<ParkingListResponseModel>> favorite(
+      {customerID, parkID, action}) async {
+    ArgumentError.checkNotNull(customerID, 'customerID');
+    ArgumentError.checkNotNull(parkID, 'parkID');
+    ArgumentError.checkNotNull(action, 'action');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _data = {
+      'customerID': customerID,
+      'parkID': parkID,
+      'action': action
+    };
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<List<dynamic>>('/favorite.php',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{r'include-auth-tokens': null},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    var value = _result.data
+        .map((dynamic i) =>
+            ParkingListResponseModel.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
   Future<TransactionDetailsResponseModel> getUserTransactionDetails(
       transactionID) async {
     ArgumentError.checkNotNull(transactionID, 'transactionID');

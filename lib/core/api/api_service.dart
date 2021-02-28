@@ -20,7 +20,7 @@ class ApiService {
 
   static bool isLoggingUiEnabled = true;
 
-  SparkApiService _sparkApiService;
+  SparkApiService sparkApiService;
   Dio _dio;
   BuildContext context;
 
@@ -29,7 +29,7 @@ class ApiService {
   void setDio(Dio dio) {
     this._dio = dio;
     resetInterceptors();
-    _sparkApiService = SparkApiService(this._dio);
+    sparkApiService = SparkApiService(this._dio);
   }
 
   void resetInterceptors() {
@@ -40,7 +40,7 @@ class ApiService {
   }
 
   Future<LoginResponseModel> login({@required String email, @required String password, @required String device_token}) =>
-      _sparkApiService.login(email: email, password: password, device_token: device_token);
+      sparkApiService.login(email: email, password: password, device_token: device_token);
 
   Future<RegistrationResponseModel> register({
     @required String firstname,
@@ -56,7 +56,7 @@ class ApiService {
     @required String car_photo,
     @required String driver_license
   }) =>
-      _sparkApiService.register(
+      sparkApiService.register(
           firstname: firstname,
           lastname: lastname,
           email: email,
@@ -71,22 +71,22 @@ class ApiService {
           driver_license: driver_license
       );
 
-  Future<List<ParkingListResponseModel>> getParkingList(String customerId) => _sparkApiService.getParkingList(customerId);
+  Future<List<ParkingListResponseModel>> getParkingList(String customerId) => sparkApiService.getParkingList(customerId);
 
   Future<BookingResponseModel> bookNow(
     int parkingId,
     String customerId
-  ) => _sparkApiService.bookNow(parkingId, customerId);
+  ) => sparkApiService.bookNow(parkingId, customerId);
 
   Future<GetStatusResponseModel> getUserStatus(
     String customerId
-  ) => _sparkApiService.getUserStatus(customerID: customerId);
+  ) => sparkApiService.getUserStatus(customerID: customerId);
 
   Future<GenericResponseModel> setUserAsParked(
     String customerId, int transationId
-  ) => _sparkApiService.setUserParked(customerID: customerId, transactionID: transationId);
+  ) => sparkApiService.setUserParked(customerID: customerId, transactionID: transationId);
 
   Future<TransactionDetailsResponseModel> getTransactionDetails({
       int transactionID
-  }) => _sparkApiService.getUserTransactionDetails(transactionID);
+  }) => sparkApiService.getUserTransactionDetails(transactionID);
 }

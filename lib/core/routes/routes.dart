@@ -30,7 +30,6 @@ class AppRoutes {
     BottomNavigationScreen.routeName: (BuildContext context) => new BottomNavigationScreen(),
     RegistrationScreen.routeName: (BuildContext context) => RegistrationScreen(),
     PersonalInformationScreen.routeName: (BuildContext context) => PersonalInformationScreen(),
-    DriverDetailScreen.routeName: (BuildContext context) => DriverDetailScreen(),
     CameraScreen.routeName: (BuildContext context) => CameraScreen(),
     SearchDestinationScreen.routeName: (BuildContext context) => SearchDestinationScreen(),
     SearchLocationModal.routeName: (context) => SearchLocationModal()
