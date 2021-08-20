@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spark_app/core/widgets/button_no_icon.dart';
 import 'package:spark_app/core/widgets/column_aligned.dart';
 import 'package:spark_app/core/widgets/spark_text.dart';
+import 'package:spark_app/theme/app_theme.dart';
 
 class DialogUtils {
   static void showErrorsDialog(BuildContext context, String title) =>
@@ -32,6 +33,7 @@ class DialogUtils {
                               child: SparkButton(
                                   color: Colors.green,
                                   buttonText: "Okay",
+                                  textcolor: HexColor('#ffffff'),
                                   action: () => Navigator.of(context).pop()),
                             ),
                           ),

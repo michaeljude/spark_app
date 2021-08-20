@@ -20,6 +20,8 @@ class LocalPersistence {
       return _localPersistence;
   }
 
+  Future<void> clearAppToken(String key, String token) => securedStorage.clear();
+
   Future<void> setAppToken(String key, String token) => securedStorage.saveString(key, token);
 
   Future<String> getAppToken(String userId) => securedStorage.getString(userId);

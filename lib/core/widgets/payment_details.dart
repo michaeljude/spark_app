@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spark_app/application/dashboard/home/home_screen.dart';
 import 'package:spark_app/application/dashboard/home/parkfiltering/bloc/favorite_bloc.dart';
 import 'package:spark_app/application/dashboard/home/parkfiltering/bloc/favorite_state.dart';
 import 'package:spark_app/core/models/dashboard/searchdestination/parking_list_response_model.dart';
@@ -229,8 +230,9 @@ class _PaymentDetailsState extends State<PaymentDetails> {
                     const EdgeInsets.only(left: 10.0, right: 10.0, top: 12.0),
                 child: SparkButton(
                     color: HexColor("#117E96"),
+                    textcolor: HexColor('#ffffff'),
                     buttonText: "Cancel Booking",
-                    action: () {}),
+                    action: () {_goToHomeScreen(context);}),
               ),
             ),
             Expanded(
@@ -239,6 +241,7 @@ class _PaymentDetailsState extends State<PaymentDetails> {
                     const EdgeInsets.only(left: 30.0, right: 30.0, top: 12.0),
                 child: SparkButton(
                     color: HexColor("#19BA19"),
+                    textcolor: HexColor('#ffffff'),
                     buttonText: "Book Now",
                     action: () => widget.action()),
               ),
@@ -270,4 +273,13 @@ class _PaymentDetailsState extends State<PaymentDetails> {
         ],
       );
   }
+}
+
+void _goToHomeScreen(BuildContext context){
+
+
+  Navigator.pushReplacement(context, new MaterialPageRoute(
+      builder: (context) =>
+      new HomeScreen())
+  );
 }

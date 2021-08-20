@@ -21,7 +21,7 @@ class ApiService {
   static bool isLoggingUiEnabled = true;
 
   SparkApiService sparkApiService;
-  Dio _dio;
+  Dio _dio = Dio();
   BuildContext context;
 
   ApiService({this.context});
@@ -42,33 +42,19 @@ class ApiService {
   Future<LoginResponseModel> login({@required String email, @required String password, @required String device_token}) =>
       sparkApiService.login(email: email, password: password, device_token: device_token);
 
-  Future<RegistrationResponseModel> register({
+  Future<RegistrationResponseModel> register_user({
     @required String firstname,
     @required String lastname,
     @required String email,
     @required String password,
-    @required String contact_no,
-    @required String gender,
-    @required String birthday,
-    @required String plate_no,
-    @required String car_model,
-    @required String car_description,
-    @required String car_photo,
-    @required String driver_license
+    @required String contact_no
   }) =>
-      sparkApiService.register(
+      sparkApiService.register_user(
           firstname: firstname,
           lastname: lastname,
           email: email,
           password: password,
-          contact_no: contact_no,
-          gender: gender,
-          birthday: birthday,
-          plate_no: plate_no,
-          car_model: car_model,
-          car_description: car_description,
-          car_photo: car_photo,
-          driver_license: driver_license
+          contact_no: contact_no
       );
 
   Future<List<ParkingListResponseModel>> getParkingList(String customerId) => sparkApiService.getParkingList(customerId);

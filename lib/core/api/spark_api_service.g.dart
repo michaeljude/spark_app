@@ -9,7 +9,7 @@ part of 'spark_api_service.dart';
 class _SparkApiService implements SparkApiService {
   _SparkApiService(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    baseUrl ??= 'http://sparkph.net/Spark-Admin/api';
+    baseUrl ??= 'https://sparkph.net/Spark-Admin/api';
   }
 
   final Dio _dio;
@@ -43,31 +43,17 @@ class _SparkApiService implements SparkApiService {
   }
 
   @override
-  Future<RegistrationResponseModel> register(
+  Future<RegistrationResponseModel> register_user(
       {firstname,
       lastname,
       email,
       password,
-      contact_no,
-      gender,
-      birthday,
-      plate_no,
-      car_model,
-      car_description,
-      car_photo,
-      driver_license}) async {
+      contact_no}) async {
     ArgumentError.checkNotNull(firstname, 'firstname');
     ArgumentError.checkNotNull(lastname, 'lastname');
     ArgumentError.checkNotNull(email, 'email');
     ArgumentError.checkNotNull(password, 'password');
     ArgumentError.checkNotNull(contact_no, 'contact_no');
-    ArgumentError.checkNotNull(gender, 'gender');
-    ArgumentError.checkNotNull(birthday, 'birthday');
-    ArgumentError.checkNotNull(plate_no, 'plate_no');
-    ArgumentError.checkNotNull(car_model, 'car_model');
-    ArgumentError.checkNotNull(car_description, 'car_description');
-    ArgumentError.checkNotNull(car_photo, 'car_photo');
-    ArgumentError.checkNotNull(driver_license, 'driver_license');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
@@ -76,14 +62,7 @@ class _SparkApiService implements SparkApiService {
       'lastname': lastname,
       'email': email,
       'password': password,
-      'contact_no': contact_no,
-      'gender': gender,
-      'birthday': birthday,
-      'plate_no': plate_no,
-      'car_model': car_model,
-      'car_description': car_description,
-      'car_photo': car_photo,
-      'driver_license': driver_license
+      'contact_no': contact_no
     };
     _data.removeWhere((k, v) => v == null);
     final _result = await _dio.request<Map<String, dynamic>>('/create_user.php',

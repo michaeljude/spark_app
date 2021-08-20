@@ -12,7 +12,7 @@ class SparkTextField extends StatelessWidget {
     this.placeholder,
     this.onTap,
     this.readOnly = false,
-    this.controller
+    this.controller, InputDecoration decoration
   });
 
   @override
@@ -21,9 +21,11 @@ class SparkTextField extends StatelessWidget {
       child: TextField(
         controller: this.controller,
         readOnly: this.readOnly,
+        style: TextStyle(fontFamily: 'Montserrat'),
         onTap: () => this.onTap(),
         decoration: InputDecoration(
           hintText: this.placeholder,
+          labelStyle: TextStyle(fontFamily: 'Montserrat'),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10)
           )

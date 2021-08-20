@@ -88,6 +88,7 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
                                   left: 10.0, right: 10.0, top: 18.0),
                               child: SparkButton(
                                   color: HexColor("#117E96"),
+                                  textcolor: HexColor('#ffffff'),
                                   buttonText: "Cancel Booking",
                                   action: () {}),
                             ),
@@ -108,6 +109,7 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
                                       UserStatusModel.instance().status ==
                                           BookingStatus.PARKED,
                                   color: HexColor("#19BA19"),
+                                  textcolor: HexColor('#ffffff'),
                                   buttonText: "Payment",
                                   action: () {
                                     context

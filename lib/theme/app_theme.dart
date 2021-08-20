@@ -26,6 +26,16 @@ class DesignCourseAppTheme {
     bodyText1: body2,
     bodyText2: body1,
     caption: caption,
+
+  );
+
+  static const String FontNameDefault = 'Montserrat';
+
+  static const TextStyle wordings = TextStyle(
+    fontFamily: FontNameDefault,
+    fontWeight: FontWeight.w300,
+    fontSize: 18.0,
+    color: Colors.black,
   );
 
   static const TextStyle display1 = TextStyle(

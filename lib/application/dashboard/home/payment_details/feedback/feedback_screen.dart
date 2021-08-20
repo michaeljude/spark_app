@@ -203,6 +203,7 @@ class FeedbackScreen extends StatelessWidget {
                         child: Expanded(
                             child: SparkButton(
                                 color: HexColor("#19BA19"),
+                                textcolor: HexColor('#ffffff'),
                                 buttonText: "SEND A FEEDBACK",
                                 action: () => {})),
                       ),
@@ -212,6 +213,7 @@ class FeedbackScreen extends StatelessWidget {
                         child: Expanded(
                             child: SparkButton(
                                 color: HexColor("#117E96"),
+                                textcolor: HexColor('#ffffff'),
                                 buttonText: "BACK TO DASHBOARD",
                                 action: () => _goToDashboard(context))),
                       ),

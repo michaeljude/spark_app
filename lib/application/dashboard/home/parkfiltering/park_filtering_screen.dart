@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 import 'package:spark_app/application/dashboard/home/parkfiltering/bloc/park_filtering_bloc.dart';
 import 'package:spark_app/application/dashboard/home/parkfiltering/bloc/park_filtering_state.dart';
@@ -9,6 +10,7 @@ import 'package:spark_app/core/widgets/column_aligned.dart';
 import 'package:spark_app/core/widgets/spark_parking_container.dart';
 import 'package:spark_app/core/widgets/spark_scaffold.dart';
 import 'package:spark_app/core/widgets/spark_text.dart';
+import 'package:spark_app/theme/app_theme.dart';
 
 class ParkFilteringScreen extends StatelessWidget {
   const ParkFilteringScreen({
@@ -58,8 +60,8 @@ class _ParkFilteringViewState extends State<ParkFilteringView> {
         }
         return SparkScaffold(
           icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
+            FeatherIcons.chevronLeft,
+            color: HexColor('#525252'),
           ),
           onLeadingIconFunction: () => Navigator.of(context).pop(),
           backgroundColor: Colors.white,
@@ -74,7 +76,7 @@ class _ParkFilteringViewState extends State<ParkFilteringView> {
                       text: widget.filteringType == FilteringType.nearby.type
                           ? 'Nearby Parking'
                           : 'Favorites',
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                     )),
                 const SizedBox(height: 10),
                 Expanded(
@@ -123,7 +125,7 @@ class _ParkFilteringViewState extends State<ParkFilteringView> {
               : Center(
                   child: SparkText(
                     text: 'No Nearby Parking',
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w500,
                     size: 18,
                   ),
                 );
@@ -165,7 +167,7 @@ class _ParkFilteringViewState extends State<ParkFilteringView> {
               : Center(
                   child: SparkText(
                     text: 'No Favorite Parking',
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w500,
                     size: 18,
                   ),
                 );

@@ -37,7 +37,8 @@ class _SparkText extends State<SparkText> {
           style: TextStyle(
               color: widget.color,
               fontSize: widget.size,
-              fontWeight: widget.fontWeight),
+              fontWeight: widget.fontWeight,
+              fontFamily: 'Montserrat',),
           children: _requiredText()),
     );
   }

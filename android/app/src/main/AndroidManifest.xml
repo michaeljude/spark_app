@@ -15,7 +15,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <application
         android:name=".Application"
-        android:label="spark_app"
+        android:label="Spark"
         android:icon="@mipmap/ic_launcher">
 
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>

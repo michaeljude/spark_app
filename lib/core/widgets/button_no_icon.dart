@@ -7,11 +7,13 @@ class SparkButton extends StatelessWidget {
   final String buttonText;
   final Function action;
   final bool isEnabled;
+  final Color textcolor;
 
   SparkButton({
     @required this.color,
     @required this.buttonText,
     @required this.action,
+    this.textcolor,
     this.isEnabled = true
   });
 
@@ -21,7 +23,7 @@ class SparkButton extends StatelessWidget {
       width: double.infinity,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8)
+            borderRadius: BorderRadius.circular(5)
         ),
         onPressed: isEnabled ? () {
           this.action();
@@ -32,8 +34,10 @@ class SparkButton extends StatelessWidget {
           child: Text(
             this.buttonText,
             style: TextStyle(
-              color: _getFontColor(),
-              fontSize: 17,
+              color: this.textcolor,
+              fontSize: 16,
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.w500,
             ),
             textAlign: TextAlign.center,
           ),

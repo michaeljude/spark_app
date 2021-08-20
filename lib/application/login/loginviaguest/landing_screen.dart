@@ -15,6 +15,10 @@ import 'package:spark_app/application/login/registration/registration_screen.dar
 import 'package:spark_app/core/routes/routes.dart';
 import 'package:spark_app/core/widgets/labeled_text_field.dart';
 import 'package:spark_app/core/widgets/button_no_icon.dart';
+import "package:flutter_feather_icons/flutter_feather_icons.dart";
+import 'package:spark_app/theme/app_theme.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatefulWidget {
   static final String routeName = "/login-via-guest";
@@ -29,6 +33,7 @@ class _LoginScreen extends State<LoginScreen> {
   TextEditingController passwordController;
   ProgressDialog _progressDialog;
   String token;
+  final String sparkTextLogo = 'assets/images/spark_text_logo.svg';
 
   @override
   void initState() {
@@ -62,6 +67,7 @@ class _LoginScreen extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocListener<LoginBloc, LoginState>(
       listener: (BuildContext context, LoginState state) {
         if (state is LoginSuccessState) {
@@ -83,37 +89,92 @@ class _LoginScreen extends State<LoginScreen> {
         ),
         child: Scaffold(
           resizeToAvoidBottomInset: false,
+          backgroundColor: HexColor('#ffffff'),
+
+          appBar: AppBar(
+            backgroundColor: HexColor('#ffffff'),
+            elevation: 0.0,
+
+            leading: IconButton(
+              padding: const EdgeInsets.only(left:0, top: 10),
+              icon: Icon(
+                FeatherIcons.chevronLeft,
+                color: HexColor('#626262'),
+                size: 30,
+              ),
+              onPressed: () {
+                SystemChannels.textInput.invokeMethod('TextInput.hide');
+                Navigator.pop(context);
+              },
+              tooltip: "BackButton",
+            ),
+          ),
           body: Container(
+
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  padding: const EdgeInsets.fromLTRB(20, 100, 20, 20),
-                  child: Image.asset(
-                    "assets/images/spark_logo_green.png",
-                    height: 150,
+                  padding: const EdgeInsets.fromLTRB(20, 40, 20, 10),
+                  child:
+                  SvgPicture.asset(
+                    sparkTextLogo,
+                    semanticsLabel: 'Spark Logo',
+                    height: 50,
                     width: 150,
                   ),
                 ),
                 Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.only(left: 40, right: 40),
-                  child: Text(
-                    "Login to access your account.",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                    ),
-                    textAlign: TextAlign.center,
+                  alignment: Alignment.topLeft,
+                  margin: EdgeInsets.only(left: 20, right: 20, bottom: 60, top: 0),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Tired of always finding the right spot?",
+                              style: TextStyle(
+                              color: HexColor('#525252'),
+                              fontSize: 20,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w500,
+
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                              child: Text(
+                                "Login in now!",
+                                style: TextStyle(
+                                  color: HexColor('#525252'),
+                                  fontSize: 18,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+
+                    // textAlign: TextAlign.center,
+
                   ),
+
+
+
                 ),
                 Padding(
                   padding:
-                      const EdgeInsets.only(bottom: 12.0, left: 30, right: 30),
+                      const EdgeInsets.only(bottom: 12.0, left: 20, right: 20),
                   child: Theme(
                     child: LabeledTextField(
                       title: "Email",
-                      icon: Icons.account_circle,
+                      icon: FeatherIcons.mail,
                       hint: "Enter Email",
                       textController: emailController,
                     ),
@@ -123,11 +184,11 @@ class _LoginScreen extends State<LoginScreen> {
                 ),
                 Padding(
                   padding:
-                      const EdgeInsets.only(bottom: 12.0, left: 30, right: 30),
+                      const EdgeInsets.only(bottom: 12.0, left: 20, right: 20),
                   child: Theme(
                     child: LabeledTextField(
                       title: "Password",
-                      icon: Icons.lock_rounded,
+                      icon: FeatherIcons.lock,
                       isTappable: true,
                       hint: "Enter Password",
                       textController: passwordController,
@@ -141,7 +202,14 @@ class _LoginScreen extends State<LoginScreen> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30),
                     child: InkWell(
-                      child: Text("Forgot Password?"),
+                      child: Text("Forgot Password?",
+                        style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w300,
+                          color: HexColor('#626262'),
+                        ),
+                      ),
+
                       onTap: () {},
                     ),
                   ),
@@ -149,10 +217,11 @@ class _LoginScreen extends State<LoginScreen> {
                 Expanded(
                   child: Container(
                     padding:
-                        const EdgeInsets.only(bottom: 20, right: 30, left: 30),
+                        const EdgeInsets.only(bottom: 20, right: 20, left: 20),
                     alignment: Alignment.bottomCenter,
                     child: SparkButton(
                       color: const Color(0xff19BA19),
+                      textcolor: const Color(0xffffffff),
                       buttonText: "LOGIN",
                       action: () {
                         _loginBloc.add(LoginViaGuestEvent(emailController.text,
@@ -164,21 +233,34 @@ class _LoginScreen extends State<LoginScreen> {
                 Padding(
                   padding:
                       const EdgeInsets.only(bottom: 50, left: 30, right: 30),
-                  child: RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                        style: TextStyle(color: Colors.black, fontSize: 18),
-                        children: <TextSpan>[
-                          TextSpan(text: "Don't have an account?\n"),
-                          TextSpan(
-                              text: 'Register now! ',
-                              style: TextStyle(color: Colors.blue),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  debugPrint("REGISTER NOW");
-                                  _goToRegistration();
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                          style: TextStyle(color: Colors.black, fontSize: 16),
+                          children: <TextSpan>[
+                            TextSpan(text: "Don't have an account?\n",
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w400,
+                                color: HexColor('#525252'),
+                              ),
+                            ),
+                            TextSpan(
+                                text: 'Register now! ',
+                                style: TextStyle(
+                                  color: HexColor('#117E96'),
+                                  fontSize: 16,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.w500,),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    debugPrint("REGISTER NOW");
+                                    _goToRegistration();
                                 }),
-                        ]),
+                          ]),
+                    ),
                   ),
                 )
               ],

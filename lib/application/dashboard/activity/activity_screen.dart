@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:spark_app/theme/app_theme.dart';
 
 class ActivityScreen extends StatefulWidget {
@@ -17,6 +18,7 @@ class _ActivityScreenState extends State<ActivityScreen>
 
   TabController _controller;
   int _selectedIndex = 0;
+  final String noData = 'assets/images/no-data.svg';
 
   List<Widget> list = [
     Tab(text: 'Ongoing'),
@@ -52,13 +54,19 @@ class _ActivityScreenState extends State<ActivityScreen>
             tabs: list,
             indicatorColor: HexColor('#19BA19'),
             labelColor: HexColor('#19BA19'),
+            labelStyle: TextStyle(fontSize: 16,
+                fontFamily: 'Montserrat',
+                fontWeight: FontWeight.w500),
             unselectedLabelColor: HexColor('#525252'),
           ),
 
           title:
           Align(
           alignment: Alignment.center,
-          child: Text('Activity', textAlign: TextAlign.center, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: HexColor('#525252')
+          child: Text('Activity', textAlign: TextAlign.center, style: TextStyle(color: HexColor('#525252'),
+              fontSize: 18,
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.w500
           ),
           ),
           ),
@@ -68,11 +76,24 @@ class _ActivityScreenState extends State<ActivityScreen>
         body: TabBarView(
           controller: _controller,
           children: [
-            Center(
-                child: Text(
-                  'Ongoing List',
-                  style: TextStyle(fontSize: 40),
-                )),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SvgPicture.asset(
+                noData,
+                semanticsLabel: 'Spark Logo',
+                height: 200,
+                width: 200,
+              ),
+
+                Text(
+                      'No booking\'s found',
+                      style: TextStyle(fontFamily: 'Montserrat', fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+
+            ],
+          ),
             Center(
                 child: Text(
                   'Done List',

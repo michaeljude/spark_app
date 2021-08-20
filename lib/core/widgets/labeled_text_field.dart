@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import "package:flutter_feather_icons/flutter_feather_icons.dart";
+import 'package:spark_app/theme/app_theme.dart';
 
 class LabeledTextField extends StatefulWidget {
 
@@ -65,7 +67,8 @@ class _LabeledTextField extends State<LabeledTextField> {
           Padding(
             padding: const EdgeInsets.only(bottom: 4.0),
             child: RichText(
-              text: TextSpan(style: TextStyle(color: Colors.black87, fontSize: 16),
+              text: TextSpan(style: TextStyle(color: HexColor('#525252'), fontSize: 14, fontFamily: 'Montserrat',
+                fontWeight: FontWeight.w400,),
                 children: <TextSpan> [
                   TextSpan(text: widget.title),
                   TextSpan(
@@ -105,7 +108,7 @@ class _LabeledTextField extends State<LabeledTextField> {
         obscureText: passwordObscure,
         decoration: InputDecoration(
             hintText: widget.hint,
-            prefixIcon: Icon(widget.icon),
+            prefixIcon: Icon(widget.icon, size: 15,),
             suffixIcon: widget.isTappable ? GestureDetector(
               onTap: () {
                 if (widget.textFieldType == TextFieldType.BIRTHDATE) {
@@ -146,13 +149,15 @@ class _LabeledTextField extends State<LabeledTextField> {
             _getDate();
           }
         },
+        style: TextStyle(fontFamily: 'Montserrat',
+          fontWeight: FontWeight.w500, color: HexColor('#525252'),),
         readOnly: readOnly(),
         controller: this.textEditingController,
         cursorColor: Colors.black26,
         obscureText: passwordObscure,
         decoration: InputDecoration(
             hintText: widget.hint,
-            prefixIcon: Icon(widget.icon),
+            prefixIcon: Icon(widget.icon, size: 20,),
             suffixIcon: widget.isTappable ? GestureDetector(
               onTap: () {
                 if (widget.textFieldType == TextFieldType.BIRTHDATE) {
@@ -169,7 +174,7 @@ class _LabeledTextField extends State<LabeledTextField> {
             focusColor: Colors.black54,
             border: OutlineInputBorder(
                 borderSide: BorderSide(
-                    color: Colors.black,
+                    color: HexColor('#626262'),
                     width: 2
                 ),
                 borderRadius: BorderRadius.circular(5)
@@ -218,8 +223,8 @@ class _LabeledTextField extends State<LabeledTextField> {
     }
     else if (widget.textFieldType == TextFieldType.PASSWORD) {
       return Icon(passwordObscure
-          ? Icons.visibility_off
-          : Icons.visibility);
+          ? FeatherIcons.eyeOff
+          : FeatherIcons.eye, size: 20,);
     }
     else return null;
   }

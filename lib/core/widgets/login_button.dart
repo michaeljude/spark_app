@@ -23,7 +23,7 @@ class LogoButton extends StatelessWidget {
       width: double.infinity,
       child: RaisedButton.icon(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8)
+            borderRadius: BorderRadius.circular(5)
         ),
         onPressed: () {
           this.action();
@@ -40,7 +40,9 @@ class LogoButton extends StatelessWidget {
             this.buttonText,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 17,
+              fontSize: 16,
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.w500,
             ),
             textAlign: TextAlign.center,
           ),

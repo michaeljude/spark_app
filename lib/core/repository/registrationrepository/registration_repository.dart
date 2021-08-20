@@ -5,35 +5,21 @@ import 'package:spark_app/core/models/registration/registration_response.dart';
 class RegistrationRespository {
 
   RegistrationRespository(this._apiService);
-  final ApiService _apiService;
+  ApiService _apiService = ApiService();
 
-  Future<RegistrationResponseModel> register({
+  Future<RegistrationResponseModel> register_user({
     @required String firstname,
     @required String lastname,
     @required String email,
     @required String password,
-    @required String contact_no,
-    @required String gender,
-    @required String birthday,
-    @required String plate_no,
-    @required String car_model,
-    @required String car_description,
-    @required String car_photo,
-    @required String driver_license,
+    @required String contact_no
 }) =>
-      _apiService.register(
+      _apiService.register_user(
           firstname: firstname,
           lastname: lastname,
           email: email,
           password: password,
-          contact_no: contact_no,
-          gender: gender,
-          birthday: birthday,
-          plate_no:plate_no,
-          car_model:car_model,
-          car_description:car_description,
-          car_photo:car_photo,
-          driver_license:driver_license
+          contact_no: contact_no
       );
 
 }

@@ -5,9 +5,13 @@ import 'package:spark_app/application/dashboard/home/home_bloc.dart';
 import 'package:spark_app/application/dashboard/home/home_state.dart';
 import 'package:spark_app/application/dashboard/home/parkfiltering/park_filtering_screen.dart';
 import 'package:spark_app/application/dashboard/home/search_destination/search_destination_screen.dart';
+import 'package:spark_app/application/dashboard/home/walkin_parking/walkin_parking_screen.dart';
 import 'package:spark_app/core/models/dashboard/searchdestination/parking_list_response_model.dart';
 import 'package:spark_app/core/utils/constant_enums.dart';
 import 'package:spark_app/core/widgets/column_aligned.dart';
+import 'package:spark_app/core/widgets/spark_divider.dart';
+import 'package:spark_app/core/widgets/spark_menu_button.dart';
+import 'package:spark_app/core/widgets/spark_menu_button_row.dart';
 import 'package:spark_app/theme/app_theme.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -62,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Container(
                           color: HexColor('#FFFFFF'),
                           child: ColumnAligned(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 15, 0),
+                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                             children: <Widget>[
                               getSparkCreditUI(),
                               getMenuUI(),
@@ -87,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(top: 30, left: 18, right: 18),
+          padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
           child: Row(
             children: <Widget>[
               Padding(
@@ -100,29 +104,23 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Text('eCredit',
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                       fontSize: 16,
                       letterSpacing: 0.2,
+                      fontFamily: 'Montserrat',
                       color: HexColor('#525252'))),
               Spacer(flex: 3),
-              Text('PHP 0.00',
+              Text('PHP 3,500.00',
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                       fontSize: 16,
                       letterSpacing: 0.2,
+                      fontFamily: 'Montserrat',
                       color: HexColor('#525252'))),
             ],
           ),
         ),
-        Padding(
-          padding:
-              const EdgeInsets.only(top: 20, left: 0, right: 0, bottom: 8.0),
-          child: Divider(
-            color: HexColor('#FAFAFA'),
-            height: 10,
-            thickness: 5,
-          ),
-        ),
+        SparkDivider(),
       ],
     );
   }
@@ -132,136 +130,55 @@ class _HomeScreenState extends State<HomeScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Padding(
-            padding:
-                const EdgeInsets.only(top: 30, left: 18, right: 18, bottom: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: GestureDetector(
-                      child: Image.asset(
-                        "assets/images/search_destination.png",
-                        height: 125,
-                      ),
-                      onTap: () {
-                        _searchdestination(context);
-                      }),
-                ),
-              ],
-            )),
-        Align(
-          alignment: Alignment
-              .center, // Align however you like (i.e .centerRight, centerLeft)
-          child: Text(
-            'Search Destination',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16,
-              letterSpacing: 0.27,
-              color: HexColor('#525252'),
-            ),
-          ),
+        SparkMenuButton(
+          urlImage: "assets/images/search_destination.png",
+          size: 125,
+          action: () {
+            _searchdestination(context);
+          }
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 20),
+          padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
           child: Column(children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Expanded(
-                  child: Column(
-                    children: <Widget>[
-                      GestureDetector(
-                        child: Image.asset(
-                          "assets/images/nearby_parking.png",
-                          height: 75,
-                        ),
-                        onTap: () {
-                          _goToNearbyParkingScreen(context);
-                        },
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Text(
-                          'Nearby Parking',
-                          style: TextStyle(
-                            fontSize: 14,
-                            letterSpacing: 0.27,
-                            color: HexColor('#525252'),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                SparkMenuButtonRow(
+                    size: 75,
+                    urlImage: "assets/images/nearby_parking.png",
+                    label: 'Nearby Parking',
+                    action:  () {
+                      _goToNearbyParkingScreen(context);
+                    }
+                    ),
+                SparkMenuButtonRow(
+                    size: 75,
+                    urlImage: "assets/images/favorite_parking.png",
+                    label: 'Favorites',
+                    action:  () {
+                      _goToFavoriteParkingScreen(context);
+                    }
                 ),
-                Expanded(
-                  child: Column(
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: () => _goToFavoriteParkingScreen(context),
-                        child: Image.asset(
-                          "assets/images/favorite_parking.png",
-                          height: 75,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Text(
-                          'Favorites',
-                          style: TextStyle(
-                            fontSize: 14,
-                            letterSpacing: 0.27,
-                            color: HexColor('#525252'),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    children: <Widget>[
-                      Image.asset(
-                        "assets/images/walk_in_parking.png",
-                        height: 75,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Text(
-                          'Walk-in Parking',
-                          style: TextStyle(
-                            fontSize: 14,
-                            letterSpacing: 0.27,
-                            color: HexColor('#525252'),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                SparkMenuButtonRow(
+                    size: 75,
+                    urlImage: "assets/images/walk_in_parking.png",
+                    label: 'Walk-in Parking',
+                    action:  () {
+                      _walkinParking(context);
+                    }
                 ),
               ],
             )
           ]),
         ),
-        Padding(
-          padding:
-              const EdgeInsets.only(top: 30, left: 0, right: 0, bottom: 8.0),
-          child: Divider(
-            color: HexColor('#FAFAFA'),
-            height: 20,
-            thickness: 5,
-          ),
-        ),
+        SparkDivider(),
       ],
     );
   }
 
   Widget getBannerUI() {
     return Padding(
-        padding: const EdgeInsets.only(top: 8.0, left: 18, right: 18),
+        padding: const EdgeInsets.only(top: 8.0, left: 38, right: 38),
         child: CarouselSlider.builder(
           itemCount: images.length,
           options: CarouselOptions(
@@ -294,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget getPromoAdsUI() {
     return Padding(
       padding:
-          const EdgeInsets.only(top: 8.0, left: 18, right: 18, bottom: 8.0),
+          const EdgeInsets.only(top: 8.0, left: 25, right: 25, bottom: 8.0),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -306,6 +223,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 fontWeight: FontWeight.w600,
                 fontSize: 18,
                 letterSpacing: 0.27,
+                fontFamily: 'Montserrat',
                 color: DesignCourseAppTheme.darkerText,
               ),
             ),
@@ -313,7 +231,7 @@ class _HomeScreenState extends State<HomeScreen> {
               shrinkWrap: true,
               crossAxisCount: 2,
               physics: ScrollPhysics(),
-              children: List.generate(4, //this is the total number of cards
+              children: List.generate(2, //this is the total number of cards
                   (index) {
                 return Container(
                   child: Card(
@@ -326,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    margin: EdgeInsets.all(5),
+                    margin: EdgeInsets.only(top:5, bottom: 5, left: 5, right: 5),
                   ),
                 );
               }),
@@ -337,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget getTopBannerUI() {
     return Padding(
-      padding: const EdgeInsets.only(top: 30.0, left: 18, right: 18),
+      padding: const EdgeInsets.only(top: 30.0, left: 20, right: 20),
       child: Row(
         children: <Widget>[
           Expanded(
@@ -352,18 +270,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                     letterSpacing: 0.2,
+                    fontFamily: 'Montserrat',
                     color: DesignCourseAppTheme.grey,
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(0, 10, 0, 20),
                   child: Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                    'How can we Spark up your day. Buddy?',
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 14,
                       letterSpacing: 0.27,
+                      fontFamily: 'Montserrat',
                       color: DesignCourseAppTheme.darkerText,
                     ),
                   ),
@@ -375,6 +295,12 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  void _walkinParking(BuildContext context) =>
+      Navigator.push(context, new MaterialPageRoute(
+          builder: (context) =>
+          new WalkInParkingScreen())
+      );
 
   void _searchdestination(BuildContext context,
           {ParkingListResponseModel parking}) =>

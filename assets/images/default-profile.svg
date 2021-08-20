@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 3435 3435">
+  <defs>
+    <linearGradient id="linear-gradient" x1="1309.76" y1="999.29" x2="2126.45" y2="999.29" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7e9b00"/>
+      <stop offset="0.16" stop-color="#799a00"/>
+      <stop offset="0.35" stop-color="#6c9900"/>
+      <stop offset="0.54" stop-color="#569600"/>
+      <stop offset="0.73" stop-color="#379100"/>
+      <stop offset="0.93" stop-color="#108c00"/>
+      <stop offset="1" stop-color="#008a00"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="741.76" y1="2217.15" x2="2693.24" y2="2217.15" xlink:href="#linear-gradient"/>
+  </defs>
+  <title>default-profile</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Layer_1-2" data-name="Layer 1">
+      <g>
+        <circle cx="1717.5" cy="1717.5" r="1717.5" fill="#f3f8ff"/>
+        <g>
+          <ellipse cx="1718.11" cy="999.29" rx="408.34" ry="466.46" fill="url(#linear-gradient)"/>
+          <path d="M1318.5,1674.07c71.77-49.2,207.6-139.72,395.83-141.9,185.78-2.14,322.07,82.93,392.71,128.32,411.33,264.27,720.36,918.18,527.29,1151.81-106.57,129-276.5,21.4-935.09,34.72-632.44,12.79-790.46,118.35-895.54-1.51C605.86,2619.88,910.06,1954.07,1318.5,1674.07Z" fill="url(#linear-gradient-2)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

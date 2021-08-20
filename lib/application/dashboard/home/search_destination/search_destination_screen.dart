@@ -1,6 +1,7 @@
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -285,6 +286,7 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
                       SparkButton(
                           color: Colors.green,
                           buttonText: "Okay",
+                          textcolor: HexColor('#ffffff'),
                           action: () => Navigator.of(context).pop())
                     ],
                   )),
@@ -319,7 +321,7 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
   Future<BitmapDescriptor> _getUserCustomMarker() async {
     final ImageConfiguration config = createLocalImageConfiguration(context);
     BitmapDescriptor marker = await BitmapDescriptor.fromAssetImage(
-        config, "assets/images/user_marker.png");
+        config, "assets/images/booker_car.png");
     return marker;
   }
 
@@ -429,13 +431,13 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
       child: Padding(
         padding: const EdgeInsets.all(14.0),
         child: SizedBox.fromSize(
-          size: Size(double.infinity, MediaQuery.of(context).size.height * .25),
+          size: Size(double.infinity, MediaQuery.of(context).size.height * .21),
           child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black,
+                      color: HexColor('#C1C1C1'),
                       blurRadius: 2.0,
                       offset:
                           Offset(2.0, 2.0), // shadow direction: bottom right
@@ -447,7 +449,7 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
                 children: <Widget>[
                   RowAligned(
                     padding:
-                        const EdgeInsets.only(top: 10, left: 14, right: 14),
+                        const EdgeInsets.only(top: 10, left: 10, right: 10),
                     children: <Widget>[
                       Expanded(
                         child: SparkTextField(
@@ -461,20 +463,26 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
                       Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: HexColor("#1B7E96")),
+                            color: HexColor("#19BA19")),
+                            height: 50,
                         child: IconButton(
-                            icon: Icon(Icons.shop_two, color: Colors.white),
+                            icon: Icon(MaterialCommunityIcons.ticket_percent, color: Colors.white),
                             onPressed: null),
                       )
                     ],
                   ),
-                  Spacer(),
+
                   RowAligned(
                     padding:
-                        const EdgeInsets.only(bottom: 10, left: 14, right: 14),
+                        const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
                     children: <Widget>[
                       Expanded(
                         child: SparkTextField(
+                          decoration: InputDecoration(
+                              isDense: true,
+                              contentPadding: EdgeInsets.zero,
+                              border: InputBorder.none
+                          ),
                           controller: _searchController,
                           placeholder: "I'm going to",
                           onTap: () => _searchLocationField(),
@@ -525,7 +533,7 @@ class _MyHomePageState extends State<SearchDestinationScreen> {
     } catch (e) {
       _progressDialog.hide();
       debugPrint("DIRECTION ERROR: $e");
-      showErrorsDialog("Something wbaent wrong!");
+      showErrorsDialog("Something went wrong!");
     }
   }
 }

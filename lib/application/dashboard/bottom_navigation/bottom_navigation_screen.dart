@@ -8,6 +8,7 @@ import 'package:spark_app/application/dashboard/home/home_screen.dart';
 import 'package:spark_app/application/dashboard/message/messagelist/message_screen.dart';
 import 'package:spark_app/application/dashboard/payment/payment_screen.dart';
 import 'package:spark_app/core/utils/dialog.dart';
+import "package:flutter_feather_icons/flutter_feather_icons.dart";
 
 import 'bottom_navigation_event.dart';
 import 'bottom_navigation_state.dart';
@@ -80,24 +81,34 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
           currentIndex: bottomNavigationBloc.currentIndex,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Home'),
+              icon: Icon(FeatherIcons.home),
+              title: Text('Home',
+              style: TextStyle(fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w300),),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.insert_drive_file),
-              title: Text('Activity'),
+              icon: Icon(FeatherIcons.file),
+              title: Text('Activity',
+                style: TextStyle(fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w300),),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.payment),
-              title: Text('Payment'),
+              icon: Icon(FeatherIcons.creditCard),
+              title: Text('Payment',
+                style: TextStyle(fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w300),),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.messenger),
-              title: Text('Message'),
+              icon: Icon(FeatherIcons.messageSquare),
+              title: Text('Message',
+                style: TextStyle(fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w300),),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
-              title: Text('Account'),
+              icon: Icon(FeatherIcons.user),
+              title: Text('Account',
+                style: TextStyle(fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w300),),
             ),
           ],
           onTap: (index) => bottomNavigationBloc.add(PageTapped(index: index)),
