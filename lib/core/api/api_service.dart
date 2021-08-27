@@ -43,6 +43,7 @@ class ApiService {
       sparkApiService.login(email: email, password: password, device_token: device_token);
 
   Future<RegistrationResponseModel> register_user({
+    @required String device_token,
     @required String firstname,
     @required String lastname,
     @required String email,
@@ -50,6 +51,7 @@ class ApiService {
     @required String contact_no
   }) =>
       sparkApiService.register_user(
+          device_token: device_token,
           firstname: firstname,
           lastname: lastname,
           email: email,

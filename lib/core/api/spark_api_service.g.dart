@@ -44,11 +44,8 @@ class _SparkApiService implements SparkApiService {
 
   @override
   Future<RegistrationResponseModel> register_user(
-      {firstname,
-      lastname,
-      email,
-      password,
-      contact_no}) async {
+      {device_token, firstname, lastname, email, password, contact_no}) async {
+    ArgumentError.checkNotNull(device_token, 'device_token');
     ArgumentError.checkNotNull(firstname, 'firstname');
     ArgumentError.checkNotNull(lastname, 'lastname');
     ArgumentError.checkNotNull(email, 'email');
@@ -58,6 +55,7 @@ class _SparkApiService implements SparkApiService {
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _data = {
+      'device_token': device_token,
       'firstname': firstname,
       'lastname': lastname,
       'email': email,

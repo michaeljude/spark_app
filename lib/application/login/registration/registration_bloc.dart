@@ -9,9 +9,9 @@ import 'package:spark_app/core/repository/registrationrepository/registration_re
 import 'package:spark_app/core/utils/utils.dart';
 
 class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
-  RegistrationBloc({this.repository, this.buildContext}) : super(RegistrationInitialState());
+  RegistrationBloc({this.registrationRespository, this.buildContext}) : super(RegistrationInitialState());
 
-  RegistrationRespository repository;
+  RegistrationRespository registrationRespository;
   BuildContext buildContext;
 
   String _email;
@@ -39,14 +39,14 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
       //
        debugPrint(_firstName+" "+_lastName+" "+_email+" "+_contactNumber+" "+_password);
       try {
-        var response = await repository.register_user(firstname: event.firstName, lastname: event.lastName,  email: event.email, password: event.password, contact_no: event.contactNumber);
-        // var _localPersistence = LocalPersistence.instance();
+        var response = await registrationRespository.register_user(token: event.token, firstname: event.firstName, lastname: event.lastName,  email: event.email, password: event.password, contact_no: event.contactNumber);
+        var _localPersistence = LocalPersistence.instance();
         if(response.message == "User was created.") {
-          // await _localPersistence.setCurrentUser(LocalPersistence.currentUser, event.email);
-          // await _localPersistence.setAppToken(
-          //     LocalPersistence.appToken+event.email,
-          //     response.token
-          // );
+          await _localPersistence.setCurrentUser(LocalPersistence.currentUser, event.email);
+          await _localPersistence.setAppToken(
+              LocalPersistence.appToken+event.email,
+              response.token
+          );
           yield RegistrationSuccessState();
         }
       }

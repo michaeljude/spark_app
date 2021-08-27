@@ -1,3 +1,4 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:spark_app/application/dashboard/message/components/chat.dart';
 import 'package:spark_app/application/dashboard/message/models/chat_users.dart';
 import 'package:flutter/cupertino.dart';
@@ -23,8 +24,9 @@ class _MessageScreenState extends State<MessageScreen>
   int _selectedIndex = 0;
 
   List<Widget> list = [
-    Tab(text: 'Chats'),
     Tab(text: 'Notifications'),
+    Tab(text: 'Chats'),
+
   ];
 
   List<ChatUsers> chatUsers = [
@@ -85,6 +87,7 @@ class _MessageScreenState extends State<MessageScreen>
       body:
       TabBarView(
       controller: _controller,
+        physics: const NeverScrollableScrollPhysics(),
           children: [
             SingleChildScrollView(
               physics: BouncingScrollPhysics(),
@@ -110,46 +113,24 @@ class _MessageScreenState extends State<MessageScreen>
                 ],
               ),
             ),
-            SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  // SafeArea(
-                  //   child: Padding(
-                  //     padding: EdgeInsets.only(left: 16,right: 16,top: 16),
-                  //     child: Row(
-                  //       mainAxisAlignment: MainAxisAlignment.center,
-                  //       children: <Widget>[
-                  //         Text("Messages",style: TextStyle(
-                  //
-                  //         color: HexColor('#525252'),
-                  //         fontSize: 20,
-                  //         fontFamily: 'Montserrat',
-                  //         fontWeight: FontWeight.w500),
-                  //     ),
-                  //
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                  // ListView.builder(
-                  //   itemCount: chatUsers.length,
-                  //   shrinkWrap: true,
-                  //   padding: EdgeInsets.only(top: 16),
-                  //   physics: NeverScrollableScrollPhysics(),
-                  //   itemBuilder: (context, index){
-                  //     return ChatUsersList(
-                  //       text: chatUsers[index].text,
-                  //       secondaryText: chatUsers[index].secondaryText,
-                  //       image: chatUsers[index].image,
-                  //       time: chatUsers[index].time,
-                  //       isMessageRead: (index == 0 || index == 3)?true:false,
-                  //     );
-                  //   },
-                  // ),
-                ],
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SvgPicture.asset(
+                  'assets/images/chat_coming_soon.svg',
+                  semanticsLabel: 'Spark Logo',
+                  height: 200,
+                  width: 300,
+                ),
+              Padding(padding: const EdgeInsets.only(top:20),
+                child: Text(
+                  'Coming soon.',
+                  style: TextStyle(fontFamily: 'Montserrat', fontSize: 20, fontWeight: FontWeight.w600),
+                ),
               ),
+
+              ],
             ),
     ],
       ),

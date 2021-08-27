@@ -18,6 +18,7 @@ import 'package:spark_app/core/repository/dashboardrepository/homerepository/hom
 import 'package:spark_app/core/repository/dashboardrepository/messagerepository/message_repository.dart';
 import 'package:spark_app/core/repository/dashboardrepository/paymentrepository/payment_repository.dart';
 import 'package:spark_app/core/repository/loginrepository/login_repository.dart';
+import 'package:spark_app/core/repository/registrationrepository/registration_repository.dart';
 import 'package:spark_app/core/routes/routes.dart';
 import 'package:spark_app/core/utils/base_widgets.dart';
 import 'package:spark_app/core/utils/utils.dart';
@@ -58,6 +59,7 @@ class _ApplicationState extends State<_Application> {
   ValidationUtils _validationUtils;
   FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   SparkDataModel _sparkDataModel;
+  RegistrationRespository _registrationRepository;
 
   TransactionDetailsBloc _transactionDetailsBloc;
 
@@ -68,6 +70,7 @@ class _ApplicationState extends State<_Application> {
     _apiService.setDio(Dio());
     _sparkDataModel = SparkDataModel();
     globalAlice.showInspector();
+    this._registrationRepository = RegistrationRespository(_apiService);
     _transactionDetailsBloc = TransactionDetailsBloc();
     this._loginRepository = LoginRepository(_apiService);
     this._validationUtils = ValidationUtils.instance();
@@ -124,7 +127,7 @@ class _ApplicationState extends State<_Application> {
         BlocProvider<LoginBloc>(
             create: (context) => LoginBloc(
                 repository: this._loginRepository, buildContext: context)),
-        BlocProvider<RegistrationBloc>(create: (_) => RegistrationBloc()),
+        BlocProvider<RegistrationBloc>(create: (context) => RegistrationBloc(registrationRespository: this._registrationRepository, buildContext: context)),
         BlocProvider<TransactionDetailsBloc>(create: (_) => _transactionDetailsBloc),
         BlocProvider<BottomNavigationBloc>(
           create: (context) => BottomNavigationBloc(

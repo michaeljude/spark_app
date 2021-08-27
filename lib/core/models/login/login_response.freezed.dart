@@ -18,8 +18,8 @@ class _$LoginResponseModelTearOff {
 
 // ignore: unused_element
   _LoginResponseModel call(
-      {@JsonKey(name: "message") String message,
-      @JsonKey(name: "jwt") String token}) {
+      {@JsonKey(name: 'message') String message,
+      @JsonKey(name: 'jwt') String token}) {
     return _LoginResponseModel(
       message: message,
       token: token,
@@ -38,9 +38,9 @@ const $LoginResponseModel = _$LoginResponseModelTearOff();
 
 /// @nodoc
 mixin _$LoginResponseModel {
-  @JsonKey(name: "message")
+  @JsonKey(name: 'message')
   String get message;
-  @JsonKey(name: "jwt")
+  @JsonKey(name: 'jwt')
   String get token;
 
   Map<String, dynamic> toJson();
@@ -54,8 +54,8 @@ abstract class $LoginResponseModelCopyWith<$Res> {
           LoginResponseModel value, $Res Function(LoginResponseModel) then) =
       _$LoginResponseModelCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: "message") String message,
-      @JsonKey(name: "jwt") String token});
+      {@JsonKey(name: 'message') String message,
+      @JsonKey(name: 'jwt') String token});
 }
 
 /// @nodoc
@@ -87,8 +87,8 @@ abstract class _$LoginResponseModelCopyWith<$Res>
       __$LoginResponseModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: "message") String message,
-      @JsonKey(name: "jwt") String token});
+      {@JsonKey(name: 'message') String message,
+      @JsonKey(name: 'jwt') String token});
 }
 
 /// @nodoc
@@ -119,17 +119,17 @@ class __$LoginResponseModelCopyWithImpl<$Res>
 /// @nodoc
 class _$_LoginResponseModel implements _LoginResponseModel {
   _$_LoginResponseModel(
-      {@JsonKey(name: "message") this.message,
-      @JsonKey(name: "jwt") this.token});
+      {@JsonKey(name: 'message') this.message,
+      @JsonKey(name: 'jwt') this.token});
 
   factory _$_LoginResponseModel.fromJson(Map<String, dynamic> json) =>
       _$_$_LoginResponseModelFromJson(json);
 
   @override
-  @JsonKey(name: "message")
+  @JsonKey(name: 'message')
   final String message;
   @override
-  @JsonKey(name: "jwt")
+  @JsonKey(name: 'jwt')
   final String token;
 
   @override
@@ -167,17 +167,17 @@ class _$_LoginResponseModel implements _LoginResponseModel {
 
 abstract class _LoginResponseModel implements LoginResponseModel {
   factory _LoginResponseModel(
-      {@JsonKey(name: "message") String message,
-      @JsonKey(name: "jwt") String token}) = _$_LoginResponseModel;
+      {@JsonKey(name: 'message') String message,
+      @JsonKey(name: 'jwt') String token}) = _$_LoginResponseModel;
 
   factory _LoginResponseModel.fromJson(Map<String, dynamic> json) =
       _$_LoginResponseModel.fromJson;
 
   @override
-  @JsonKey(name: "message")
+  @JsonKey(name: 'message')
   String get message;
   @override
-  @JsonKey(name: "jwt")
+  @JsonKey(name: 'jwt')
   String get token;
   @override
   @JsonKey(ignore: true)

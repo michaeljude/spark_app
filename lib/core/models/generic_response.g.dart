@@ -10,7 +10,6 @@ _$_GenericResponseModel _$_$_GenericResponseModelFromJson(
     Map<String, dynamic> json) {
   return _$_GenericResponseModel(
     message: json['message'] as String,
-
   );
 }
 

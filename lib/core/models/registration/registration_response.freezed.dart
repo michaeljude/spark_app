@@ -18,9 +18,12 @@ class _$RegistrationResponseModelTearOff {
   const _$RegistrationResponseModelTearOff();
 
 // ignore: unused_element
-  _RegistrationResponseModel call({@JsonKey(name: "message") String message}) {
+  _RegistrationResponseModel call(
+      {@JsonKey(name: "message") String message,
+      @JsonKey(name: "jwt") String token}) {
     return _RegistrationResponseModel(
       message: message,
+      token: token,
     );
   }
 
@@ -38,6 +41,8 @@ const $RegistrationResponseModel = _$RegistrationResponseModelTearOff();
 mixin _$RegistrationResponseModel {
   @JsonKey(name: "message")
   String get message;
+  @JsonKey(name: "jwt")
+  String get token;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -49,7 +54,9 @@ abstract class $RegistrationResponseModelCopyWith<$Res> {
   factory $RegistrationResponseModelCopyWith(RegistrationResponseModel value,
           $Res Function(RegistrationResponseModel) then) =
       _$RegistrationResponseModelCopyWithImpl<$Res>;
-  $Res call({@JsonKey(name: "message") String message});
+  $Res call(
+      {@JsonKey(name: "message") String message,
+      @JsonKey(name: "jwt") String token});
 }
 
 /// @nodoc
@@ -64,9 +71,11 @@ class _$RegistrationResponseModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object message = freezed,
+    Object token = freezed,
   }) {
     return _then(_value.copyWith(
       message: message == freezed ? _value.message : message as String,
+      token: token == freezed ? _value.token : token as String,
     ));
   }
 }
@@ -78,7 +87,9 @@ abstract class _$RegistrationResponseModelCopyWith<$Res>
           $Res Function(_RegistrationResponseModel) then) =
       __$RegistrationResponseModelCopyWithImpl<$Res>;
   @override
-  $Res call({@JsonKey(name: "message") String message});
+  $Res call(
+      {@JsonKey(name: "message") String message,
+      @JsonKey(name: "jwt") String token});
 }
 
 /// @nodoc
@@ -96,9 +107,11 @@ class __$RegistrationResponseModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object message = freezed,
+    Object token = freezed,
   }) {
     return _then(_RegistrationResponseModel(
       message: message == freezed ? _value.message : message as String,
+      token: token == freezed ? _value.token : token as String,
     ));
   }
 }
@@ -107,7 +120,9 @@ class __$RegistrationResponseModelCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_RegistrationResponseModel implements _RegistrationResponseModel {
-  _$_RegistrationResponseModel({@JsonKey(name: "message") this.message});
+  _$_RegistrationResponseModel(
+      {@JsonKey(name: "message") this.message,
+      @JsonKey(name: "jwt") this.token});
 
   factory _$_RegistrationResponseModel.fromJson(Map<String, dynamic> json) =>
       _$_$_RegistrationResponseModelFromJson(json);
@@ -115,10 +130,13 @@ class _$_RegistrationResponseModel implements _RegistrationResponseModel {
   @override
   @JsonKey(name: "message")
   final String message;
+  @override
+  @JsonKey(name: "jwt")
+  final String token;
 
   @override
   String toString() {
-    return 'RegistrationResponseModel(message: $message)';
+    return 'RegistrationResponseModel(message: $message, token: $token)';
   }
 
   @override
@@ -126,12 +144,17 @@ class _$_RegistrationResponseModel implements _RegistrationResponseModel {
     return identical(this, other) ||
         (other is _RegistrationResponseModel &&
             (identical(other.message, message) ||
-                const DeepCollectionEquality().equals(other.message, message)));
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.token, token) ||
+                const DeepCollectionEquality().equals(other.token, token)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(message);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(token);
 
   @JsonKey(ignore: true)
   @override
@@ -148,8 +171,8 @@ class _$_RegistrationResponseModel implements _RegistrationResponseModel {
 
 abstract class _RegistrationResponseModel implements RegistrationResponseModel {
   factory _RegistrationResponseModel(
-          {@JsonKey(name: "message") String message}) =
-      _$_RegistrationResponseModel;
+      {@JsonKey(name: "message") String message,
+      @JsonKey(name: "jwt") String token}) = _$_RegistrationResponseModel;
 
   factory _RegistrationResponseModel.fromJson(Map<String, dynamic> json) =
       _$_RegistrationResponseModel.fromJson;
@@ -157,6 +180,9 @@ abstract class _RegistrationResponseModel implements RegistrationResponseModel {
   @override
   @JsonKey(name: "message")
   String get message;
+  @override
+  @JsonKey(name: "jwt")
+  String get token;
   @override
   @JsonKey(ignore: true)
   _$RegistrationResponseModelCopyWith<_RegistrationResponseModel> get copyWith;

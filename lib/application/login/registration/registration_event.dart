@@ -8,8 +8,9 @@ class RegisterAccount extends RegistrationEvent{
   String contactNumber;
   String password;
   String confirmPassword;
+  String token;
 
-  RegisterAccount(this.firstName, this.lastName, this.email, this.contactNumber, this.password, this.confirmPassword);
+  RegisterAccount(this.token, this.firstName, this.lastName, this.email, this.contactNumber, this.password, this.confirmPassword);
 }
 class RegisterUser extends RegistrationEvent{
 

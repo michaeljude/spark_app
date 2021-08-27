@@ -6,6 +6,18 @@ import 'package:spark_app/application/dashboard/home/home_state.dart';
 import 'package:spark_app/application/dashboard/home/parkfiltering/park_filtering_screen.dart';
 import 'package:spark_app/application/dashboard/home/search_destination/search_destination_screen.dart';
 import 'package:spark_app/application/dashboard/home/walkin_parking/walkin_parking_screen.dart';
+import 'package:spark_app/application/dashboard/model/user_status_model.dart';
+import 'package:spark_app/core/repository/persistence/local_persistence.dart';
+import 'package:spark_app/core/api/api_service.dart';
+import 'package:spark_app/application/dashboard/home/payment_details/payment_details_screen.dart';
+import 'package:spark_app/application/dashboard/home/search_destination/search_destination_bloc.dart';
+import 'package:spark_app/application/dashboard/home/search_destination/search_destination_event.dart';
+import 'package:spark_app/application/dashboard/home/search_destination/search_destination_state.dart';
+import 'package:spark_app/application/dashboard/home/search_destination/searchlocation/search_location_modal.dart';
+import 'package:spark_app/application/dashboard/model/user_status_model.dart';
+import 'package:spark_app/core/api/api_service.dart';
+import 'package:spark_app/core/models/dashboard/searchdestination/parking_list_response_model.dart';
+import 'package:spark_app/core/repository/dashboardrepository/searchdestinationrepository/search_destination_repository.dart';
 import 'package:spark_app/core/models/dashboard/searchdestination/parking_list_response_model.dart';
 import 'package:spark_app/core/utils/constant_enums.dart';
 import 'package:spark_app/core/widgets/column_aligned.dart';
@@ -16,6 +28,8 @@ import 'package:spark_app/theme/app_theme.dart';
 
 class HomeScreen extends StatefulWidget {
   static final String routeName = "/home";
+
+
 
   HomeScreen() : super();
 
@@ -33,9 +47,46 @@ class _HomeScreenState extends State<HomeScreen> {
     'https://m.iphoto.net/SMvvc.png',
   ];
 
+  String _greetingMessage;
+  String _user_firstname;
+
+  String greetingMessage(){
+
+    var timeNow = DateTime.now().hour;
+
+    if (timeNow <= 12) {
+
+      setState(() {
+        _greetingMessage = 'Good Morning';
+      });
+    } else if ((timeNow > 12) && (timeNow <= 16)) {
+
+      setState(() {
+        _greetingMessage = 'Good Afternoon';
+      });
+    } else if ((timeNow > 16) && (timeNow < 20)) {
+
+      setState(() {
+        _greetingMessage = 'Good Evening';
+      });
+    } else {
+
+      setState(() {
+        _greetingMessage = 'Good Night';
+      });
+    }
+  }
+
+
+
+
+
+
+
   @override
   void initState() {
     super.initState();
+    String greetingMes = greetingMessage();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       images.forEach((imageUrl) {
@@ -46,6 +97,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+
+
     return BlocProvider<HomeBloc>(
         create: (BuildContext context) => HomeBloc(),
         child: BlocConsumer<HomeBloc, HomeState>(
@@ -71,6 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               getSparkCreditUI(),
                               getMenuUI(),
                               getBannerUI(),
+                              SparkDivider(),
                               getPromoAdsUI(),
                             ],
                           ),
@@ -84,6 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
           },
         ));
   }
+
 
   Widget getSparkCreditUI() {
     return Column(
@@ -110,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontFamily: 'Montserrat',
                       color: HexColor('#525252'))),
               Spacer(flex: 3),
-              Text('PHP 3,500.00',
+              Text('PHP 0.00',
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 16,
@@ -178,7 +234,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget getBannerUI() {
     return Padding(
-        padding: const EdgeInsets.only(top: 8.0, left: 38, right: 38),
+        padding: const EdgeInsets.only(top: 8.0, left: 20, right: 20),
         child: CarouselSlider.builder(
           itemCount: images.length,
           options: CarouselOptions(
@@ -205,19 +261,22 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             );
           },
-        ));
+        ),
+
+    );
+
   }
 
   Widget getPromoAdsUI() {
     return Padding(
       padding:
-          const EdgeInsets.only(top: 8.0, left: 25, right: 25, bottom: 8.0),
+          const EdgeInsets.only(top: 8.0, left: 15, right: 15, bottom: 8.0),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'We\'re sure you\'ll like this',
+              ' We\'re sure you\'ll like this',
               textAlign: TextAlign.left,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
@@ -249,7 +308,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               }),
             ),
-          ]),
+          ]
+      ),
     );
   }
 
@@ -264,7 +324,7 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'Welcome, Sparky!',
+                  _greetingMessage + ', Sparky!',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,

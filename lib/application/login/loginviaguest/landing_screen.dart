@@ -4,6 +4,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:search_map_place/search_map_place.dart';
@@ -33,6 +35,10 @@ class _LoginScreen extends State<LoginScreen> {
   TextEditingController passwordController;
   ProgressDialog _progressDialog;
   String token;
+
+  bool visibilityError= false;
+  bool isLoading = false;
+  String errorType;
   final String sparkTextLogo = 'assets/images/spark_text_logo.svg';
 
   @override
@@ -41,6 +47,7 @@ class _LoginScreen extends State<LoginScreen> {
     _loginBloc = BlocProvider.of<LoginBloc>(context);
     this.emailController = TextEditingController(text: "demo_spark@gmail.com");
     this.passwordController = TextEditingController(text: "demospark");
+
 
     Provider.of<FirebaseMessaging>(context, listen: false)
         .getToken()
@@ -63,6 +70,8 @@ class _LoginScreen extends State<LoginScreen> {
       elevation: 10.0,
       insetAnimCurve: Curves.easeInOut,
     );
+
+
   }
 
   @override
@@ -73,15 +82,23 @@ class _LoginScreen extends State<LoginScreen> {
         if (state is LoginSuccessState) {
           debugPrint("LoginSuccessState");
           _progressDialog.hide();
+          isLoading = false;
 
           _dashboard(context);
         } else if (state is LoginStartedState) {
           debugPrint("LoginStartedState");
           _progressDialog.show();
+          isLoading = true;
         } else if (state is LoginFailedState) {
-          debugPrint("LoginFailedState");
+          setState(() {
+            visibilityError = true;
+            errorType = 'failed';
+          }
+          );
+          debugPrint("LoginFailedState" + errorType);
           _progressDialog.hide();
         }
+
       },
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
@@ -111,6 +128,8 @@ class _LoginScreen extends State<LoginScreen> {
           ),
           body: Container(
 
+
+
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -125,8 +144,9 @@ class _LoginScreen extends State<LoginScreen> {
                   ),
                 ),
                 Container(
+
                   alignment: Alignment.topLeft,
-                  margin: EdgeInsets.only(left: 20, right: 20, bottom: 60, top: 0),
+                  margin: EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 0),
                   child: Row(
                     children: <Widget>[
                       Expanded(
@@ -160,14 +180,59 @@ class _LoginScreen extends State<LoginScreen> {
                         ),
                       ),
                     ],
-
                     // textAlign: TextAlign.center,
-
                   ),
+                ),
 
+                visibilityError ? Padding(
+            padding:
+            const EdgeInsets.only(bottom: 12.0, left: 20, right: 20),
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5.0),
+                color: HexColor('#fceaea'),
+                border: Border.all(
+                    style: BorderStyle.solid, color: HexColor('#ea5859'))),
 
+                    child: Padding(
+                      padding:
+                      const EdgeInsets.only(bottom: 10, top: 10, left: 15, right: 15),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Icon(
+                          FeatherIcons.alertCircle,
+                          size: 16,
+                        color: HexColor('#ea5859'),),
+
+                        if(errorType == 'failed')  Text("  Invalid email and password.",
+                          style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: HexColor('#ea5859'),
+                          )
+                        )
+                        else Text("  Please fill out the required fields.",
+                            style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: HexColor('#ea5859'),
+                            ),
+                        ),
+                      ],
+                    ),
+                    ),
+                  ),
+                ) :
+                Padding(
+                  padding:
+                  const EdgeInsets.only(bottom: 12.0, left: 20, right: 20),
 
                 ),
+
                 Padding(
                   padding:
                       const EdgeInsets.only(bottom: 12.0, left: 20, right: 20),
@@ -192,6 +257,7 @@ class _LoginScreen extends State<LoginScreen> {
                       isTappable: true,
                       hint: "Enter Password",
                       textController: passwordController,
+
                     ),
                     data:
                         Theme.of(context).copyWith(primaryColor: Colors.green),
@@ -224,8 +290,17 @@ class _LoginScreen extends State<LoginScreen> {
                       textcolor: const Color(0xffffffff),
                       buttonText: "LOGIN",
                       action: () {
-                        _loginBloc.add(LoginViaGuestEvent(emailController.text,
-                            passwordController.text, token));
+                        if(emailController.text.isEmpty || passwordController.text.isEmpty){
+                          setState(() {
+                            visibilityError = true;
+                            errorType = 'empty';
+                          }
+                          );
+                        }else {
+                          _loginBloc.add(
+                              LoginViaGuestEvent(emailController.text,
+                                  passwordController.text, token));
+                        }
                       },
                     ),
                   ),

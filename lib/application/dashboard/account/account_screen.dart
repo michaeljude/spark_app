@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:spark_app/theme/app_theme.dart';
+import 'package:rating_dialog/rating_dialog.dart';
+import 'package:store_redirect/store_redirect.dart';
 
 import 'components/body.dart';
+
 
 class AccountScreen extends StatefulWidget {
   static final String routeName = "/account";
@@ -15,9 +18,12 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: HexColor('#ffffff'),

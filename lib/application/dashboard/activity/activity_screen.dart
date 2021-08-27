@@ -50,6 +50,7 @@ class _ActivityScreenState extends State<ActivityScreen>
               // Should not used it as it only called when tab options are clicked,
               // not when user swapped
             },
+
             controller: _controller,
             tabs: list,
             indicatorColor: HexColor('#19BA19'),
@@ -75,6 +76,7 @@ class _ActivityScreenState extends State<ActivityScreen>
         ),
         body: TabBarView(
           controller: _controller,
+          physics: const NeverScrollableScrollPhysics(),
           children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,

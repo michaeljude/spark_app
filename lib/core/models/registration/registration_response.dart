@@ -7,7 +7,8 @@ part 'registration_response.freezed.dart';
 @freezed
 abstract class RegistrationResponseModel with _$RegistrationResponseModel {
   factory RegistrationResponseModel({
-    @JsonKey(name: "message") String message
+    @JsonKey(name: "message") String message,
+    @JsonKey(name: "jwt") String token,
 }) = _RegistrationResponseModel;
 
   factory RegistrationResponseModel.fromJson(Map<String, dynamic> json) =>

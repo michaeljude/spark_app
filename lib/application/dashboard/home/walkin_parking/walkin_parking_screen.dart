@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:spark_app/theme/app_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -13,6 +14,8 @@ class WalkInParkingScreen extends StatefulWidget {
 class _ScannerState extends State<WalkInParkingScreen> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   QRViewController controller;
+
+  String _qrValidation;
 
   @override
   void dispose() {
@@ -92,9 +95,15 @@ class _ScannerState extends State<WalkInParkingScreen> {
     controller.scannedDataStream.listen((scanData) async {
       controller.pauseCamera();
       if (await canLaunch(scanData.code)) {
-        await launch(scanData.code);
+        // await launch(scanData.code);
+
+        Fluttertoast.showToast(
+            msg: "Invalid QR Code",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER
+        );
         controller.resumeCamera();
-      } else {
+       } else {
         showDialog(
           context: context,
           builder: (BuildContext context) {

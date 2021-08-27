@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:spark_app/core/widgets/spark_badge.dart';
 import 'package:spark_app/theme/app_theme.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
@@ -126,35 +127,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 // SizedBox(height: 16.0 * 2),
                 // _buildTransactionItem(
                 //   color: Colors.deepPurpleAccent,
-                //   iconData: Icons.photo_size_select_actual,
-                //   title: "Electric Bill",
+                //   iconData: Icons.cash
+                //   title: "Cash,
                 //   date: "Today",
-                //   amount: 11.5,
+                //   amount: 40.00,
                 // ),
-                // SizedBox(height: 24),
-                // _buildTransactionItem(
-                //   color: Colors.green,
-                //   iconData: Icons.branding_watermark,
-                //   title: "Water Bill",
-                //   date: "Today",
-                //   amount: 15.8,
-                // ),
-                // SizedBox(height: 24),
-                // _buildTransactionItem(
-                //   color: Colors.orange,
-                //   iconData: Icons.music_video,
-                //   title: "Spotify",
-                //   date: "Yesterday",
-                //   amount: 05.5,
-                // ),
-                // SizedBox(height: 24),
-                // _buildTransactionItem(
-                //   color: Colors.red,
-                //   iconData: Icons.wifi,
-                //   title: "Internet",
-                //   date: "Yesterday",
-                //   amount: 10.0,
-                // ),
+
               ],
             ),
           ),
@@ -164,33 +142,57 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   Row _buildCategories() {
-    return Row(
+    return
+
+      Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
       children: <Widget>[
-        _buildCategoryCard(
-          bgColor: HexColor("#ffffff"),
-          iconColor: HexColor('#19BA19'),
-          iconData: MaterialCommunityIcons.wallet_plus_outline,
-          text: "Cash In",
+        Badge(
+          top: 0,
+          right: 0,
+          value: "coming soon",
+          child: _buildCategoryCard(
+            bgColor: HexColor("#ffffff"),
+            iconColor: HexColor('#19BA19').withOpacity(0.4),
+            iconData: MaterialCommunityIcons.wallet_plus_outline,
+            text: "Cash In",
+          ),
         ),
-        _buildCategoryCard(
-          bgColor: HexColor("#ffffff"),
-          iconColor: HexColor('#19BA19'),
-          iconData: MaterialCommunityIcons.qrcode_scan,
-          text: "Scan",
+        Badge(
+        top: 0,
+        right: 0,
+        value: "coming soon",
+        child: _buildCategoryCard(
+              bgColor: HexColor("#ffffff"),
+              iconColor: HexColor('#19BA19').withOpacity(0.4),
+              iconData: MaterialCommunityIcons.qrcode_scan,
+              text: "Scan",
+            ),
         ),
-        _buildCategoryCard(
-          bgColor: HexColor("#ffffff"),
-          iconColor: HexColor('#19BA19'),
-          iconData: MaterialCommunityIcons.bank_outline,
-          text: "Transfer",
+        Badge(
+        top: 0,
+        right: 0,
+        value: "coming soon",
+        child: _buildCategoryCard(
+              bgColor: HexColor("#ffffff"),
+              iconColor: HexColor('#19BA19').withOpacity(0.4),
+              iconData: MaterialCommunityIcons.bank_outline,
+              text: "Transfer",
+            ),
         ),
-        _buildCategoryCard(
-          bgColor: HexColor("#ffffff"),
-          iconColor: HexColor('#19BA19'),
-          iconData: MaterialCommunityIcons.arrow_top_right,
-          text: "Send",
+        Badge(
+        top: 0,
+        right: 0,
+        value: "coming soon",
+        child: _buildCategoryCard(
+              bgColor: HexColor("#ffffff"),
+              iconColor: HexColor('#19BA19').withOpacity(0.4),
+              iconData: MaterialCommunityIcons.arrow_top_right,
+              text: "Send",
+            ),
         ),
+
       ],
     );
   }
@@ -248,7 +250,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         ),
                         SizedBox(height: 4),
                         Text(
-                          "PHP 3,500.00",
+                          "PHP 0.00",
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
@@ -269,49 +271,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
-  // Row _buildHeader() {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //     children: <Widget>[
-  //       Column(
-  //         crossAxisAlignment: CrossAxisAlignment.start,
-  //         children: <Widget>[
-  //           Text(
-  //             "Hello,",
-  //             style: TextStyle(
-  //               fontSize: 16,
-  //               color: Colors.grey,
-  //               fontWeight: FontWeight.w500,
-  //             ),
-  //           ),
-  //           SizedBox(height: 8),
-  //           Text(
-  //             "Bemia Johnson",
-  //             style: TextStyle(
-  //               fontSize: 20,
-  //               color: Colors.black,
-  //               fontWeight: FontWeight.w500,
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //       Container(
-  //         height: 56,
-  //         width: 56,
-  //         decoration: BoxDecoration(
-  //           borderRadius: BorderRadius.circular(10.0),
-  //           image: DecorationImage(
-  //             image: AssetImage("assets/avatar.jpg"),
-  //             colorFilter: ColorFilter.mode(
-  //               Colors.deepPurple[100],
-  //               BlendMode.darken,
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
 
   Row _buildTransactionItem(
       {Color color,
@@ -368,15 +327,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
-  Column _buildCategoryCard(
+  Padding _buildCategoryCard(
       {Color bgColor, Color iconColor, IconData iconData, String text}) {
-    return Column(
+    return Padding(padding: const EdgeInsets.only(top: 10, right: 10, left: 10),
+    child: Column(
       children: <Widget>[
+
         Container(
-          height: 75,
-          width: 75,
+          height: 65,
+          width: 65,
           decoration: BoxDecoration(
             color: bgColor,
+            
             borderRadius: BorderRadius.circular(5),
           ),
           child: Icon(
@@ -386,8 +348,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
           ),
         ),
         SizedBox(height: 8),
-        Text(text),
+        Text(text,
+        style: TextStyle(fontFamily: 'Montserrat',),),
       ],
+    ),
     );
   }
 }

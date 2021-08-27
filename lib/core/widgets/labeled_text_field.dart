@@ -15,6 +15,7 @@ class LabeledTextField extends StatefulWidget {
   final TextFieldType textFieldType;
   final TextEditingController textController;
 
+
   LabeledTextField({
     @required this.title,
     this.subtitle,
@@ -54,6 +55,8 @@ class _LabeledTextField extends State<LabeledTextField> {
     if (widget.isTappable && widget.textFieldType == TextFieldType.PASSWORD) {
       passwordObscure = true;
     }
+    List<TextEditingController> myController =
+    List.generate(5, (i) => TextEditingController());
     this.textEditingController = widget.textController;
     this.textEditingController??=TextEditingController();
   }
@@ -92,9 +95,9 @@ class _LabeledTextField extends State<LabeledTextField> {
     );
   }
 
-  TextField getTextField() {
+  TextFormField getTextField() {
     if(widget.isMultiline) {
-      return TextField(
+      return TextFormField(
         onTap: () {
           if (widget.textFieldType == TextFieldType.BIRTHDATE) {
             _getDate();
@@ -143,7 +146,7 @@ class _LabeledTextField extends State<LabeledTextField> {
         },
       );
     } else {
-      return TextField(
+      return TextFormField(
         onTap: () {
           if (widget.textFieldType == TextFieldType.BIRTHDATE) {
             _getDate();
@@ -188,6 +191,8 @@ class _LabeledTextField extends State<LabeledTextField> {
             )
         ),
         onChanged: (value) {
+
+
           _value = value;
         },
       );

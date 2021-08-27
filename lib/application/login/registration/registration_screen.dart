@@ -1,9 +1,12 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:provider/provider.dart';
+import 'package:spark_app/application/dashboard/bottom_navigation/bottom_navigation_screen.dart';
 import 'package:spark_app/application/login/loginviaguest/landing_screen.dart';
 import 'package:spark_app/application/login/registration/driver_detail_screen.dart';
 import 'package:spark_app/application/login/registration/registration_bloc.dart';
@@ -31,6 +34,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
   TextEditingController _confirmPasswordController;
   TextEditingController _firstNameController;
   TextEditingController _lastNameController;
+  String token;
 
   ProgressDialog _progressDialog;
 
@@ -38,7 +42,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
   void initState() {
     super.initState();
     _registrationBloc = BlocProvider.of<RegistrationBloc>(context);
-    _emailController = TextEditingController(text: 'test@gmail.com');
+    _emailController = TextEditingController(text: 'test3@gmail.com');
     _contactNoController = TextEditingController(text: '09101367520');
     _passwordController = TextEditingController(text: '123456');
     _confirmPasswordController = TextEditingController(text: '123456');
@@ -46,6 +50,13 @@ class _RegistrationScreen extends State<RegistrationScreen> {
     _lastNameController = TextEditingController(text: 'Spark1');
 
     // _bloc = RegistrationBloc();
+
+    Provider.of<FirebaseMessaging>(context, listen: false)
+        .getToken()
+        .then((token) {
+      debugPrint(token);
+      this.token = token;
+    });
 
     setProgressDialog();
   }
@@ -71,7 +82,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
           debugPrint("LoginSuccessState");
           _progressDialog.hide();
 
-          _loginViaGuest(context);
+          _dashboard(context);
         } else if (state is RegistrationStartedState) {
           debugPrint("RegistrationStartedState");
           _progressDialog.show();
@@ -209,6 +220,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
                               _passwordController,
                               _confirmPasswordController)) {
                             _registrationBloc.add(RegisterAccount(
+                                token,
                                 _firstNameController.text,
                                 _lastNameController.text,
                                 _emailController.text,
@@ -272,6 +284,10 @@ class _RegistrationScreen extends State<RegistrationScreen> {
           builder: (context) =>
           new LoginScreen())
       );
+
+  void _dashboard(BuildContext context) => Navigator.pushNamedAndRemoveUntil(
+      context, BottomNavigationScreen.routeName, (route) => false);
+
 
 
 

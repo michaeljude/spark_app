@@ -19,22 +19,22 @@ class _$ParkingListResponseModelTearOff {
 
 // ignore: unused_element
   _ParkingListResponseModel call(
-      {@JsonKey(name: "message") String message,
-      @JsonKey(name: "parking_id") int parkingId,
-      @JsonKey(name: "owner_parking_id") int ownerParkingId,
-      @JsonKey(name: "parking_name") String parkingName,
-      @JsonKey(name: "parking_flatrate") double parkingFlatrate,
-      @JsonKey(name: "parking_duration") double parkingDuration,
-      @JsonKey(name: "parking_exceeding") double parkingExceeding,
-      @JsonKey(name: "parking_street") String parkingStreet,
-      @JsonKey(name: "parking_barangay") String parkingBarangay,
-      @JsonKey(name: "parking_municipal") String parkingMunicipal,
-      @JsonKey(name: "parking_province") String parkingProvince,
-      @JsonKey(name: "parking_country") String parkingCountry,
-      @JsonKey(name: "latitude") double latitude,
-      @JsonKey(name: "longitude") double longitude,
-      @JsonKey(name: "parking_type") String parkingType,
-      @JsonKey(name: "isFavorite") bool isFavorite}) {
+      {@JsonKey(name: 'message') String message,
+      @JsonKey(name: 'parking_id') int parkingId,
+      @JsonKey(name: 'owner_parking_id') int ownerParkingId,
+      @JsonKey(name: 'parking_name') String parkingName,
+      @JsonKey(name: 'parking_flatrate') double parkingFlatrate,
+      @JsonKey(name: 'parking_duration') double parkingDuration,
+      @JsonKey(name: 'parking_exceeding') double parkingExceeding,
+      @JsonKey(name: 'parking_street') String parkingStreet,
+      @JsonKey(name: 'parking_barangay') String parkingBarangay,
+      @JsonKey(name: 'parking_municipal') String parkingMunicipal,
+      @JsonKey(name: 'parking_province') String parkingProvince,
+      @JsonKey(name: 'parking_country') String parkingCountry,
+      @JsonKey(name: 'latitude') double latitude,
+      @JsonKey(name: 'longitude') double longitude,
+      @JsonKey(name: 'parking_type') String parkingType,
+      @JsonKey(name: 'isFavorite') bool isFavorite}) {
     return _ParkingListResponseModel(
       message: message,
       parkingId: parkingId,
@@ -67,37 +67,37 @@ const $ParkingListResponseModel = _$ParkingListResponseModelTearOff();
 
 /// @nodoc
 mixin _$ParkingListResponseModel {
-  @JsonKey(name: "message")
+  @JsonKey(name: 'message')
   String get message;
-  @JsonKey(name: "parking_id")
+  @JsonKey(name: 'parking_id')
   int get parkingId;
-  @JsonKey(name: "owner_parking_id")
+  @JsonKey(name: 'owner_parking_id')
   int get ownerParkingId;
-  @JsonKey(name: "parking_name")
+  @JsonKey(name: 'parking_name')
   String get parkingName;
-  @JsonKey(name: "parking_flatrate")
+  @JsonKey(name: 'parking_flatrate')
   double get parkingFlatrate;
-  @JsonKey(name: "parking_duration")
+  @JsonKey(name: 'parking_duration')
   double get parkingDuration;
-  @JsonKey(name: "parking_exceeding")
+  @JsonKey(name: 'parking_exceeding')
   double get parkingExceeding;
-  @JsonKey(name: "parking_street")
+  @JsonKey(name: 'parking_street')
   String get parkingStreet;
-  @JsonKey(name: "parking_barangay")
+  @JsonKey(name: 'parking_barangay')
   String get parkingBarangay;
-  @JsonKey(name: "parking_municipal")
+  @JsonKey(name: 'parking_municipal')
   String get parkingMunicipal;
-  @JsonKey(name: "parking_province")
+  @JsonKey(name: 'parking_province')
   String get parkingProvince;
-  @JsonKey(name: "parking_country")
+  @JsonKey(name: 'parking_country')
   String get parkingCountry;
-  @JsonKey(name: "latitude")
+  @JsonKey(name: 'latitude')
   double get latitude;
-  @JsonKey(name: "longitude")
+  @JsonKey(name: 'longitude')
   double get longitude;
-  @JsonKey(name: "parking_type")
+  @JsonKey(name: 'parking_type')
   String get parkingType;
-  @JsonKey(name: "isFavorite")
+  @JsonKey(name: 'isFavorite')
   bool get isFavorite;
 
   Map<String, dynamic> toJson();
@@ -111,22 +111,22 @@ abstract class $ParkingListResponseModelCopyWith<$Res> {
           $Res Function(ParkingListResponseModel) then) =
       _$ParkingListResponseModelCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: "message") String message,
-      @JsonKey(name: "parking_id") int parkingId,
-      @JsonKey(name: "owner_parking_id") int ownerParkingId,
-      @JsonKey(name: "parking_name") String parkingName,
-      @JsonKey(name: "parking_flatrate") double parkingFlatrate,
-      @JsonKey(name: "parking_duration") double parkingDuration,
-      @JsonKey(name: "parking_exceeding") double parkingExceeding,
-      @JsonKey(name: "parking_street") String parkingStreet,
-      @JsonKey(name: "parking_barangay") String parkingBarangay,
-      @JsonKey(name: "parking_municipal") String parkingMunicipal,
-      @JsonKey(name: "parking_province") String parkingProvince,
-      @JsonKey(name: "parking_country") String parkingCountry,
-      @JsonKey(name: "latitude") double latitude,
-      @JsonKey(name: "longitude") double longitude,
-      @JsonKey(name: "parking_type") String parkingType,
-      @JsonKey(name: "isFavorite") bool isFavorite});
+      {@JsonKey(name: 'message') String message,
+      @JsonKey(name: 'parking_id') int parkingId,
+      @JsonKey(name: 'owner_parking_id') int ownerParkingId,
+      @JsonKey(name: 'parking_name') String parkingName,
+      @JsonKey(name: 'parking_flatrate') double parkingFlatrate,
+      @JsonKey(name: 'parking_duration') double parkingDuration,
+      @JsonKey(name: 'parking_exceeding') double parkingExceeding,
+      @JsonKey(name: 'parking_street') String parkingStreet,
+      @JsonKey(name: 'parking_barangay') String parkingBarangay,
+      @JsonKey(name: 'parking_municipal') String parkingMunicipal,
+      @JsonKey(name: 'parking_province') String parkingProvince,
+      @JsonKey(name: 'parking_country') String parkingCountry,
+      @JsonKey(name: 'latitude') double latitude,
+      @JsonKey(name: 'longitude') double longitude,
+      @JsonKey(name: 'parking_type') String parkingType,
+      @JsonKey(name: 'isFavorite') bool isFavorite});
 }
 
 /// @nodoc
@@ -207,22 +207,22 @@ abstract class _$ParkingListResponseModelCopyWith<$Res>
       __$ParkingListResponseModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: "message") String message,
-      @JsonKey(name: "parking_id") int parkingId,
-      @JsonKey(name: "owner_parking_id") int ownerParkingId,
-      @JsonKey(name: "parking_name") String parkingName,
-      @JsonKey(name: "parking_flatrate") double parkingFlatrate,
-      @JsonKey(name: "parking_duration") double parkingDuration,
-      @JsonKey(name: "parking_exceeding") double parkingExceeding,
-      @JsonKey(name: "parking_street") String parkingStreet,
-      @JsonKey(name: "parking_barangay") String parkingBarangay,
-      @JsonKey(name: "parking_municipal") String parkingMunicipal,
-      @JsonKey(name: "parking_province") String parkingProvince,
-      @JsonKey(name: "parking_country") String parkingCountry,
-      @JsonKey(name: "latitude") double latitude,
-      @JsonKey(name: "longitude") double longitude,
-      @JsonKey(name: "parking_type") String parkingType,
-      @JsonKey(name: "isFavorite") bool isFavorite});
+      {@JsonKey(name: 'message') String message,
+      @JsonKey(name: 'parking_id') int parkingId,
+      @JsonKey(name: 'owner_parking_id') int ownerParkingId,
+      @JsonKey(name: 'parking_name') String parkingName,
+      @JsonKey(name: 'parking_flatrate') double parkingFlatrate,
+      @JsonKey(name: 'parking_duration') double parkingDuration,
+      @JsonKey(name: 'parking_exceeding') double parkingExceeding,
+      @JsonKey(name: 'parking_street') String parkingStreet,
+      @JsonKey(name: 'parking_barangay') String parkingBarangay,
+      @JsonKey(name: 'parking_municipal') String parkingMunicipal,
+      @JsonKey(name: 'parking_province') String parkingProvince,
+      @JsonKey(name: 'parking_country') String parkingCountry,
+      @JsonKey(name: 'latitude') double latitude,
+      @JsonKey(name: 'longitude') double longitude,
+      @JsonKey(name: 'parking_type') String parkingType,
+      @JsonKey(name: 'isFavorite') bool isFavorite});
 }
 
 /// @nodoc
@@ -303,73 +303,73 @@ class __$ParkingListResponseModelCopyWithImpl<$Res>
 /// @nodoc
 class _$_ParkingListResponseModel implements _ParkingListResponseModel {
   _$_ParkingListResponseModel(
-      {@JsonKey(name: "message") this.message,
-      @JsonKey(name: "parking_id") this.parkingId,
-      @JsonKey(name: "owner_parking_id") this.ownerParkingId,
-      @JsonKey(name: "parking_name") this.parkingName,
-      @JsonKey(name: "parking_flatrate") this.parkingFlatrate,
-      @JsonKey(name: "parking_duration") this.parkingDuration,
-      @JsonKey(name: "parking_exceeding") this.parkingExceeding,
-      @JsonKey(name: "parking_street") this.parkingStreet,
-      @JsonKey(name: "parking_barangay") this.parkingBarangay,
-      @JsonKey(name: "parking_municipal") this.parkingMunicipal,
-      @JsonKey(name: "parking_province") this.parkingProvince,
-      @JsonKey(name: "parking_country") this.parkingCountry,
-      @JsonKey(name: "latitude") this.latitude,
-      @JsonKey(name: "longitude") this.longitude,
-      @JsonKey(name: "parking_type") this.parkingType,
-      @JsonKey(name: "isFavorite") this.isFavorite});
+      {@JsonKey(name: 'message') this.message,
+      @JsonKey(name: 'parking_id') this.parkingId,
+      @JsonKey(name: 'owner_parking_id') this.ownerParkingId,
+      @JsonKey(name: 'parking_name') this.parkingName,
+      @JsonKey(name: 'parking_flatrate') this.parkingFlatrate,
+      @JsonKey(name: 'parking_duration') this.parkingDuration,
+      @JsonKey(name: 'parking_exceeding') this.parkingExceeding,
+      @JsonKey(name: 'parking_street') this.parkingStreet,
+      @JsonKey(name: 'parking_barangay') this.parkingBarangay,
+      @JsonKey(name: 'parking_municipal') this.parkingMunicipal,
+      @JsonKey(name: 'parking_province') this.parkingProvince,
+      @JsonKey(name: 'parking_country') this.parkingCountry,
+      @JsonKey(name: 'latitude') this.latitude,
+      @JsonKey(name: 'longitude') this.longitude,
+      @JsonKey(name: 'parking_type') this.parkingType,
+      @JsonKey(name: 'isFavorite') this.isFavorite});
 
   factory _$_ParkingListResponseModel.fromJson(Map<String, dynamic> json) =>
       _$_$_ParkingListResponseModelFromJson(json);
 
   @override
-  @JsonKey(name: "message")
+  @JsonKey(name: 'message')
   final String message;
   @override
-  @JsonKey(name: "parking_id")
+  @JsonKey(name: 'parking_id')
   final int parkingId;
   @override
-  @JsonKey(name: "owner_parking_id")
+  @JsonKey(name: 'owner_parking_id')
   final int ownerParkingId;
   @override
-  @JsonKey(name: "parking_name")
+  @JsonKey(name: 'parking_name')
   final String parkingName;
   @override
-  @JsonKey(name: "parking_flatrate")
+  @JsonKey(name: 'parking_flatrate')
   final double parkingFlatrate;
   @override
-  @JsonKey(name: "parking_duration")
+  @JsonKey(name: 'parking_duration')
   final double parkingDuration;
   @override
-  @JsonKey(name: "parking_exceeding")
+  @JsonKey(name: 'parking_exceeding')
   final double parkingExceeding;
   @override
-  @JsonKey(name: "parking_street")
+  @JsonKey(name: 'parking_street')
   final String parkingStreet;
   @override
-  @JsonKey(name: "parking_barangay")
+  @JsonKey(name: 'parking_barangay')
   final String parkingBarangay;
   @override
-  @JsonKey(name: "parking_municipal")
+  @JsonKey(name: 'parking_municipal')
   final String parkingMunicipal;
   @override
-  @JsonKey(name: "parking_province")
+  @JsonKey(name: 'parking_province')
   final String parkingProvince;
   @override
-  @JsonKey(name: "parking_country")
+  @JsonKey(name: 'parking_country')
   final String parkingCountry;
   @override
-  @JsonKey(name: "latitude")
+  @JsonKey(name: 'latitude')
   final double latitude;
   @override
-  @JsonKey(name: "longitude")
+  @JsonKey(name: 'longitude')
   final double longitude;
   @override
-  @JsonKey(name: "parking_type")
+  @JsonKey(name: 'parking_type')
   final String parkingType;
   @override
-  @JsonKey(name: "isFavorite")
+  @JsonKey(name: 'isFavorite')
   final bool isFavorite;
 
   @override
@@ -465,74 +465,74 @@ class _$_ParkingListResponseModel implements _ParkingListResponseModel {
 
 abstract class _ParkingListResponseModel implements ParkingListResponseModel {
   factory _ParkingListResponseModel(
-          {@JsonKey(name: "message") String message,
-          @JsonKey(name: "parking_id") int parkingId,
-          @JsonKey(name: "owner_parking_id") int ownerParkingId,
-          @JsonKey(name: "parking_name") String parkingName,
-          @JsonKey(name: "parking_flatrate") double parkingFlatrate,
-          @JsonKey(name: "parking_duration") double parkingDuration,
-          @JsonKey(name: "parking_exceeding") double parkingExceeding,
-          @JsonKey(name: "parking_street") String parkingStreet,
-          @JsonKey(name: "parking_barangay") String parkingBarangay,
-          @JsonKey(name: "parking_municipal") String parkingMunicipal,
-          @JsonKey(name: "parking_province") String parkingProvince,
-          @JsonKey(name: "parking_country") String parkingCountry,
-          @JsonKey(name: "latitude") double latitude,
-          @JsonKey(name: "longitude") double longitude,
-          @JsonKey(name: "parking_type") String parkingType,
-          @JsonKey(name: "isFavorite") bool isFavorite}) =
+          {@JsonKey(name: 'message') String message,
+          @JsonKey(name: 'parking_id') int parkingId,
+          @JsonKey(name: 'owner_parking_id') int ownerParkingId,
+          @JsonKey(name: 'parking_name') String parkingName,
+          @JsonKey(name: 'parking_flatrate') double parkingFlatrate,
+          @JsonKey(name: 'parking_duration') double parkingDuration,
+          @JsonKey(name: 'parking_exceeding') double parkingExceeding,
+          @JsonKey(name: 'parking_street') String parkingStreet,
+          @JsonKey(name: 'parking_barangay') String parkingBarangay,
+          @JsonKey(name: 'parking_municipal') String parkingMunicipal,
+          @JsonKey(name: 'parking_province') String parkingProvince,
+          @JsonKey(name: 'parking_country') String parkingCountry,
+          @JsonKey(name: 'latitude') double latitude,
+          @JsonKey(name: 'longitude') double longitude,
+          @JsonKey(name: 'parking_type') String parkingType,
+          @JsonKey(name: 'isFavorite') bool isFavorite}) =
       _$_ParkingListResponseModel;
 
   factory _ParkingListResponseModel.fromJson(Map<String, dynamic> json) =
       _$_ParkingListResponseModel.fromJson;
 
   @override
-  @JsonKey(name: "message")
+  @JsonKey(name: 'message')
   String get message;
   @override
-  @JsonKey(name: "parking_id")
+  @JsonKey(name: 'parking_id')
   int get parkingId;
   @override
-  @JsonKey(name: "owner_parking_id")
+  @JsonKey(name: 'owner_parking_id')
   int get ownerParkingId;
   @override
-  @JsonKey(name: "parking_name")
+  @JsonKey(name: 'parking_name')
   String get parkingName;
   @override
-  @JsonKey(name: "parking_flatrate")
+  @JsonKey(name: 'parking_flatrate')
   double get parkingFlatrate;
   @override
-  @JsonKey(name: "parking_duration")
+  @JsonKey(name: 'parking_duration')
   double get parkingDuration;
   @override
-  @JsonKey(name: "parking_exceeding")
+  @JsonKey(name: 'parking_exceeding')
   double get parkingExceeding;
   @override
-  @JsonKey(name: "parking_street")
+  @JsonKey(name: 'parking_street')
   String get parkingStreet;
   @override
-  @JsonKey(name: "parking_barangay")
+  @JsonKey(name: 'parking_barangay')
   String get parkingBarangay;
   @override
-  @JsonKey(name: "parking_municipal")
+  @JsonKey(name: 'parking_municipal')
   String get parkingMunicipal;
   @override
-  @JsonKey(name: "parking_province")
+  @JsonKey(name: 'parking_province')
   String get parkingProvince;
   @override
-  @JsonKey(name: "parking_country")
+  @JsonKey(name: 'parking_country')
   String get parkingCountry;
   @override
-  @JsonKey(name: "latitude")
+  @JsonKey(name: 'latitude')
   double get latitude;
   @override
-  @JsonKey(name: "longitude")
+  @JsonKey(name: 'longitude')
   double get longitude;
   @override
-  @JsonKey(name: "parking_type")
+  @JsonKey(name: 'parking_type')
   String get parkingType;
   @override
-  @JsonKey(name: "isFavorite")
+  @JsonKey(name: 'isFavorite')
   bool get isFavorite;
   @override
   @JsonKey(ignore: true)

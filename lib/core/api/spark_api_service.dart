@@ -26,11 +26,12 @@ abstract class SparkApiService {
 
     @POST('/create_user.php')
     Future<RegistrationResponseModel> register_user({
+        @required @Field() String device_token,
         @required @Field() String firstname,
         @required @Field() String lastname,
         @required @Field() String email,
         @required @Field() String password,
-        @required @Field() String contact_no
+        @required @Field() String contact_no,
     });
 
     @POST('/parking_list.php')

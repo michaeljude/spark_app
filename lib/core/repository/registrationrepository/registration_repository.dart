@@ -8,6 +8,7 @@ class RegistrationRespository {
   ApiService _apiService = ApiService();
 
   Future<RegistrationResponseModel> register_user({
+    @required String token,
     @required String firstname,
     @required String lastname,
     @required String email,
@@ -15,6 +16,7 @@ class RegistrationRespository {
     @required String contact_no
 }) =>
       _apiService.register_user(
+          device_token: token,
           firstname: firstname,
           lastname: lastname,
           email: email,

@@ -14,11 +14,11 @@ class SparkDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Padding(
       padding:
-      const EdgeInsets.only(top: 30, left: 0, right: 0, bottom: 8.0),
+      const EdgeInsets.only(top: 20, left: 0, right: 0, bottom: 8.0),
       child: Divider(
         color: HexColor('#FAFAFA'),
         height: 20,
-        thickness: 5,
+        thickness: 7,
       ),
     );
   }
